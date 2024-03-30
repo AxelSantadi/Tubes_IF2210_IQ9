@@ -47,4 +47,6 @@ void Inventory::printInventory() const
     // cout << setw(awal) << setfill('=') << "" << endl;
     cout << "================[ Penyimpanan ]==================" << endl;
     print();
+    cout << endl << endl;
+    cout << "Total slot kosong : " << countEmpty() << endl;
 }
