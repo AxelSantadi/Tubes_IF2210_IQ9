@@ -11,6 +11,7 @@ private:
     std::pair<int, int> farm_size;
     
 public:
+    Misc();
     Misc(int winning_money, int winning_weight, std::pair<int, int> storage_size, std::pair<int, int> field_size, std::pair<int, int> farm_size);
 
     int getWinningMoney() const;

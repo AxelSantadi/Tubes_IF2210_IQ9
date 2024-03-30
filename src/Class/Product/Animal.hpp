@@ -5,15 +5,14 @@
 
 class Animal {
 public:
-    Animal(int id, const std::string& code, const std::string& name, const std::string& type, int weightToHarvest, int price)
-        : id(id), code(code), name(name), type(type), weightToHarvest(weightToHarvest), price(price) {}
+    Animal(int id, const std::string& code, const std::string& name, const std::string& type, int weightToHarvest, int price);
 
-    int getId() const { return id; }
-    std::string getCode() const { return code; }
-    std::string getName() const { return name; }
-    std::string getType() const { return type; }
-    int getWeightToHarvest() const { return weightToHarvest; }
-    int getPrice() const { return price; }
+    int getId() const;
+    std::string getCode() const;
+    std::string getName() const;
+    std::string getType() const;
+    int getWeightToHarvest() const;
+    int getPrice() const;
 
 private:
     int id;
@@ -24,4 +23,4 @@ private:
     int price;
 };
 
-#endif
+#endif // ANIMAL_HPP

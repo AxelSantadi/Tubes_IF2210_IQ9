@@ -1,7 +1,5 @@
-@ -0,0 +1,94 @@
 #include <iostream>
 #include "Walikota.hpp"
-#include "Bangunan.hpp"
 #include "Inventory.hpp"
 #include "MatrixMap.hpp"
 #include "Misc.hpp"
@@ -34,7 +32,7 @@ void Walikota::buatBangunan() {
                 cout << "Bangunan yang ingin dibangun: ";
                 cin >> a;
             } else if (!resep.cekBahan(a)){
-                cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan " selisihBahan(a) << "!" << endl << endl;
+                cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan " << selisihBahan(a) << "!" << endl << endl;
                 cout << "Bangunan yang ingin dibangun: ";
                 cin >> a;
             }
