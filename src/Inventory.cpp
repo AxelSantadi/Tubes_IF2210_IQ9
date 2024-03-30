@@ -1,33 +1,44 @@
 #include "Inventory.hpp"
+#include <iostream>
+#include <iomanip>
 
-Inventory::Inventory(int n, int m) : n(n), m(m), items(n, m) {}
+Inventory::Inventory(int rows, char cols) : items(rows, cols) {}
 
-int Inventory::getN() const
+Product Inventory::getItem(int i, char j) const
 {
-    return n;
+    return items.getValue(i, j);
 }
 
-int Inventory::getM() const
+void Inventory::setItem(int i, char j, Product item)
 {
-    return m;
+    items.setValue(i, j, item);
 }
 
-Product Inventory::getItem(int i, int j) const
-{
-    return items.get(i, j);
-}
+// int charToInt(char c)
+// {
+//     if (c >= 'a' && c <= 'z')
+//     {
+//         return c - 'a' + 1;
+//     }
+//     else if (c >= 'A' && c <= 'Z')
+//     {
+//         return c - 'A' + 1;
+//     }
+//     else
+//     {
+//         return -1;
+//     }
+// }
 
-void Inventory::setItem(int i, int j, Product item)
+void Inventory::printInventory() const
 {
-    items.set(i, j, item);
-}
 
-void Inventory::setN(int n)
-{
-    this->n = n;
-}
-
-void Inventory::setM(int m)
-{
-    this->m = m;
+    // int width = charToInt(items.getCols()) * 4 + 4;
+    // int awal = (width / 2) - 8;
+    // cout << "    ";
+    // cout << setw(awal) << setfill('=') << "";
+    // cout << "[ Penyimpanan ]";
+    // cout << setw(awal) << setfill('=') << "" << endl;
+    cout << "================[ Penyimpanan ]==================" << endl;
+    items.print();
 }

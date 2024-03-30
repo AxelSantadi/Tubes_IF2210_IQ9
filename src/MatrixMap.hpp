@@ -17,19 +17,20 @@ public:
     // Constructor
     MatrixMap(int rows , char cols);
 
-    // Function to set value at a specific position
-    void set(int x, char c, T value);
 
     bool isExist(int x, char c) const;
 
+    // Function to set value at a specific position
+    void setValue(int x, char c, T value);
+ 
     // Function to get value at a specific position
-    T get(int x, char c) const;
+    T getValue(int x, char c) const; 
 
     // Function to get number of rows
-    int numRows() const;
+    int getRows() const;
 
     // Function to get number of columns
-    int numCols() const;
+    int getCols() const;
 
     // Function to print the matrix
     void print() const;

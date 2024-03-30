@@ -6,7 +6,7 @@ MatrixMap<T>::MatrixMap(int rows , char cols): rows(rows) , cols(cols) {}
 
 // Function to set value at a specific position
 template <typename T>
-void MatrixMap<T>::set(int x, char c, T value)
+void MatrixMap<T>::setValue(int x, char c, T value)
 {
     if (x <= 0 || x > rows || c > cols || c < 'A')
     {
@@ -35,7 +35,7 @@ bool MatrixMap<T>::isExist(int x, char c) const
 
 // Function to get value at a specific position
 template <typename T>
-T MatrixMap<T>::get(int x, char c) const
+T MatrixMap<T>::getValue(int x, char c) const
 {
     if (x <= 0 || x > rows || c > cols || c < 'A')
     {
@@ -59,14 +59,14 @@ T MatrixMap<T>::get(int x, char c) const
 
 // Function to get number of rows
 template <typename T>
-int MatrixMap<T>::numRows() const
+int MatrixMap<T>::getRows() const
 {
     return rows;
 }
 
 // Function to get number of columns
 template <typename T>
-int MatrixMap<T>::numCols() const
+int MatrixMap<T>::getCols() const
 {
     return cols;
 }
@@ -75,8 +75,17 @@ int MatrixMap<T>::numCols() const
 template <typename T>
 void MatrixMap<T>::print() const
 {
-    cout << "       A     B     C     D     E     F     G     H   " << endl;
-    cout << "    +-----+-----+-----+-----+-----+-----+-----+-----+" << endl;
+    cout << "     ";
+    for (char i = 'A'; i <= cols; i++)
+    {
+        cout << "  "<< i <<"   ";
+    }
+    cout << endl << "    ";
+    for (char i = 'A'; i <= cols; i++)
+    {
+        cout << "+-----";
+    }
+    cout << "+" <<endl;
     for (int i = 1; i <= rows; i++)
     {
         cout << " 0"<<i<<" |";
@@ -84,14 +93,18 @@ void MatrixMap<T>::print() const
         {
             if (isExist(i, j))
             {
-                cout << "  " << get(i, j) << "  |";
+                cout << " " << getValue(i, j) << " |";
             }
             else
             {
                 cout << "     |";
             }
         }
-        cout << endl;
-        cout << "    +-----+-----+-----+-----+-----+-----+-----+-----+" << endl;
+        cout << endl << "    ";
+        for (char i = 'A'; i <= cols; i++)
+        {
+            cout << "+-----";
+        }
+        cout << "+" <<endl;
     }
 }
