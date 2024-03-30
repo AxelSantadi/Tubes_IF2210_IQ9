@@ -9,25 +9,30 @@ using namespace std;
 template<typename T>
 class MatrixMap {
 private:
-    map<pair<int, int>, T> data;
+    map<pair<int, char>, T> data;
     int rows;
-    int cols;
+    char cols;
 
 public:
     // Constructor
-    MatrixMap(int numRows, int numCols);
+    MatrixMap(int rows , char cols);
 
     // Function to set value at a specific position
-    void set(int x, int y, T value);
+    void set(int x, char c, T value);
+
+    bool isExist(int x, char c) const;
 
     // Function to get value at a specific position
-    T get(int x, int y) const;
+    T get(int x, char c) const;
 
     // Function to get number of rows
     int numRows() const;
 
     // Function to get number of columns
     int numCols() const;
+
+    // Function to print the matrix
+    void print() const;
 };
 
 #endif /* MATRIX_HPP */
