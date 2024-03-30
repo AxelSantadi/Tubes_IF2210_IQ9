@@ -7,20 +7,15 @@
 #include "Product.hpp"
 #include "Product.cpp"
 using namespace std;
-
-class Inventory
+class Inventory : public MatrixMap<Product>
 {
-private:
-    MatrixMap<Product> items;
-
 public:
     // Constructors
     Inventory(int rows, char cols);
-    
+
     // Getters and Setters
-    Product getItem(int i, char j) const ;
-    void setItem(int i, char j, Product item);
-    
+    int getJenisTiapItem(string c) const;
+
     // Methods
     void printInventory() const;
 };

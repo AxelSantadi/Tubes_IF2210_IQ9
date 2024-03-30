@@ -1,17 +1,23 @@
 #include "Inventory.hpp"
 #include <iostream>
-#include <iomanip>
+// #include <iomanip>
 
-Inventory::Inventory(int rows, char cols) : items(rows, cols) {}
+Inventory::Inventory(int rows, char cols) : MatrixMap<Product>(rows, cols) {}
 
-Product Inventory::getItem(int i, char j) const
+int Inventory::getJenisTiapItem(string c) const
 {
-    return items.getValue(i, j);
-}
-
-void Inventory::setItem(int i, char j, Product item)
-{
-    items.setValue(i, j, item);
+    int count = 0;
+    for (int i = 1; i <= MatrixMap<Product>::getRows(); i++)
+    {
+        for (char j = 'A'; j <= MatrixMap<Product>::getCols(); j++)
+        {
+            if (MatrixMap<Product>::isExist(i, j) && MatrixMap<Product>::getValue(i, j).getCode() == c)
+            {
+                count++;
+            }
+        }
+    }
+    return count;
 }
 
 // int charToInt(char c)
@@ -33,12 +39,12 @@ void Inventory::setItem(int i, char j, Product item)
 void Inventory::printInventory() const
 {
 
-    // int width = charToInt(items.getCols()) * 4 + 4;
+    // int width = charToInt(items.getCols()) * 4 + 4;9009
     // int awal = (width / 2) - 8;
     // cout << "    ";
     // cout << setw(awal) << setfill('=') << "";
     // cout << "[ Penyimpanan ]";
     // cout << setw(awal) << setfill('=') << "" << endl;
     cout << "================[ Penyimpanan ]==================" << endl;
-    items.print();
+    print();
 }

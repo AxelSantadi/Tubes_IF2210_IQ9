@@ -2,22 +2,7 @@
 
 // Constructor
 template <typename T>
-MatrixMap<T>::MatrixMap(int rows , char cols): rows(rows) , cols(cols) {}
-
-// Function to set value at a specific position
-template <typename T>
-void MatrixMap<T>::setValue(int x, char c, T value)
-{
-    if (x <= 0 || x > rows || c > cols || c < 'A')
-    {
-        cout << "Invalid position!" << endl;
-        // nanti pakai exception
-    }
-    else
-    {
-        data[{x, c}] = value;
-    }
-}
+MatrixMap<T>::MatrixMap(int rows , char cols) : rows(rows), cols(cols){}
 
 template <typename T>
 bool MatrixMap<T>::isExist(int x, char c) const
@@ -32,6 +17,26 @@ bool MatrixMap<T>::isExist(int x, char c) const
     }
 }
 
+// Function to check if the matrix is full
+template <typename T>
+bool MatrixMap<T>::isFull() const
+{
+    return data.size() == rows * (cols - 'A' + 1);
+}
+
+template <typename T>
+void MatrixMap<T>::setValue(int x, char c, T value)
+{
+    if (x <= 0 || x > rows || c > cols || c < 'A')
+    {
+        cout << "Invalid position!" << endl;
+        // nanti pakai exception
+    }
+    else
+    {
+        data[{x, c}] = value;
+    }
+}
 
 // Function to get value at a specific position
 template <typename T>
@@ -69,6 +74,18 @@ template <typename T>
 int MatrixMap<T>::getCols() const
 {
     return cols;
+}
+
+template <typename T>
+int MatrixMap<T>::countEmpty() const
+{
+    return rows * (cols - 'A' + 1) - data.size();
+}
+
+template <typename T>
+int MatrixMap<T>::countNotEmpty() const
+{
+    return data.size();
 }
 
 // Function to print the matrix
