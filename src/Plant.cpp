@@ -24,4 +24,3 @@ PlantType Plant::getType() const {
 int Plant::getHarvestDuration() const {
     return harvest_duration;
 }
-
