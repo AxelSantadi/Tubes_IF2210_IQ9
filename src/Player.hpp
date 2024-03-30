@@ -3,6 +3,7 @@
 
 #include "Inventory.hpp"
 #include <iostream>
+#include <string>
 using namespace std;
 
 #define DEFAULT_MONEY 50
