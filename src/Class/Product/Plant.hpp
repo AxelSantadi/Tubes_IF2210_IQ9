@@ -2,7 +2,7 @@
 #define PLANT_HPP
 
 #include <string>
-#include "Product.hpp"
+#include "Product.cpp"
 
 using namespace std;
 
@@ -13,14 +13,13 @@ enum PlantType {
 
 class Plant : public Product{
 public:
-    Plant(int id, const std::string& code, const std::string& name, PlantType type, int harvest_duration, int price)
-        : id(id), code(code), name(name), type(type), harvest_duration(harvest_duration), price(price) {}
+    Plant(int id, const std::string& code, const std::string& name, PlantType type, int harvest_duration, int price);
 
-    int getId() const { return id; }
-    string getCode() const { return code; }
-    string getName() const { return name; }
-    PlantType getType() const { return type; }
-    int getHarvestDuration() const { return harvest_duration; }
+    int getId() const ;
+    string getCode() const ;
+    string getName() const ;
+    PlantType getType() const;
+    int getHarvestDuration() const;
 
 private:
     int id;
