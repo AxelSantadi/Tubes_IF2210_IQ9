@@ -1,33 +1,52 @@
 #include "Inventory.hpp"
+#include <iostream>
+// #include <iomanip>
 
-Inventory::Inventory(int n, int m) : n(n), m(m), items(n, m) {}
+Inventory::Inventory(int rows, char cols) : MatrixMap<Product>(rows, cols) {}
 
-int Inventory::getN() const
+int Inventory::getJenisTiapItem(string c) const
 {
-    return n;
+    int count = 0;
+    for (int i = 1; i <= MatrixMap<Product>::getRows(); i++)
+    {
+        for (char j = 'A'; j <= MatrixMap<Product>::getCols(); j++)
+        {
+            if (MatrixMap<Product>::isExist(i, j) && MatrixMap<Product>::getValue(i, j).getCode() == c)
+            {
+                count++;
+            }
+        }
+    }
+    return count;
 }
 
-int Inventory::getM() const
-{
-    return m;
-}
+// int charToInt(char c)
+// {
+//     if (c >= 'a' && c <= 'z')
+//     {
+//         return c - 'a' + 1;
+//     }
+//     else if (c >= 'A' && c <= 'Z')
+//     {
+//         return c - 'A' + 1;
+//     }
+//     else
+//     {
+//         return -1;
+//     }
+// }
 
-Product Inventory::getItem(int i, int j) const
+void Inventory::printInventory() const
 {
-    return items.get(i, j);
-}
 
-void Inventory::setItem(int i, int j, Product item)
-{
-    items.set(i, j, item);
-}
-
-void Inventory::setN(int n)
-{
-    this->n = n;
-}
-
-void Inventory::setM(int m)
-{
-    this->m = m;
+    // int width = charToInt(items.getCols()) * 4 + 4;9009
+    // int awal = (width / 2) - 8;
+    // cout << "    ";
+    // cout << setw(awal) << setfill('=') << "";
+    // cout << "[ Penyimpanan ]";
+    // cout << setw(awal) << setfill('=') << "" << endl;
+    cout << "================[ Penyimpanan ]==================" << endl;
+    print();
+    cout << endl << endl;
+    cout << "Total slot kosong : " << countEmpty() << endl;
 }

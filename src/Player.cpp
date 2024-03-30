@@ -24,7 +24,7 @@ Inventory Player::getInventory() const
 
 Product Player::getItem(int i, int j) const 
 { 
-    return inventory.getItem(i, j); 
+    return inventory.getValue(i, j); 
 }
 
 void Player::setName(string name) 
@@ -50,14 +50,13 @@ void Player::setInventory(Inventory inventory)
 
 void Player::addItem(Product item, int i, int j) 
 { 
-    inventory.setItem(i, j, item); 
+    inventory.setValue(i, j, item); 
 }
 
 void Player::removeItem(int i, int j) 
 { 
-    inventory.setItem(i, j, Product()); 
+    inventory.setValue(i, j, Product()); 
 }
-
 
 void Player::addMoney(int money) 
 { 
@@ -68,7 +67,6 @@ void Player::useMoney(int money)
 { 
     this->money -= money; 
 }
-
 
 void Player::addWeight(int weight) 
 { 

@@ -3,24 +3,21 @@
 
 #include <iostream>
 #include "MatrixMap.hpp"
+#include "MatrixMap.cpp"
 #include "Product.hpp"
+#include "Product.cpp"
 using namespace std;
-
-class Inventory
+class Inventory : public MatrixMap<Product>
 {
-private:
-    int n;
-    int m;
-    MatrixMap<Product> items;
-
 public:
-    Inventory(int n, int m);
-    int getN() const;
-    int getM() const;
-    Product getItem(int i, int j) const ;
-    void setItem(int i, int j, Product item);
-    void setN(int n);
-    void setM(int m);
+    // Constructors
+    Inventory(int rows, char cols);
+
+    // Getters and Setters
+    int getJenisTiapItem(string c) const;
+
+    // Methods
+    void printInventory() const;
 };
 
 #endif

@@ -1,44 +1,127 @@
 #include "MatrixMap.hpp"
 
 // Constructor
-template<typename T>
-MatrixMap<T>::MatrixMap(int numRows, int numCols) : rows(numRows), cols(numCols) {}
+template <typename T>
+MatrixMap<T>::MatrixMap(int rows , char cols) : rows(rows), cols(cols){}
 
-// Function to set value at a specific position
-template<typename T>
-void MatrixMap<T>::set(int x, int y, T value) {
-    if (x >= 0 && x < rows && y >= 0 && y < cols) {
-        data[{x, y}] = value;
-    } else {
+template <typename T>
+bool MatrixMap<T>::isExist(int x, char c) const
+{
+    if (x <= 0 || x > rows || c > cols || c < 'A')
+    {
+        return false;
+    }
+    else
+    {
+        return data.find({x, c}) != data.end();
+    }
+}
+
+// Function to check if the matrix is full
+template <typename T>
+bool MatrixMap<T>::isFull() const
+{
+    return data.size() == rows * (cols - 'A' + 1);
+}
+
+template <typename T>
+void MatrixMap<T>::setValue(int x, char c, T value)
+{
+    if (x <= 0 || x > rows || c > cols || c < 'A')
+    {
         cout << "Invalid position!" << endl;
+        // nanti pakai exception
+    }
+    else
+    {
+        data[{x, c}] = value;
     }
 }
 
 // Function to get value at a specific position
-template<typename T>
-T MatrixMap<T>::get(int x, int y) const {
-    if (x >= 0 && x < rows && y >= 0 && y < cols) {
-        auto it = data.find({x, y});
-        if (it != data.end()) {
+template <typename T>
+T MatrixMap<T>::getValue(int x, char c) const
+{
+    if (x <= 0 || x > rows || c > cols || c < 'A')
+    {
+        cout << "Invalid position!" << endl;
+        return T(); // Ini akan memanggil konstruktor default dari kelas Product
+    }
+    else
+    {
+        auto it = data.find({x, c});
+        if (it != data.end())
+        {
             return it->second;
-        } else {
+        }
+        else
+        {
             // Return a default value
             return T(); // Ini akan memanggil konstruktor default dari kelas Product
         }
-    } else {
-        cout << "Invalid position!" << endl;
-        return T(); // Ini akan memanggil konstruktor default dari kelas Product
     }
 }
 
 // Function to get number of rows
-template<typename T>
-int MatrixMap<T>::numRows() const {
+template <typename T>
+int MatrixMap<T>::getRows() const
+{
     return rows;
 }
 
 // Function to get number of columns
-template<typename T>
-int MatrixMap<T>::numCols() const {
+template <typename T>
+int MatrixMap<T>::getCols() const
+{
     return cols;
+}
+
+template <typename T>
+int MatrixMap<T>::countEmpty() const
+{
+    return rows * (cols - 'A' + 1) - data.size();
+}
+
+template <typename T>
+int MatrixMap<T>::countNotEmpty() const
+{
+    return data.size();
+}
+
+// Function to print the matrix
+template <typename T>
+void MatrixMap<T>::print() const
+{
+    cout << "     ";
+    for (char i = 'A'; i <= cols; i++)
+    {
+        cout << "  "<< i <<"   ";
+    }
+    cout << endl << "    ";
+    for (char i = 'A'; i <= cols; i++)
+    {
+        cout << "+-----";
+    }
+    cout << "+" <<endl;
+    for (int i = 1; i <= rows; i++)
+    {
+        cout << " 0"<<i<<" |";
+        for (char j = 'A'; j <= cols; j++)
+        {
+            if (isExist(i, j))
+            {
+                cout << " " << getValue(i, j) << " |";
+            }
+            else
+            {
+                cout << "     |";
+            }
+        }
+        cout << endl << "    ";
+        for (char i = 'A'; i <= cols; i++)
+        {
+            cout << "+-----";
+        }
+        cout << "+" <<endl;
+    }
 }

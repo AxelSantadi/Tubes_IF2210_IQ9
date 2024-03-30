@@ -2,32 +2,36 @@
 #define MATRIXMAP_HPP
 
 #include <iostream>
+#include <string>
 #include <map>
 
 using namespace std;
 
 template<typename T>
 class MatrixMap {
-private:
-    map<pair<int, int>, T> data;
+protected:
+    map<pair<int, char>, T> data;
     int rows;
-    int cols;
+    char cols;
 
 public:
     // Constructor
-    MatrixMap(int numRows, int numCols);
+    MatrixMap(int rows , char cols);
 
-    // Function to set value at a specific position
-    void set(int x, int y, T value);
+    // Boolean
+    bool isExist(int x, char c) const;
+    bool isFull() const;
 
-    // Function to get value at a specific position
-    T get(int x, int y) const;
+    // Getter and Setter
+    void setValue(int x, char c, T value);
+    T getValue(int x, char c) const; 
+    int getRows() const;
+    int getCols() const;
+    int countEmpty() const; // Count empty cell
+    int countNotEmpty() const; // Count not empty cell
 
-    // Function to get number of rows
-    int numRows() const;
-
-    // Function to get number of columns
-    int numCols() const;
+    // Methods
+    virtual void print() const;
 };
 
 #endif /* MATRIX_HPP */
