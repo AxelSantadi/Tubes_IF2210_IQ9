@@ -20,6 +20,22 @@ int Inventory::getJenisTiapItem(string c) const
     return count;
 }
 
+int Inventory::getJenisTiapItemNama(string c) const
+{
+    int count = 0;
+    for (int i = 1; i <= MatrixMap<Product>::getRows(); i++)
+    {
+        for (char j = 'A'; j <= MatrixMap<Product>::getCols(); j++)
+        {
+            if (MatrixMap<Product>::isExist(i, j) && MatrixMap<Product>::getValue(i, j).getName() == c)
+            {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
 // int charToInt(char c)
 // {
 //     if (c >= 'a' && c <= 'z')

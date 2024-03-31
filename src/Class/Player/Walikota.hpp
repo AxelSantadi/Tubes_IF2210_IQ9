@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Inventory.hpp"
 #include "Player.hpp"
-#include "Inventory.cpp"
-#include "Player.cpp" 
 
 using namespace std;
 

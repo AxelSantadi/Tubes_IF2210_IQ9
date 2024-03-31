@@ -18,6 +18,8 @@ public:
 
     // Methods
     void printInventory() const;
+
+    int getJenisTiapItemNama(string c) const;
 };
 
 #endif
