@@ -32,7 +32,7 @@ void Walikota::buatBangunan() {
                 cout << "Bangunan yang ingin dibangun: ";
                 cin >> a;
             } else if (!resep.cekBahan(a)){
-                cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan " << selisihBahan(a) << "!" << endl << endl;
+                cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan " << selisihBahan(a, w_storage) << "!" << endl << endl;
                 cout << "Bangunan yang ingin dibangun: ";
                 cin >> a;
             }
