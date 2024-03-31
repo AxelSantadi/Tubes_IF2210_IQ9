@@ -4,10 +4,11 @@
 #include <iostream>
 #include "MatrixMap.hpp"
 #include "MatrixMap.cpp"
-#include "Product.hpp"
-#include "Product.cpp"
+#include "../Items/Item.hpp"
+#include "../Items/Item.cpp"
+
 using namespace std;
-class Inventory : public MatrixMap<Product>
+class Inventory : public MatrixMap<Item>
 {
 public:
     // Constructors

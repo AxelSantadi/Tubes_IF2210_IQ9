@@ -41,6 +41,7 @@ public:
 
     // Display item
     virtual void display();
+    friend ostream &operator<<(ostream &os,const Item &i);
 
 protected:
     static int numOfItem;

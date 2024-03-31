@@ -133,3 +133,9 @@ void Item::display()
     cout << "Name: " << name << endl;
     cout << "Price: " << price << endl;
 }
+
+ostream &operator<<(ostream &os, const Item &i)
+{
+    os <<i.code ;
+    return os;
+}
