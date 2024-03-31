@@ -52,10 +52,6 @@ public:
 protected:
     static int numOfProduct;
 
-    int id;
-    string code;
-    string name;
-    string type;
     string origin;
     int added_weight;
     int price;

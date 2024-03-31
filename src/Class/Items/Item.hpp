@@ -10,7 +10,7 @@ class Item
 public:
     // 4 Sekawan : ctor, cctor, dtor, op=
     Item();
-    Item(int id, string code, string name, string type);
+    Item(int id, string code, string name,int price);
     Item &operator=(const Item &i);
     ~Item();
 
@@ -24,8 +24,8 @@ public:
     string getName();
     void setName(string n);
 
-    string getType();
-    void setType(string t);
+    int getPrice();
+    void setPrice(int p);
 
     void input(istream &is);
     void output(ostream &os);
@@ -41,10 +41,11 @@ public:
     virtual void display();
 
 protected:
+    static int numOfItem;
     int id;
     string code;
     string name;
-    string type;
+    int price;
 };
 
 #endif

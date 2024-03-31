@@ -1,19 +1,34 @@
 #include "Item.hpp"
 
+int Item::numOfItem = 0;
+
 Item::Item()
 {
     this->id = 0;
     this->code = "";
     this->name = "";
-    this->type = "";
+    this->price = 0;
+    Item::numOfItem++;
 }
 
-Item::Item(int id, string code, string name, string type)
+Item::Item(int id, string code, string name, int price)
 {
     this->id = id;
     this->code = code;
     this->name = name;
-    this->type = type;
+    this->price = price;
+
+    Item::numOfItem++;
+}
+
+Item::Item(const Item &i)
+{
+    this->id = i.id;
+    this->code = i.code;
+    this->name = i.name;
+    this->price = i.price;
+
+    Item::numOfItem++;
 }
 
 Item &Item::operator=(const Item &i)
@@ -21,85 +36,102 @@ Item &Item::operator=(const Item &i)
     this->id = i.id;
     this->code = i.code;
     this->name = i.name;
-    this->type = i.type;
+    this->price = i.price;
     return *this;
 }
 
-Item::~Item() {}
+Item::~Item()
+{
+    Item::numOfItem--;
+}
 
 // Getter and Setter
-int Item::getId(){
+int Item::getId()
+{
     return id;
 }
 
-void Item::setId(int i){
+void Item::setId(int i)
+{
     id = i;
 }
 
-string Item::getCode(){
+string Item::getCode()
+{
     return code;
 }
 
-void Item::setCode(string c){
+void Item::setCode(string c)
+{
     code = c;
 }
 
-string Item::getName(){
+string Item::getName()
+{
     return name;
 }
 
-void Item::setName(string n){
+void Item::setName(string n)
+{
     name = n;
 }
 
-string Item::getType(){
-    return type;
+int Item::getPrice()
+{
+    return price;
 }
 
-void Item::setType(string t){
-    type = t;
+void Item::setPrice(int p)
+{
+    price = p;
 }
 
-void Item::input(istream &is){
+void Item::input(istream &is)
+{
     is >> id;
     is >> code;
     is >> name;
-    is >> type;
+    is >> price;
 }
 
-void Item::output(ostream &os){
+void Item::output(ostream &os)
+{
     os << id << endl;
     os << code << endl;
     os << name << endl;
-    os << type << endl;
+    os << price << endl;
 }
 
 // Operator Overloading
-Item &Item::operator+=(int x){
+Item &Item::operator+=(int x)
+{
     id += x;
     return *this;
 }
 
-Item &Item::operator-=(int x){
+Item &Item::operator-=(int x)
+{
     id -= x;
     return *this;
 }
 
-Item &Item::operator+=(const Item &i){
+Item &Item::operator+=(const Item &i)
+{
     id += i.id;
     return *this;
 }
 
-Item &Item::operator-=(const Item &i){
+Item &Item::operator-=(const Item &i)
+{
     id -= i.id;
     return *this;
-
 }
 
 // Display item
-void Item::display(){
+void Item::display()
+{
     cout << "ID: " << id << endl;
     cout << "Code: " << code << endl;
     cout << "Name: " << name << endl;
-    cout << "Type: " << type << endl;
+    cout << "Price: " << price << endl;
 }
