@@ -127,9 +127,9 @@ Product &Product::operator+=(int x)
     return *this;
 }
 
-Product &Product::operator+=(int x)
+Product &Product::operator-=(int x)
 {
-    this->added_weight += x;
+    this->added_weight -= x;
     return *this;
 }
 
@@ -139,9 +139,9 @@ Product &Product::operator+=(const Product &i)
     return *this;
 }
 
-Product &Product::operator+=(const Product &i)
+Product &Product::operator-=(const Product &i)
 {
-    this->added_weight += i.added_weight;
+    this->added_weight -= i.added_weight;
     return *this;
 }
 

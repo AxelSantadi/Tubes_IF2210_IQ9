@@ -3,14 +3,15 @@
 
 #include <iostream>
 #include <string>
+#include "Item.hpp"
+
 using namespace std;
 
-class Product
-
+class Product : public Item
 {
 public:
-    Product();                                                                                          // Default ctor
-    Product(int id, string code, string name, string type, string origin, int added_weight, int price); // User-Defined Ctor
+    Product();                                                                                          
+    Product(int id, string code, string name, string type, string origin, int added_weight, int price); 
     Product(const Product &);
     ~Product();
 
@@ -40,10 +41,10 @@ public:
     int getNumOfProduct();
 
     Product &operator+=(int x);
-    Product &operator+=(int x);
+    Product &operator-=(int x);
 
     Product &operator+=(const Product &i);
-    Product &operator+=(const Product &i);
+    Product &operator-=(const Product &i);
 
     void input(istream &is);
     void output(ostream &os);
