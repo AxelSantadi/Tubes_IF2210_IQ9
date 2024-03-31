@@ -18,15 +18,6 @@ public:
     Product &operator=(const Product &);
 
     // Getter and Setter
-    int getId() const;
-    void setId(int i);
-
-    string getCode() const;
-    void setCode(string c);
-
-    string getName() const;
-    void setName(string n);
-
     string getType() const;
     void setType(string t);
 
@@ -35,9 +26,6 @@ public:
 
     int getAddedWeight() const;
     void setAddedWeight(int a);
-
-    int getPrice() const;
-    void setPrice(int p);
 
     int getNumOfProduct();
 

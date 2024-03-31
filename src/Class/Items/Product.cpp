@@ -37,31 +37,6 @@ Product &Product::operator=(const Product &P)
     return *this;
 }
 
-int Product::getId() const
-{
-    return id;
-}
-
-void setId(int i);
-
-string Product::getCode() const
-{
-    return code;
-}
-void Product::setCode(string c)
-{
-    this->code = c;
-}
-
-string Product::getName() const
-{
-    return name;
-}
-void Product::setName(string n)
-{
-    this->name = n;
-}
-
 string Product::getType() const
 {
     return type;
@@ -91,14 +66,6 @@ void Product::setAddedWeight(int a)
     this->added_weight = a;
 }
 
-int Product::getPrice() const
-{
-    return price;
-}
-void Product::setPrice(int p)
-{
-    this->price = p;
-}
 
 int Product::getNumOfProduct()
 {

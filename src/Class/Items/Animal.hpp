@@ -1,94 +1,115 @@
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
 
+#include <iostream>
 #include <string>
-
+#include "Item.hpp"
 using namespace std;
 
-enum class AnimalType {
-    HERBIVORE,
-    CARNIVORE,
-    OMNIVORE
-};
-
-class Animal {
+class Animal : public Item
+{
 public:
-    Animal(int id, const std::string& code, const std::string& name, const std::string& type, int weightToHarvest, int price);
+    // 4 sekawan : ctor, cctor, dtor, op=
+    Animal();
+    Animal(int id, string code, string name, string type, int weightToHarvest, int price);
+    Animal(const Animal &a);
+    Animal &operator=(const Animal &a);
+    ~Animal();
 
-    int getId() const;
-    std::string getCode() const;
-    std::string getName() const;
-    std::string getType() const;
+    // Getter and Setter
+    string getType() const;
+    void setType(string t);
+
     int getWeightToHarvest() const;
-    int getPrice() const;
-    friend std::ostream& operator<<(std::ostream& os, const Animal& animal);
+    void setWeightToHarvest(int w);
+
+    // Operator Overloading
+    Animal &operator+=(int x);
+    Animal &operator-=(int x);
+
+    Animal &operator+=(const Animal &a);
+    Animal &operator-=(const Animal &a);
+
+    // Input and Output
+    void input(istream &is) override;
+    void output(ostream &os) override;
+
+    void display() override;
 
 private:
-    int id;
-    std::string code;
-    std::string name;
-    std::string type;
+    static int numOfAnimal;
+
+    string type;
     int weightToHarvest;
-    int price;
 };
 
-class Herbivore: public Animal {
+class Herbivore : public Animal
+{
 public:
-    Herbivore(int id, const std::string& code, const std::string& name, int weightToHarvest, int price)
+    Herbivore(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
         : Animal(id, code, name, "HERBIVORE", weightToHarvest, price) {}
 };
 
-class Carnivore: public Animal {
+class Carnivore : public Animal
+{
 public:
-    Carnivore(int id, const std::string& code, const std::string& name, int weightToHarvest, int price)
+    Carnivore(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
         : Animal(id, code, name, "CARNIVORE", weightToHarvest, price) {}
 };
 
-class Omnivore: public Animal {
+class Omnivore : public Animal
+{
 public:
-    Omnivore(int id, const std::string& code, const std::string& name, int weightToHarvest, int price)
+    Omnivore(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
         : Animal(id, code, name, "OMNIVORE", weightToHarvest, price) {}
 };
 
-class Cow: public Herbivore {
+class Cow : public Herbivore
+{
 public:
-    Cow(int id, const std::string& code, const std::string& name, int weightToHarvest, int price)
+    Cow(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
         : Herbivore(id, code, name, weightToHarvest, price) {}
 };
 
-class Sheep: public Herbivore {
+class Sheep : public Herbivore
+{
 public:
-    Sheep(int id, const std::string& code, const std::string& name, int weightToHarvest, int price)
+    Sheep(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
         : Herbivore(id, code, name, weightToHarvest, price) {}
 };
 
-class Horse: public Herbivore {
+class Horse : public Herbivore
+{
 public:
-    Horse(int id, const std::string& code, const std::string& name, int weightToHarvest, int price)
+    Horse(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
         : Herbivore(id, code, name, weightToHarvest, price) {}
 };
 
-class Rabbit: public Herbivore {
+class Rabbit : public Herbivore
+{
 public:
-    Rabbit(int id, const std::string& code, const std::string& name, int weightToHarvest, int price)
+    Rabbit(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
         : Herbivore(id, code, name, weightToHarvest, price) {}
 };
 
-class Snake: public Carnivore {
+class Snake : public Carnivore
+{
 public:
-    Snake(int id, const std::string& code, const std::string& name, int weightToHarvest, int price)
+    Snake(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
         : Carnivore(id, code, name, weightToHarvest, price) {}
 };
 
-class chicken: public Omnivore {
+class chicken : public Omnivore
+{
 public:
-    chicken(int id, const std::string& code, const std::string& name, int weightToHarvest, int price)
+    chicken(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
         : Omnivore(id, code, name, weightToHarvest, price) {}
 };
 
-class duck: public Omnivore {
+class duck : public Omnivore
+{
 public:
-    duck(int id, const std::string& code, const std::string& name, int weightToHarvest, int price)
+    duck(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
         : Omnivore(id, code, name, weightToHarvest, price) {}
 };
 

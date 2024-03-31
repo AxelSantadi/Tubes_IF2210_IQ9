@@ -1,33 +1,99 @@
 #include "Animal.hpp"
 
-Animal::Animal(int id, const std::string& code, const std::string& name, const std::string& type, int weightToHarvest, int price)
-    : id(id), code(code), name(name), type(type), weightToHarvest(weightToHarvest), price(price) {}
+int Animal::numOfAnimal = 0;
 
-int Animal::getId() const {
-    return id;
+Animal::Animal() : Item()
+{
+    this->type = "";
+    this->weightToHarvest = 0;
+
+    Animal::numOfAnimal++;
 }
 
-std::string Animal::getCode() const {
-    return code;
+Animal::Animal(int id, string code, string name, string type, int weightToHarvest, int price) : Item(id, code, name, price)
+{
+    this->type = type;
+    this->weightToHarvest = weightToHarvest;
+
+    Animal::numOfAnimal++;
 }
 
-std::string Animal::getName() const {
-    return name;
+Animal::Animal(const Animal &a) : Item(a.id, a.code, a.name, a.price)
+{
+    this->type = a.type;
+    this->weightToHarvest = a.weightToHarvest;
+
+    Animal::numOfAnimal++;
 }
 
-std::string Animal::getType() const {
+Animal::~Animal()
+{
+    Animal::numOfAnimal--;
+}
+
+string Animal::getType() const
+{
     return type;
 }
 
-int Animal::getWeightToHarvest() const {
+void Animal::setType(string t)
+{
+    type = t;
+}
+
+int Animal::getWeightToHarvest() const
+{
     return weightToHarvest;
 }
 
-int Animal::getPrice() const {
-    return price;
+void Animal::setWeightToHarvest(int w)
+{
+    weightToHarvest = w;
 }
 
-ostream& operator<<(ostream& os, const Animal& animal) {
-    os << animal.getCode();
-    return os;
+Animal &Animal::operator+=(int x)
+{
+    this->weightToHarvest += x;
+    return *this;
+}
+
+Animal &Animal::operator-=(int x)
+{
+    this->weightToHarvest -= x;
+    return *this;
+}
+
+Animal &Animal::operator+=(const Animal &a)
+{
+    this->weightToHarvest += a.weightToHarvest;
+    return *this;
+}
+
+Animal &Animal::operator-=(const Animal &a)
+{
+    this->weightToHarvest -= a.weightToHarvest;
+    return *this;
+}
+
+void Animal::input(istream &is)
+{
+    Item::input(is);
+    cout << "Type: ";
+    is >> type;
+    cout << "Weight to Harvest: ";
+    is >> weightToHarvest;
+}
+
+void Animal::output(ostream &os)
+{
+    Item::output(os);
+    os << "Type: " << type << endl;
+    os << "Weight to Harvest: " << weightToHarvest << endl;
+}
+
+void Animal::display()
+{
+    Item::display();
+    cout << "Type: " << this->type << endl;
+    cout << "Weight to Harvest: " << this->weightToHarvest << endl;
 }
