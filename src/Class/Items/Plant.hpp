@@ -2,7 +2,7 @@
 #define PLANT_HPP
 
 #include <string>
-#include "Item.cpp"
+#include "Item.hpp"
 
 using namespace std;
 

@@ -1,13 +1,13 @@
 #include "ReadConfig.hpp"
 
-ReadConfig::ReadConfig(string folderName) : misc()
+ReadConfig::ReadConfig(string folderName)
 {
     string folder = "../../../config/" + folderName;
     readMisc(folder + "/misc.txt");
-    // readAnimal(folder + "/animal.txt");
-    // readPlant(folder + "/plant.txt");
+    readAnimal(folder + "/animal.txt");
+    readPlant(folder + "/plant.txt");
     readRecipe(folder + "/recipe.txt");
-    // readProduct(folder + "/product.txt");
+    readProduct(folder + "/product.txt");
 }
 
 void ReadConfig::readMisc(string filename)
@@ -29,41 +29,41 @@ void ReadConfig::readMisc(string filename)
     misc = x;
 }
 
-// void ReadConfig::readAnimal(string filename)
-// {
-//     int id, weightToHarvest, price;
-//     string code, name, type;
+void ReadConfig::readAnimal(string filename)
+{
+    int id, weightToHarvest, price;
+    string code, name, type;
 
-//     ifstream file(filename);
-//     if (file.is_open())
-//     {
-//         string line;
-//         while (getline(file, line))
-//         {
-//             istringstream ss(line);
-//             ss >> id >> code >> name >> type >> weightToHarvest >> price;
-//             animal.push_back(Animal(id, code, name, type, weightToHarvest, price));
-//         }
-//     }
-// }
+    ifstream file(filename);
+    if (file.is_open())
+    {
+        string line;
+        while (getline(file, line))
+        {
+            istringstream ss(line);
+            ss >> id >> code >> name >> type >> weightToHarvest >> price;
+            animal.push_back(Animal(id, code, name, type, weightToHarvest, price));
+        }
+    }
+}
 
-// void ReadConfig::readPlant(string filename)
-// {
-//     int id, harvest_duration, price;
-//     string code, name, type;
+void ReadConfig::readPlant(string filename)
+{
+    int id, harvest_duration, price;
+    string code, name, type;
 
-//     ifstream file(filename);
-//     if (file.is_open())
-//     {
-//         string line;
-//         while (getline(file, line))
-//         {
-//             istringstream ss(line);
-//             ss >> id >> code >> name >> type >> harvest_duration >> price;
-//             plant.push_back(Plant(id, code, name, type, harvest_duration, price));
-//         }
-//     }
-// }
+    ifstream file(filename);
+    if (file.is_open())
+    {
+        string line;
+        while (getline(file, line))
+        {
+            istringstream ss(line);
+            ss >> id >> code >> name >> type >> harvest_duration >> price;
+            plant.push_back(Plant(id, code, name, type, harvest_duration, price));
+        }
+    }
+}
 
 void ReadConfig::readRecipe(string filename)
 {
@@ -80,64 +80,69 @@ void ReadConfig::readRecipe(string filename)
 
             istringstream ss(line);
             ss >> id >> code >> name >> price;
-            cout << id << " " << code << " " << name << " " << price << " ";
             string material;
             int quantity;
             while (ss >> material >> quantity)
             {
                 namaMaterial.push_back(material);
                 jumlahMaterialNeeded.push_back(quantity);
-                cout << material << " " << quantity << " ";
             }
-            cout << endl;
             recipe.push_back(Recipe(id, code, name, price, namaMaterial, jumlahMaterialNeeded));
         }
     }
 }
 
-// void ReadConfig::readProduct(string filename)
-// {
-//     int id, price, added_weight;
-//     string code, name, type, origin;
+void ReadConfig::readProduct(string filename)
+{
+    int id, price, added_weight;
+    string code, name, type, origin;
 
-//     ifstream file(filename);
-//     if (file.is_open())
-//     {
-//         string line;
-//         while (getline(file, line))
-//         {
-//             istringstream ss(line);
-//             ss >> id >> code >> name >> type >> origin >> added_weight >> price;
-//             Product p(id, code, name, type, origin, added_weight, price);
-//             product.push_back(p);
-//         }
+    ifstream file(filename);
+    if (file.is_open())
+    {
+        string line;
+        while (getline(file, line))
+        {
+            istringstream ss(line);
+            ss >> id >> code >> name >> type >> origin >> added_weight >> price;
+            Product p(id, code, name, type, origin, added_weight, price);
+            product.push_back(p);
+        }
         
-//     }
+    }
     
-// }
+}
 
 Misc ReadConfig::getMisc() const
 {
     return misc;
 }
 
-// vector<Animal> ReadConfig::getAnimal() const
-// {
-//     return animal;
-// }
+vector<Animal> ReadConfig::getAnimal() const
+{
+    return animal;
+}
 
-// vector<Plant> ReadConfig::getPlant() const
-// {
-//     return plant;
-// }
+vector<Plant> ReadConfig::getPlant() const
+{
+    return plant;
+}
 
 vector<Recipe> ReadConfig::getRecipe() const
 {
     return recipe;
 }
 
-// vector<Product> ReadConfig::getProduct() const
-// {
-//     return product;
-// }
+vector<Product> ReadConfig::getProduct() const
+{
+    return product;
+}
 
+int main()
+{
+    ReadConfig rc("config1");
+    for (int i = 0; i < rc.getPlant().size(); i++)
+    {
+        rc.getPlant()[i].display();
+    }
+}
