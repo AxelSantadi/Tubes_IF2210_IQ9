@@ -2,30 +2,25 @@
 #define PLANT_HPP
 
 #include <string>
-#include "Product.cpp"
 
 using namespace std;
 
-enum PlantType {
-    MATERIAL_PLANT,
-    FRUIT_PLANT
-};
-
-class Plant : public Product{
+class Plant{
 public:
-    Plant(int id, const std::string& code, const std::string& name, PlantType type, int harvest_duration, int price);
+    Plant(int id, const std::string& code, const std::string& name, string type, int harvest_duration, int price);
 
     int getId() const ;
     string getCode() const ;
     string getName() const ;
-    PlantType getType() const;
+    string getType() const;
     int getHarvestDuration() const;
+    friend ostream& operator<<(ostream& os, const Plant& plant);
 
 private:
     int id;
     std::string code;
     std::string name;
-    PlantType type;
+    string type;
     int harvest_duration;
     int price;
 };
@@ -33,13 +28,13 @@ private:
 class MaterialPlant : public Plant {
 public:
     MaterialPlant(int id, const std::string& code, const std::string& name, int harvest_duration, int price)
-        : Plant(id, code, name, MATERIAL_PLANT, harvest_duration, price) {}
+        : Plant(id, code, name, "MATERIAL_PLANT", harvest_duration, price) {}
 };
 
 class FruitPlant : public Plant {
 public:
     FruitPlant(int id, const std::string& code, const std::string& name, int harvest_duration, int price)
-        : Plant(id, code, name, FRUIT_PLANT, harvest_duration, price) {}
+        : Plant(id, code, name, "FRUIT_PLANT", harvest_duration, price) {}
 };
 
 class TaekTree : public MaterialPlant {

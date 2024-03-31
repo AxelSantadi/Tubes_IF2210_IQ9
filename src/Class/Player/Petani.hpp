@@ -2,8 +2,8 @@
 #define PETANI_HPP
 
 #include <iostream>
-#include "ladang.hpp"
-#include "Player.hpp"
+#include "ladang.cpp"
+#include "Player.cpp"
 
 using namespace std;
 
@@ -19,7 +19,7 @@ public:
     
     ~Petani();
 
-    void tanam(Plant plant);
+    void tanam(const Petani& p);
     void panen();
     void jual();
     void beli();

@@ -5,14 +5,27 @@ Petani::Petani(string nama, int Berat_badan, int w_gulden, int panjang , int leb
     ladang = Landang(panjang, lebar);
 }
 
-void Petani::tanam(Plant plant){
+void Petani::tanam(const Petani& p){
     // cetak inventory
+    cout << "Pilih tanaman dari penyimpanan :" << endl;
+
+    inventory.printInventory();
+    cout << "Slot :" << endl;
+    string slot;
+    cin >> slot;
+    int a;
+    int b;
+    a = stoi(slot.substr(0, 1));
+    a = a - 65;
+    slot = slot.substr(1, slot.length()-1);
+    b = stoi(slot);
+    Product plant = inventory.getValue(a, b);
     // pilih barang dari inventory
 
     cout << "Kamu memilih" << plant.getName() << endl;
     // pilih posisi tanam
     cout << "Pilih petak tanah yang akan ditanami ";
-
+    ladang.cetakLadang();
     // cetak ladang 
 
     // pilih posisi tanam
@@ -35,7 +48,14 @@ void Petani::tanam(Plant plant){
 }
 
 void Petani::panen(){
-    // print ladang 
+    // print ladang
+    ladang.cetakLadang();
+    // print isi ladang
+
+
+    // pilih panen
+    cout << "Pilih tanaman siap panen yang kamu miliki " << endl;
+    
 
     
 }
