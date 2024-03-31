@@ -5,12 +5,6 @@
 
 using namespace std;
 
-enum class AnimalType {
-    HERBIVORE,
-    CARNIVORE,
-    OMNIVORE
-};
-
 class Animal {
 public:
     Animal(int id, const std::string& code, const std::string& name, const std::string& type, int weightToHarvest, int price);
