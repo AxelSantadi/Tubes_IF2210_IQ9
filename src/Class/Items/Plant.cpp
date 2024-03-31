@@ -1,6 +1,6 @@
 #include "Plant.hpp"
 
-Plant::Plant(int id, const std::string &code, const std::string &name, PlantType type, int harvest_duration, int price) : Product(id, code, name, PRODUCT_MATERIAL_PLANT, "", 0, price)
+Plant::Plant(int id, const std::string &code, const std::string &name, string type, int harvest_duration, int price) : Item(id, code, name, price)
 {
     this->type = type;
     this->harvest_duration = harvest_duration;
@@ -8,20 +8,20 @@ Plant::Plant(int id, const std::string &code, const std::string &name, PlantType
 
 int Plant::getId() const
 {
-    return Product::getId();
+    return id;
 }
 
 std::string Plant::getCode() const
 {
-    return Product::getCode();
+    return code;
 }
 
 std::string Plant::getName() const
 {
-    return Product::getName();
+    return name;
 }
 
-PlantType Plant::getType() const
+string Plant::getType() const
 {
     return type;
 }
@@ -29,4 +29,29 @@ PlantType Plant::getType() const
 int Plant::getHarvestDuration() const
 {
     return harvest_duration;
+}
+
+ostream& operator<<(ostream& os, const Plant& p){
+    os << p.getCode();
+    return os;
+} 
+
+MaterialPlant::MaterialPlant(int id, const std::string &code, const std::string &name, string type, int harvest_duration, int price) : Plant(id, code, name, type, harvest_duration, price)
+{
+    type = "Material_plant";
+}
+
+void MaterialPlant::setharvest_duration(int harvest_duration)
+{
+    harvest_duration = harvest_duration;
+}
+
+FruitPlant::FruitPlant(int id, const std::string &code, const std::string &name, string type, int harvest_duration, int price) : Plant(id, code, name, type, harvest_duration, price)
+{
+    type = "Fruit_plant";
+}
+
+void FruitPlant::setharvest_duration(int harvest_duration)
+{
+    harvest_duration = harvest_duration;
 }

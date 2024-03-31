@@ -2,85 +2,76 @@
 #define PLANT_HPP
 
 #include <string>
-#include "Product.cpp"
+#include "Item.cpp"
 
 using namespace std;
 
-enum PlantType {
-    MATERIAL_PLANT,
-    FRUIT_PLANT
-};
-
-class Plant : public Product{
+class Plant : public Item{
 public:
-    Plant(int id, const std::string& code, const std::string& name, PlantType type, int harvest_duration, int price);
+    Plant(int id, const std::string& code, const std::string& name, string type, int harvest_duration, int price);
 
     int getId() const ;
     string getCode() const ;
     string getName() const ;
-    PlantType getType() const;
-    int getHarvestDuration() const;
+    string getType() const;
+    int getHarvestDuration() const; 
 
-private:
-    int id;
-    std::string code;
-    std::string name;
-    PlantType type;
+protected:
+    string type;
     int harvest_duration;
-    int price;
 };
 
 class MaterialPlant : public Plant {
 public:
-    MaterialPlant(int id, const std::string& code, const std::string& name, int harvest_duration, int price)
-        : Plant(id, code, name, MATERIAL_PLANT, harvest_duration, price) {}
+    MaterialPlant(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price);
+    void setharvest_duration(int harvest_duration);
 };
 
 class FruitPlant : public Plant {
 public:
-    FruitPlant(int id, const std::string& code, const std::string& name, int harvest_duration, int price)
-        : Plant(id, code, name, FRUIT_PLANT, harvest_duration, price) {}
+    FruitPlant(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price);
+    void setharvest_duration(int harvest_duration);
 };
 
 class TaekTree : public MaterialPlant {
 public:
-    TaekTree(int id, const std::string& code, const std::string& name, int harvest_duration, int price)
-        : MaterialPlant(id, code, name, harvest_duration, price) {}
+    TaekTree(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price)
+        : MaterialPlant(id, code, name,type, harvest_duration, price) {}
 };
 
 class sandalWoodTree : public MaterialPlant {
 public:
-    sandalWoodTree(int id, const std::string& code, const std::string& name, int harvest_duration, int price)
-        : MaterialPlant(id, code, name, harvest_duration, price) {}
+    sandalWoodTree(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price)
+        : MaterialPlant(id, code, name,type, harvest_duration, price) {}
 };
 
 class aleoTree : public MaterialPlant {
 public:
-    aleoTree(int id, const std::string& code, const std::string& name, int harvest_duration, int price)
-        : MaterialPlant(id, code, name, harvest_duration, price) {}
+    aleoTree(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price)
+        : MaterialPlant(id, code, name,type, harvest_duration, price) {}
 };
 
 class ironwoodTree : public MaterialPlant {
 public:
-    ironwoodTree(int id, const std::string& code, const std::string& name, int harvest_duration, int price)
-        : MaterialPlant(id, code, name, harvest_duration, price) {}
+    ironwoodTree(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price)
+        : MaterialPlant(id, code, name,type, harvest_duration, price) {}
 };
 
 class appleTree : public FruitPlant {
 public:
-    appleTree(int id, const std::string& code, const std::string& name, int harvest_duration, int price)
-        : FruitPlant(id, code, name, harvest_duration, price) {}
+    appleTree(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price)
+        : FruitPlant(id, code, name,type, harvest_duration, price) {}
 };
 
 class orangeTree : public FruitPlant {
 public:
-    orangeTree(int id, const std::string& code, const std::string& name, int harvest_duration, int price)
-        : FruitPlant(id, code, name, harvest_duration, price) {}
+    orangeTree(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price)
+        : FruitPlant(id, code, name,type, harvest_duration, price) {}
 };
 
 class bananaTree : public FruitPlant {
 public:
-    bananaTree(int id, const std::string& code, const std::string& name, int harvest_duration, int price)
-        : FruitPlant(id, code, name, harvest_duration, price) {}
+    bananaTree(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price)
+        : FruitPlant(id, code, name,type, harvest_duration, price) {}
 };
 #endif
