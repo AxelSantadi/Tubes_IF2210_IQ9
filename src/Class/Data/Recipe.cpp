@@ -1,8 +1,4 @@
-#include <iostream>
 #include "Recipe.hpp"
-#include "Inventory.hpp"
-
-using namespace std;
 
 Recipe::Recipe(int id, string code, string name, int price, vector<string> namaMaterial, vector<int> jumlahMaterialNeeded) {
     this->id = id;

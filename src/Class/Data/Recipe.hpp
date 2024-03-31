@@ -1,8 +1,12 @@
+#ifndef RECIPE_HPP
+#define RECIPE_HPP
+
 #include <iostream>
 #include <string>
 #include <map>
 #include <vector>
 #include "../Player/Inventory.hpp"
+#include "../Player/Inventory.cpp"
 
 using namespace std;
 
@@ -37,3 +41,5 @@ private:
     vector<string> namaMaterial;
     vector<int> jumlahMaterialNeeded;
 };
+
+#endif
