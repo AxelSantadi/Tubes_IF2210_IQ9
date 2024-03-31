@@ -97,3 +97,9 @@ void Animal::display()
     cout << "Type: " << this->type << endl;
     cout << "Weight to Harvest: " << this->weightToHarvest << endl;
 }
+
+Herbivore::Herbivore(int id, string code, string name, int weightToHarvest, int price) : Animal(id, code, name, "HERBIVORE", weightToHarvest, price) {}
+
+Carnivore::Carnivore(int id, string code, string name, int weightToHarvest, int price) : Animal(id, code, name, "CARNIVORE", weightToHarvest, price) {}
+
+Omnivore::Omnivore(int id, string code, string name, int weightToHarvest, int price) : Animal(id, code, name, "OMNIVORE", weightToHarvest, price) {}

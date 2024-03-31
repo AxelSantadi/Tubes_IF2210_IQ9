@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "Item.hpp"
+#include "Product.hpp"
 using namespace std;
 
 class Animal : public Item
@@ -46,23 +47,22 @@ private:
 class Herbivore : public Animal
 {
 public:
-    Herbivore(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
-        : Animal(id, code, name, "HERBIVORE", weightToHarvest, price) {}
+    Herbivore(int id, string code, string name, int weightToHarvest, int price);
+    
 };
 
 class Carnivore : public Animal
 {
 public:
-    Carnivore(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
-        : Animal(id, code, name, "CARNIVORE", weightToHarvest, price) {}
+    Carnivore(int id, string code, string name, int weightToHarvest, int price);
 };
 
 class Omnivore : public Animal
 {
 public:
-    Omnivore(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
-        : Animal(id, code, name, "OMNIVORE", weightToHarvest, price) {}
+    Omnivore(int id, string code, string name, int weightToHarvest, int price);
 };
+
 
 class Cow : public Herbivore
 {
