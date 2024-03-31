@@ -1,22 +1,41 @@
 #ifndef PLANT_HPP
 #define PLANT_HPP
 
+#include <iostream>
 #include <string>
 #include "Item.hpp"
-
 using namespace std;
 
 class Plant : public Item{
 public:
-    Plant(int id, const std::string& code, const std::string& name, string type, int harvest_duration, int price);
+    // 4 Sekawan : ctor, cctor, dtor, op=
+    Plant();
+    Plant(int id, string code, string name, string type, int harvest_duration, int price);
+    Plant(const Plant& p);
+    Plant& operator=(const Plant& p);
+    ~Plant();
 
-    int getId() const ;
-    string getCode() const ;
-    string getName() const ;
+    // Getter and Setter
     string getType() const;
-    int getHarvestDuration() const; 
+    void setType(string t);
+
+    int getHarvestDuration() const;
+    void setHarvestDuration(int h);
+
+    // Operator Overloading
+    Plant& operator+=(int x);
+    Plant& operator-=(int x);
+
+    Plant& operator+=(const Plant& p);
+    Plant& operator-=(const Plant& p); 
+
+    // Input and Output
+    void input(istream& is) override;
+    void output(ostream& os) override;
 
 protected:
+    static int numOfPlant;
+
     string type;
     int harvest_duration;
 };

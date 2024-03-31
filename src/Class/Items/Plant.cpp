@@ -1,24 +1,34 @@
 #include "Plant.hpp"
 
-Plant::Plant(int id, const std::string &code, const std::string &name, string type, int harvest_duration, int price) : Item(id, code, name, price)
+int Plant::numOfPlant = 0;
+
+Plant::Plant() : Item()
+{
+    type = "";
+    harvest_duration = 0;
+
+    Plant::numOfPlant++;
+}
+
+Plant::Plant (int id, string code, string name, string type, int harvest_duration, int price) : Item(id, code, name, price)
 {
     this->type = type;
     this->harvest_duration = harvest_duration;
+
+    Plant::numOfPlant++;
 }
 
-int Plant::getId() const
+Plant::Plant(const Plant &p) : Item(p.id, p.code, p.name, p.price)
 {
-    return id;
+    this->type = p.type;
+    this->harvest_duration = p.harvest_duration;
+
+    Plant::numOfPlant++;
 }
 
-std::string Plant::getCode() const
+Plant::~Plant()
 {
-    return code;
-}
-
-std::string Plant::getName() const
-{
-    return name;
+    Plant::numOfPlant--;
 }
 
 string Plant::getType() const
@@ -26,16 +36,62 @@ string Plant::getType() const
     return type;
 }
 
+void Plant::setType(string t)
+{
+    type = t;
+}
+
 int Plant::getHarvestDuration() const
 {
     return harvest_duration;
 }
 
-ostream& operator<<(ostream& os, const Plant& p){
-    os << p.getCode();
-    return os;
-} 
+void Plant::setHarvestDuration(int h)
+{
+    harvest_duration = h;
+}
 
+Plant &Plant::operator+=(int x)
+{
+    this->harvest_duration += x;
+    return *this;
+}
+
+Plant &Plant::operator-=(int x)
+{
+    this->harvest_duration -= x;
+    return *this;
+}
+
+Plant &Plant::operator+=(const Plant &p)
+{
+    this->harvest_duration += p.harvest_duration;
+    return *this;
+}
+
+Plant &Plant::operator-=(const Plant &p)
+{
+    this->harvest_duration -= p.harvest_duration;
+    return *this;
+}
+
+void Plant::input(istream &is)
+{
+    Item::input(is);
+    cout << "Type: ";
+    is >> type;
+    cout << "Harvest Duration: ";
+    is >> harvest_duration;
+}
+
+void Plant::output(ostream &os)
+{
+    Item::output(os);
+    os << "Type: " << type << endl;
+    os << "Harvest Duration: " << harvest_duration << endl;
+}
+
+// Material Plant
 MaterialPlant::MaterialPlant(int id, const std::string &code, const std::string &name, string type, int harvest_duration, int price) : Plant(id, code, name, type, harvest_duration, price)
 {
     type = "Material_plant";
