@@ -10,7 +10,8 @@ class Item
 public:
     // 4 Sekawan : ctor, cctor, dtor, op=
     Item();
-    Item(int id, string code, string name,int price);
+    Item(int id, string code, string name, int price);
+    Item(const Item &i);
     Item &operator=(const Item &i);
     ~Item();
 
@@ -27,15 +28,16 @@ public:
     int getPrice();
     void setPrice(int p);
 
-    void input(istream &is);
-    void output(ostream &os);
-
     // Operator Overloading
     Item &operator+=(int x);
     Item &operator-=(int x);
 
     Item &operator+=(const Item &i);
     Item &operator-=(const Item &i);
+
+    // Input and Output
+    virtual void input(istream &is);
+    virtual void output(ostream &os);
 
     // Display item
     virtual void display();

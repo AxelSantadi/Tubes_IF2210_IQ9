@@ -2,38 +2,25 @@
 
 int Product::numOfProduct = 0;
 
-Product::Product()
+Product::Product() : Item()
 {
-    this->id = 0;
-    this->code = "";
-    this->name = "";
     this->type = "";
     this->origin = "";
     this->added_weight = 0;
-    this->price = 0;
 }
 
-// Default ctor
-Product::Product(int id, string code, string name, string type, string origin, int added_weight, int price)
+Product::Product(int id, string code, string name, string type, string origin, int added_weight, int price) : Item(id, code, name, price)
 {
-    this->id = id;
-    this->code = code;
-    this->name = name;
     this->type = type;
     this->origin = origin;
     this->added_weight = added_weight;
-    this->price = price;
 }
 
-Product::Product(const Product &P)
+Product::Product(const Product &P) : Item(P.id, P.code, P.name, P.price)
 {
-    this->id = P.id;
-    this->code = P.code;
-    this->name = P.name;
     this->type = P.type;
     this->origin = P.origin;
     this->added_weight = P.added_weight;
-    this->price = P.price;
 }
 
 Product::~Product()
@@ -43,13 +30,10 @@ Product::~Product()
 
 Product &Product::operator=(const Product &P)
 {
-    this->id = P.id;
-    this->code = P.code;
-    this->name = P.name;
+    this->Item::operator=(P);
     this->type = P.type;
     this->origin = P.origin;
     this->added_weight = P.added_weight;
-    this->price = P.price;
     return *this;
 }
 
@@ -147,10 +131,24 @@ Product &Product::operator-=(const Product &i)
 
 void Product::input(istream &is)
 {
-    is >> this->id >> this->code >> this->name >> this->type >> this->origin >> this->added_weight >> this->price;
+    Item::input(is);
+    is >> type;
+    is >> origin;
+    is >> added_weight;
 }
 
 void Product::output(ostream &os)
 {
-    os << this->id << " " << this->code << " " << this->name << " " << this->type << " " << this->origin << " " << this->added_weight << " " << this->price;
+    Item::output(os);
+    os << type << endl;
+    os << origin << endl;
+    os << added_weight << endl;
+}
+
+void Product::display()
+{
+    Item::display();
+    cout << "Type : " << this->type << endl;
+    cout << "Origin : " << this->origin << endl;
+    cout << "Added Weight : " << this->added_weight << endl;
 }

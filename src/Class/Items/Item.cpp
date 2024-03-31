@@ -45,7 +45,6 @@ Item::~Item()
     Item::numOfItem--;
 }
 
-// Getter and Setter
 int Item::getId()
 {
     return id;
@@ -86,23 +85,6 @@ void Item::setPrice(int p)
     price = p;
 }
 
-void Item::input(istream &is)
-{
-    is >> id;
-    is >> code;
-    is >> name;
-    is >> price;
-}
-
-void Item::output(ostream &os)
-{
-    os << id << endl;
-    os << code << endl;
-    os << name << endl;
-    os << price << endl;
-}
-
-// Operator Overloading
 Item &Item::operator+=(int x)
 {
     id += x;
@@ -125,6 +107,22 @@ Item &Item::operator-=(const Item &i)
 {
     id -= i.id;
     return *this;
+}
+
+void Item::input(istream &is)
+{
+    is >> id;
+    is >> code;
+    is >> name;
+    is >> price;
+}
+
+void Item::output(ostream &os)
+{
+    os << id << endl;
+    os << code << endl;
+    os << name << endl;
+    os << price << endl;
 }
 
 // Display item

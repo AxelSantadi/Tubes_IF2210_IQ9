@@ -10,13 +10,14 @@ using namespace std;
 class Product : public Item
 {
 public:
-    Product();                                                                                          
-    Product(int id, string code, string name, string type, string origin, int added_weight, int price); 
+    // 4 Sekawan : ctor, cctor, dtor, op=
+    Product();
+    Product(int id, string code, string name, string type, string origin, int added_weight, int price);
     Product(const Product &);
     ~Product();
-
     Product &operator=(const Product &);
 
+    // Getter and Setter
     int getId() const;
     void setId(int i);
 
@@ -40,21 +41,26 @@ public:
 
     int getNumOfProduct();
 
+    // Operator Overloading
     Product &operator+=(int x);
     Product &operator-=(int x);
 
     Product &operator+=(const Product &i);
     Product &operator-=(const Product &i);
 
-    void input(istream &is);
-    void output(ostream &os);
+    // Input and Output
+    void input(istream &is) override;
+    void output(ostream &os) override;
+
+    void display() override;
 
 protected:
     static int numOfProduct;
 
+    // Atribut yang spesifik untuk class Product
+    string type;
     string origin;
     int added_weight;
-    int price;
 };
 
 #endif
