@@ -91,15 +91,16 @@ void Plant::output(ostream &os)
     os << "Harvest Duration: " << harvest_duration << endl;
 }
 
+ostream& operator<<(ostream &os, const Plant &p)
+{
+    os << p.code;
+    return os;
+}
+
 // Material Plant
 MaterialPlant::MaterialPlant(int id, const std::string &code, const std::string &name, string type, int harvest_duration, int price) : Plant(id, code, name, type, harvest_duration, price)
 {
     type = "Material_plant";
-}
-
-void MaterialPlant::setharvest_duration(int harvest_duration)
-{
-    harvest_duration = harvest_duration;
 }
 
 FruitPlant::FruitPlant(int id, const std::string &code, const std::string &name, string type, int harvest_duration, int price) : Plant(id, code, name, type, harvest_duration, price)
@@ -107,7 +108,3 @@ FruitPlant::FruitPlant(int id, const std::string &code, const std::string &name,
     type = "Fruit_plant";
 }
 
-void FruitPlant::setharvest_duration(int harvest_duration)
-{
-    harvest_duration = harvest_duration;
-}

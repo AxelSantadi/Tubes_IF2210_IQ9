@@ -33,6 +33,8 @@ public:
     void input(istream& is) override;
     void output(ostream& os) override;
 
+    friend ostream& operator<<(ostream& os, const Plant& p);
+
 protected:
     static int numOfPlant;
 
@@ -43,19 +45,18 @@ protected:
 class MaterialPlant : public Plant {
 public:
     MaterialPlant(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price);
-    void setharvest_duration(int harvest_duration);
 };
 
 class FruitPlant : public Plant {
 public:
     FruitPlant(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price);
-    void setharvest_duration(int harvest_duration);
 };
 
 class TaekTree : public MaterialPlant {
 public:
     TaekTree(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price)
         : MaterialPlant(id, code, name,type, harvest_duration, price) {}
+
 };
 
 class sandalWoodTree : public MaterialPlant {

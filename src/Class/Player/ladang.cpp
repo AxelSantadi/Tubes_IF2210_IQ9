@@ -60,6 +60,16 @@ vector<string> Ladang::ambilPanen(string code, int n){
     return result;
 }
 
+void Ladang::tambahUmur(){
+    for (int i = 0; i < getRows(); i++){
+        for (char j = 'A'; j < getCols(); j++){
+            if (isExist(i,j)){
+                getValue(i,j).setHarvestDuration(getValue(i,j).getHarvestDuration() - 1);
+            }
+        }
+    }
+}
+
 
 
 

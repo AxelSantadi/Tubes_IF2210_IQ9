@@ -17,6 +17,7 @@ class Ladang : public MatrixMap<Plant>{
         unordered_map<string,int> countPanen();
         void cetakJenisTanaman();
         vector<string> ambilPanen(string code, int n);
+        void tambahUmur();
 };
 
 #endif

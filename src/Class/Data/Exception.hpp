@@ -22,4 +22,35 @@ class BukanMakananException : public Exception
         string what() override;
 };
 
+class BukanTanamanExeption : public Exception
+{
+    public :
+        string what() override;
+};
+
+class penyimpananPenuhExeption : public Exception
+{
+    public :
+        string what() override;
+};
+
+class salahPanenExeption : public Exception
+{
+    public :
+        string what() override;
+};
+
+class jumlahPanenExeption : public Exception
+{
+    public :
+        string what() override;
+};
+
+class salahPetakExeption : public Exception
+{
+    public :
+        string what() override;
+};
+
+
 #endif
