@@ -34,3 +34,8 @@ string salahPetakExeption::what()
 {
     return "Kamu salah memilih petak.";
 }
+
+string petakTerisiExeption::what()
+{
+    return "Petak sudah terisi.";
+}

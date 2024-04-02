@@ -52,5 +52,11 @@ class salahPetakExeption : public Exception
         string what() override;
 };
 
+class petakTerisiExeption : public Exception
+{
+    public :
+        string what() override;
+};
+
 
 #endif

@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <vector>
 #include "../Items/Plant.hpp"
+#include "../Data/Exception.hpp"
 using namespace std;
 
 class Ladang : public MatrixMap<Plant>{
