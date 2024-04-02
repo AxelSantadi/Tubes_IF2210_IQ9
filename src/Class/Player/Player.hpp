@@ -1,9 +1,13 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "Inventory.hpp"
 #include <iostream>
 #include <string>
+#include <vector>
+#include <typeinfo>
+#include "Inventory.hpp"
+#include "../Data/Exception.hpp"
+
 using namespace std;
 
 #define DEFAULT_MONEY 50
@@ -12,25 +16,31 @@ using namespace std;
 class Player
 {
     protected:
+        static vector<Player> players;
+        static int currentPlayer;
         string name;
         int weight;
         int money;
         Inventory inventory;
     
     public:
+        // Constructor
         Player(string name, int n, int m);
 
+        // Getters
         string getName() const;
         int getWeight() const;
         int getMoney() const;
         Inventory getInventory() const;
-        Product getItem(int i, int j) const;
+        Item getItem(int i, int j) const;
 
+        // Setters
         void setName(string name);
         void setWeight(int weight);
         void setMoney(int money);
         void setInventory(Inventory inventory);
 
+        // Methods
         void addItem(Product item, int i, int j);
         void removeItem(int i, int j);
         
@@ -39,6 +49,10 @@ class Player
 
         void addWeight(int weight);
         void removeWeight(int weight);
+
+        void makan();
+        void nextPlayer();
+        virtual int hitungPajak() = 0; 
 };
 
 #endif

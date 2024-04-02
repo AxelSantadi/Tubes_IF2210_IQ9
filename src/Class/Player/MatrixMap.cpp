@@ -38,14 +38,27 @@ void MatrixMap<T>::setValue(int x, char c, T value)
     }
 }
 
-// Function to get value at a specific position
+template <typename T>
+void MatrixMap<T>::removeValue(int x, char c)
+{
+    if (x <= 0 || x > rows || c > cols || c < 'A')
+    {
+        cout << "Invalid position!" << endl;
+        // nanti pakai exception
+    }
+    else
+    {
+        data.erase({x, c});
+    }
+}
+
 template <typename T>
 T MatrixMap<T>::getValue(int x, char c) const
 {
     if (x <= 0 || x > rows || c > cols || c < 'A')
     {
         cout << "Invalid position!" << endl;
-        return T(); // Ini akan memanggil konstruktor default dari kelas Product
+        return T();
     }
     else
     {
@@ -56,8 +69,7 @@ T MatrixMap<T>::getValue(int x, char c) const
         }
         else
         {
-            // Return a default value
-            return T(); // Ini akan memanggil konstruktor default dari kelas Product
+            return T(); 
         }
     }
 }

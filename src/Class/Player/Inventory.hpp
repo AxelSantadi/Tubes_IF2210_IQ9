@@ -3,9 +3,10 @@
 
 #include <iostream>
 #include "MatrixMap.hpp"
-#include "MatrixMap.cpp"
 #include "../Items/Item.hpp"
-#include "../Items/Item.cpp"
+#include "../Items/Animal.hpp"
+#include "../Items/Plant.hpp"
+#include "../Items/Product.hpp"
 
 using namespace std;
 class Inventory : public MatrixMap<Item>

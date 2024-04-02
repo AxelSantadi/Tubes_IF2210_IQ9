@@ -21,14 +21,18 @@ public:
     // Boolean
     bool isExist(int x, char c) const;
     bool isFull() const;
+    bool isEmpty() const;
 
     // Getter and Setter
     void setValue(int x, char c, T value);
+    void removeValue(int x, char c);
     T getValue(int x, char c) const; 
     int getRows() const;
     int getCols() const;
-    int countEmpty() const; // Count empty cell
-    int countNotEmpty() const; // Count not empty cell
+    int countEmpty() const;
+    int countNotEmpty() const; 
+
+
 
     // Methods
     virtual void print() const;

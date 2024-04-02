@@ -1,6 +1,12 @@
 #include "Player.hpp"
 
-Player::Player(string name, int n, int m) : name(name), weight(DEFAULT_WEIGHT), money(DEFAULT_MONEY), inventory(n, m) {}
+vector<Player> Player::players;
+int Player::currentPlayer = 0;
+
+Player::Player(string name, int n, int m) : name(name), weight(DEFAULT_WEIGHT), money(DEFAULT_MONEY), inventory(n, m) 
+{
+    players.push_back(*this);
+}
 
 string Player::getName() const 
 { 
@@ -22,7 +28,7 @@ Inventory Player::getInventory() const
     return inventory; 
 }
 
-Product Player::getItem(int i, int j) const 
+Item Player::getItem(int i, int j) const 
 { 
     return inventory.getValue(i, j); 
 }
@@ -55,7 +61,7 @@ void Player::addItem(Product item, int i, int j)
 
 void Player::removeItem(int i, int j) 
 { 
-    inventory.setValue(i, j, Product()); 
+    inventory.removeValue(i, j); 
 }
 
 void Player::addMoney(int money) 
@@ -76,4 +82,62 @@ void Player::addWeight(int weight)
 void Player::removeWeight(int weight) 
 { 
     this->weight -= weight; 
+}
+
+void Player::makan()
+{
+    cout << "Pilih makanan dari peyimpanan"<< endl;
+    inventory.print(); 
+    bool success = false;  
+    string slot;
+    while (!success)
+    {
+        try
+        {
+            cout << "Slot: " ;
+            cin >> slot;
+            char col = slot[0];
+            int row = stoi(slot.substr(1));
+            if (inventory.isExist(row, col))
+            {
+                if (Product* p = dynamic_cast<Product*>(&inventory.getValue(row, col)))
+                {
+                    if ( p->getAddedWeight() > 0)
+                    {
+                        addWeight(p->getAddedWeight());
+                        removeItem(row, col);
+                        cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
+                        cout << "Alhasil, berat badan kamu naik menjadi " << getWeight() << endl;
+                        success = true;
+                    }
+                    else
+                    {
+                        throw BukanMakananException();
+                    }
+                }
+                else
+                {
+                    throw BukanMakananException();
+                }
+            }
+            else
+            {
+                throw SlotKosongException();
+            }
+        }
+        catch(BukanMakananException& e)
+        {
+            cerr << e.what() << endl << "Silahkan masukan slot yang berisi makanan.\n\n";
+
+        }
+        catch(SlotKosongException& e)
+        {
+            cerr << e.what() << endl << "Silahkan masukan slot yang berisi makanan.\n\n";
+        }
+    }
+}
+
+void Player::nextPlayer() 
+{ 
+    currentPlayer = (currentPlayer + 1) % players.size(); 
 }
