@@ -49,7 +49,7 @@ vector<string> Ladang::ambilPanen(string code, int n){
         slot = slot.substr(1, slot.length()-1);
         b = stoi(slot);
         if (isExist(b,a) && getValue(b,a).getCode() == code){
-            deleteValue(b,a);
+            removeValue(b,a);
             n--;
             i++;
             result.push_back(slot);
