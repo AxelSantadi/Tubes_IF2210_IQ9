@@ -1,11 +1,68 @@
 #include "ladang.hpp"
 
-Landang::Landang(int panjang, int lebar) : ladang(panjang, lebar){
-    ladang = MatrixMap<Plant>(panjang, lebar);
-}
+Ladang::Ladang(int panjang, int lebar) : MatrixMap<Plant>(panjang,lebar){}
 
-void Landang::cetakLadang(){
+void Ladang::cetakLadang(){
     cout << "================[ Ladang ]=================" << endl;
-    ladang.print();
+    print();
     cout << endl << endl;
 }
+
+unordered_map<string, int> Ladang::countPanen() {
+    unordered_map<string, int> result;
+    for (int i = 0; i < getRows(); i++){
+        for(char j= 'A' ; j < getCols(); j++){
+            if (isExist(i,j)){
+                string code = getValue(i,j).getCode();
+                result[code]++;
+            }
+        }
+    }
+    return result;
+}
+
+void Ladang::cetakJenisTanaman(){
+    map<string,string> result;
+    for(int i = 0; i < getRows(); i++){
+        for (char j = 'A'; j< getCols(); j++ ){
+            if (isExist(i,j)){
+                string code = getValue(i,j).getCode();
+                result[code] = getValue(i,j).getName();
+            }
+        }
+    }
+    for (auto it = result.begin(); it != result.end(); it++){
+        cout <<"- "<< it->first << " : " << it->second << endl;
+    }
+}
+
+vector<string> Ladang::ambilPanen(string code, int n){
+    vector <string> result;
+    int i = 0;
+    while (n > 0){
+        cout << "petak ke-"<< i <<" :" << endl;
+        string slot;
+        cin >> slot;
+        char a;
+        int b;
+        a = slot[0];
+        slot = slot.substr(1, slot.length()-1);
+        b = stoi(slot);
+        if (isExist(b,a) && getValue(b,a).getCode() == code){
+            deleteValue(b,a);
+            n--;
+            i++;
+            result.push_back(slot);
+        } else {
+            cout << "input salah" << endl;
+        }
+    }
+    return result;
+}
+
+
+
+
+
+
+

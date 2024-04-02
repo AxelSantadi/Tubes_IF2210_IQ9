@@ -4,18 +4,19 @@
 #include <iostream>
 #include "MatrixMap.hpp"
 #include <string>
+#include <unordered_map>
 #include <vector>
-#include "../Product/Plant.hpp"
+#include "../Items/Plant.hpp"
 using namespace std;
 
-class Landang{
-    private:
-        MatrixMap<Plant> ladang;
-        vector<Plant> listTanaman;
+class Ladang : public MatrixMap<Plant>{
+        
     public:
-        Landang(int panjang, int lebar);
+        Ladang(int panjang, int lebar);
         void cetakLadang();
-        vector<Plant> getListTanaman();
+        unordered_map<string,int> countPanen();
+        void cetakJenisTanaman();
+        vector<string> ambilPanen(string code, int n);
 };
 
 #endif

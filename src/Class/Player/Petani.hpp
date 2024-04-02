@@ -2,14 +2,14 @@
 #define PETANI_HPP
 
 #include <iostream>
-#include "ladang.cpp"
-#include "Player.cpp"
+#include "ladang.hpp"
+#include "Player.hpp"
 
 using namespace std;
 
 class Petani : public Player{
 private:
-    Landang ladang;
+    Ladang ladang;
     int panjang;
     int lebar;
 public:
