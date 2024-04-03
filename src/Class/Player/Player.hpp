@@ -7,6 +7,7 @@
 #include <typeinfo>
 #include "Inventory.hpp"
 #include "../Data/Exception.hpp"
+#include "Toko.hpp"
 
 using namespace std;
 
@@ -52,7 +53,12 @@ class Player
 
         void makan();
         void nextPlayer();
-        virtual int hitungPajak() = 0; 
+        virtual int hitungPajak() = 0;
+
+        void buyItem(Toko& T, int idx, int quantity, int i, char j);
+
+        void printMoney() const;
+        
 };
 
 #endif
