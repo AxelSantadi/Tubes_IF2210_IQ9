@@ -1,36 +1,116 @@
 #include "Toko.hpp"
 
-// Add an item to the inventory
+Toko::Toko(const vector<Animal> &animals, const vector<Plant> &plants)
+    : animals(animals), plants(plants)
+{
+    for (const auto &animal : animals)
+    {
+        addItemToko(animal);
+    }
+    for (const auto &plant : plants)
+    {
+        addItemToko(plant);
+    }
+}
+
 void Toko::addItemToko(const Item &item)
 {
-    items.push_back(item);
+    auto it = items.find(item.getName());
+    if (it == items.end())
+    {
+        items[item.getName()] = make_pair(item, item.isUnlimited() ? -1 : 1);
+    }
+    else if (!item.isUnlimited())
+    {
+        it->second.second++;
+    }
 }
 
-// Remove an item from the inventory
-void Toko::removeItemToko(int index)
+void Toko::removeItemToko(const string &itemName)
 {
-    items.erase(items.begin() + index);
+    auto it = items.find(itemName);
+    if (it != items.end())
+    {
+        if (it->second.second > 1)
+        {
+            it->second.second--;
+        }
+        else
+        {
+            if (!it->second.first.isUnlimited())
+            {
+                items.erase(it);
+            }
+        }
+    }
 }
 
-// Get an item from the inventory
-Item Toko::getItemToko(int index) const
+int Toko::getItemPrice(const std::string &itemName) const
 {
-    return items[index];
+    auto it = items.find(itemName);
+    if (it != items.end())
+    {
+        return it->second.first.getPrice();
+    }
+    else
+    {
+        return -1;
+    }
 }
 
-// Get the size of the inventory
-int Toko::getSizeToko() const
+int Toko::getItemQuantity(const std::string &itemName) const
 {
-    return items.size();
+    auto it = items.find(itemName);
+    if (it != items.end())
+    {
+        return it->second.second;
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+Item Toko::getItemToko(const std::string &itemName) const
+{
+    auto it = items.find(itemName);
+    if (it != items.end())
+    {
+        return it->second.first;
+    }
+    else
+    {
+        return Item();
+    }
+}
+
+string Toko::getItemNameByNumber(int number) const
+{
+    int counter = 1;
+    for (const auto &pair : items)
+    {
+        if (counter == number)
+        {
+            return pair.first;
+        }
+        counter++;
+    }
+    return "";
 }
 
 void Toko::displayToko() const
 {
-    cout << "Selamat datang di toko!!" << endl
-         << "Berikut merupakan hal yang dapat Anda Beli" << endl;
-    for (int i = 0; i < items.size(); i++)
+    int counter = 1;
+    std::cout << "Selamat datang di toko!!" << endl
+              << "Berikut merupakan hal yang dapat Anda Beli" << endl;
+    for (const auto &pair : items)
     {
-        cout << i + 1 << ". " << getItemToko(i).getName() << " - " << getItemToko(i).getPrice() << endl;
+        std::cout << counter << ". " << pair.first << " - " << pair.second.first.getPrice();
+        if (pair.second.second != -1)
+        {
+            std::cout << " (" << pair.second.second << ")";
+        }
+        std::cout << std::endl;
+        counter++;
     }
-    
 }

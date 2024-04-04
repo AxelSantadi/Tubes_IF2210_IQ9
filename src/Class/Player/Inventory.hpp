@@ -22,6 +22,8 @@ public:
     void printInventory() const;
 
     int getJenisTiapItemNama(string c) const;
+
+    void storeItemInSlot(const Item &item, const std::string &slot);
 };
 
 #endif

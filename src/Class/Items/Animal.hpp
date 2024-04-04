@@ -36,6 +36,7 @@ public:
     void output(ostream &os) override;
 
     void display() override;
+    bool isUnlimited() const override;
 
 private:
     static int numOfAnimal;

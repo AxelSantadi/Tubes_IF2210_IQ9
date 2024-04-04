@@ -16,16 +16,16 @@ public:
     ~Item();
 
     // Getter and Setter
-    int getId();
+    int getId() const;
     void setId(int i);
 
-    string getCode();
+    string getCode() const;
     void setCode(string c);
 
-    string getName();
+    string getName() const;
     void setName(string n);
 
-    int getPrice();
+    int getPrice() const;
     void setPrice(int p);
 
     // Operator Overloading
@@ -42,6 +42,9 @@ public:
     // Display item
     virtual void display();
     friend ostream &operator<<(ostream &os,const Item &i);
+
+    // Determine Stock in Toko
+    virtual bool isUnlimited() const;
 
 protected:
     static int numOfItem;

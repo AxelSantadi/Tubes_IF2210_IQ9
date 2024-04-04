@@ -45,7 +45,7 @@ Item::~Item()
     Item::numOfItem--;
 }
 
-int Item::getId()
+int Item::getId() const
 {
     return id;
 }
@@ -55,7 +55,7 @@ void Item::setId(int i)
     id = i;
 }
 
-string Item::getCode()
+string Item::getCode() const
 {
     return code;
 }
@@ -65,7 +65,7 @@ void Item::setCode(string c)
     code = c;
 }
 
-string Item::getName()
+string Item::getName() const
 {
     return name;
 }
@@ -75,7 +75,7 @@ void Item::setName(string n)
     name = n;
 }
 
-int Item::getPrice()
+int Item::getPrice() const
 {
     return price;
 }
@@ -136,6 +136,8 @@ void Item::display()
 
 ostream &operator<<(ostream &os, const Item &i)
 {
-    os <<i.code ;
+    os << i.code;
     return os;
 }
+
+bool Item::isUnlimited() const { return false; }

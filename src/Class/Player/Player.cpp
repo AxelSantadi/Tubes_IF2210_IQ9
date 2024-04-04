@@ -83,7 +83,7 @@ void Player::removeWeight(int weight)
     this->weight -= weight;
 }
 
-
+/*
 void Player::makan()
 {
     cout << "Pilih makanan dari peyimpanan" << endl;
@@ -137,31 +137,57 @@ void Player::makan()
         }
     }
 }
+*/
 
 void Player::nextPlayer()
 {
     currentPlayer = (currentPlayer + 1) % players.size();
 }
 
-void Player::buyItem(Toko &T, int idx, int quantity, int i, char j)
+void Player::buyItem(Toko &toko)
 {
-    Item item = T.getItemToko(idx);
-    int total = item.getPrice() * quantity;
-    if (this->money >= total)
+    int itemNumber;
+    int quantity;
+
+    toko.displayToko();
+    std::cout << "Uang Anda: " << money << std::endl;
+    std::cout << "Slot penyimpanan yang tersedia: " << endl
+              << endl;
+
+    std::cout << "Nomor barang yang ingin dibeli : ";
+    std::cin >> itemNumber;
+    cout << endl;
+
+    std::cout << "Kuantitas : ";
+    std::cin >> quantity;
+    cout << endl;
+
+    string itemName = toko.getItemNameByNumber(itemNumber);
+    int price = toko.getItemPrice(itemName) * quantity;
+    if (money >= price)
     {
-        addMoney(-total);
-        this->inventory.setValue(i, j, item);
-        cout << "Selamat Anda berhasil membeli " << quantity << " " << item.getName() << ". Uang Anda tersisa " << this->money << " gulden." << endl;
-        T.removeItemToko(idx);
+        Item item = toko.getItemToko(itemName);
+        for (int i = 0; i < quantity; ++i)
+        {
+            this->money -= price;
+            toko.removeItemToko(itemName);
+        }
+        std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl;
+        std::cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << std::endl;
+        this->inventory.printInventory();
+        std ::cout << endl;
+
+        string slot;
+        for (int i = 0; i < quantity; ++i)
+        {
+            std::cout << "Petak Slot: ";
+            std::cin >> slot;
+            this->inventory.storeItemInSlot(item, slot);
+        }
     }
 
     else
     {
-        // throw UangKurangException();
+        std::cout << "Uang tidak cukup" << std::endl;
     }
-}
-
-void Player::printMoney() const
-{
-    cout << "Uang anda : " << money << endl;
 }

@@ -16,49 +16,47 @@ using namespace std;
 
 class Player
 {
-    protected:
-        static vector<Player> players;
-        static int currentPlayer;
-        string name;
-        int weight;
-        int money;
-        Inventory inventory;
-    
-    public:
-        // Constructor
-        Player(string name, int n, int m);
+protected:
+    static vector<Player> players;
+    static int currentPlayer;
+    string name;
+    int weight;
+    int money;
+    Inventory inventory;
 
-        // Getters
-        string getName() const;
-        int getWeight() const;
-        int getMoney() const;
-        Inventory getInventory() const;
-        Item getItem(int i, int j) const;
+public:
+    // Constructor
+    Player(string name, int n, int m);
 
-        // Setters
-        void setName(string name);
-        void setWeight(int weight);
-        void setMoney(int money);
-        void setInventory(Inventory inventory);
+    // Getters
+    string getName() const;
+    int getWeight() const;
+    int getMoney() const;
+    Inventory getInventory() const;
+    Item getItem(int i, int j) const;
 
-        // Methods
-        void addItem(Product item, int i, int j);
-        void removeItem(int i, int j);
-        
-        void addMoney(int money);
-        void useMoney(int money);
+    // Setters
+    void setName(string name);
+    void setWeight(int weight);
+    void setMoney(int money);
+    void setInventory(Inventory inventory);
 
-        void addWeight(int weight);
-        void removeWeight(int weight);
+    // Methods
+    void addItem(Product item, int i, int j);
+    void removeItem(int i, int j);
 
-        void makan();
-        void nextPlayer();
-        virtual int hitungPajak() = 0;
+    void addMoney(int money);
+    void useMoney(int money);
 
-        void buyItem(Toko& T, int idx, int quantity, int i, char j);
+    void addWeight(int weight);
+    void removeWeight(int weight);
 
-        void printMoney() const;
-        
+    void makan();
+    void nextPlayer();
+
+    //virtual int hitungPajak() = 0;  // Dibikin komen dulu biar bisa di compile
+
+    void buyItem(Toko &toko);
 };
 
 #endif

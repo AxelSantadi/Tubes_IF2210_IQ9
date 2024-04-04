@@ -98,6 +98,8 @@ void Animal::display()
     cout << "Weight to Harvest: " << this->weightToHarvest << endl;
 }
 
+bool Animal::isUnlimited() const { return true; }
+
 Herbivore::Herbivore(int id, string code, string name, int weightToHarvest, int price) : Animal(id, code, name, "HERBIVORE", weightToHarvest, price) {}
 
 Carnivore::Carnivore(int id, string code, string name, int weightToHarvest, int price) : Animal(id, code, name, "CARNIVORE", weightToHarvest, price) {}

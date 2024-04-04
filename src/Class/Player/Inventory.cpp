@@ -43,3 +43,15 @@ void Inventory::printInventory() const
     cout << endl << endl;
     // cout << "Total slot kosong : " << countEmpty() << endl;
 }
+
+void Inventory::storeItemInSlot(const Item &item, const std::string &slot)
+{
+    // Convert the slot string to row and column
+    int row = std::stoi(slot.substr(1)); // No need to subtract 1 here
+    char col = slot[0]; // Keep this as a char
+
+    // Store the item in the specified slot
+    this->setValue(row, col, item);
+
+    std::cout << item.getName() << " berhasil disimpan dalam penyimpanan!" << std::endl;
+}

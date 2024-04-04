@@ -97,6 +97,8 @@ ostream& operator<<(ostream &os, const Plant &p)
     return os;
 }
 
+bool Plant::isUnlimited() const { return true;}
+
 // Material Plant
 MaterialPlant::MaterialPlant(int id, const std::string &code, const std::string &name, string type, int harvest_duration, int price) : Plant(id, code, name, type, harvest_duration, price)
 {

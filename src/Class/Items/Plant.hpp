@@ -35,6 +35,9 @@ public:
 
     friend ostream& operator<<(ostream& os, const Plant& p);
 
+    // Determine stock in Toko
+    bool isUnlimited() const override;
+
 protected:
     static int numOfPlant;
 
@@ -52,9 +55,9 @@ public:
     FruitPlant(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price);
 };
 
-class TaekTree : public MaterialPlant {
+class TeakTree : public MaterialPlant {
 public:
-    TaekTree(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price)
+    TeakTree(int id, const std::string& code, const std::string& name,string type, int harvest_duration, int price)
         : MaterialPlant(id, code, name,type, harvest_duration, price) {}
 
 };
