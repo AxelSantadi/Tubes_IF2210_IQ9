@@ -24,6 +24,7 @@ public:
     int getWeightToHarvest() const;
     void setWeightToHarvest(int w);
 
+    int getAddedWeight() const override;
     // Operator Overloading
     Animal &operator+=(int x);
     Animal &operator-=(int x);

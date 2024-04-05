@@ -44,6 +44,21 @@ void Inventory::printInventory() const
     // cout << "Total slot kosong : " << countEmpty() << endl;
 }
 
+bool Inventory::noFood() const
+{
+    for (int i = 1; i <= getRows(); i++)
+    {
+        for (char j = 'A'; j <= getCols(); j++)
+        {
+            if (isExist(i, j) && getValue(i, j)->isMakanan())
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 void Inventory::storeItemInSlot(Item* item, const std::string &slot)
 {
     // Convert the slot string to row and column

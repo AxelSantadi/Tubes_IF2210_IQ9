@@ -51,6 +51,8 @@ void Animal::setWeightToHarvest(int w)
     weightToHarvest = w;
 }
 
+int Animal::getAddedWeight() const { return 0; }
+
 Animal &Animal::operator+=(int x)
 {
     this->weightToHarvest += x;

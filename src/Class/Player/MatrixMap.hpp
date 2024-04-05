@@ -28,7 +28,7 @@ public:
     void removeValue(int x, char c);
     T getValue(int x, char c) const; 
     int getRows() const;
-    int getCols() const;
+    char getCols() const;
     int countEmpty() const;
     int countNotEmpty() const; 
 

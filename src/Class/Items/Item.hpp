@@ -48,6 +48,7 @@ public:
 
     // Determine if item is makanan
     virtual bool isMakanan() const = 0;
+    virtual int getAddedWeight() const = 0;
 
 protected:
     static int numOfItem;

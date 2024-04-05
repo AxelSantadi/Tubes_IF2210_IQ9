@@ -51,6 +51,8 @@ void Plant::setHarvestDuration(int h)
     harvest_duration = h;
 }
 
+int Plant::getAddedWeight() const { return 0; }
+
 Plant &Plant::operator+=(int x)
 {
     this->harvest_duration += x;

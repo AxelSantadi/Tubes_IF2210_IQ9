@@ -3,7 +3,7 @@
 vector<Player> Player::players;
 int Player::currentPlayer = 0;
 
-Player::Player(string name, int n, int m) : name(name), weight(DEFAULT_WEIGHT), money(DEFAULT_MONEY), inventory(n, m)
+Player::Player(string name, int n, char m) : name(name), weight(DEFAULT_WEIGHT), money(DEFAULT_MONEY), inventory(n, m)
 {
     players.push_back(*this);
 }
@@ -28,7 +28,7 @@ Inventory Player::getInventory() const
     return inventory;
 }
 
-Item* Player::getItem(int i, int j) const
+Item* Player::getItem(int i, char j) const
 {
     return inventory.getValue(i, j);
 }
@@ -53,12 +53,12 @@ void Player::setInventory(Inventory inventory)
     this->inventory = inventory;
 }
 
-void Player::addItem(Item *item, int i, int j)
+void Player::addItem(Item *item, int i, char j)
 {
     inventory.setValue(i, j, item);
 }
 
-void Player::removeItem(int i, int j)
+void Player::removeItem(int i, char j)
 {
     inventory.removeValue(i, j);
 }
@@ -90,44 +90,62 @@ void Player::makan()
     inventory.print();
     bool success = false;
     string slot;
-    while (!success)
+    if (inventory.isEmpty() || inventory.noFood())
     {
-        try
+        cout << "Tidak ada makanan di penyimpanan" << endl;
+        return;
+    }
+    else
+    {
+        while (!success)
         {
-            cout << "Slot: ";
-            cin >> slot;
-            char col = slot[0];
-            int row = stoi(slot.substr(1));
-            if (inventory.isExist(row, col))
+            try
             {
-                Item* p = inventory.getValue(row, col);
-                if (p.isMakanan())
+                cout << "Slot: ";
+                cin >> slot;
+                char col = slot[0];
+                int row = stoi(slot.substr(1));
+                cout << inventory.getRows() << " " << row << " " << inventory.getCols() << " " << col << endl;
+                if (inventory.isExist(row, col))
                 {
-                    addWeight(p->getAddedWeight());
-                    removeItem(row, col);
-                    cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
-                    cout << "Alhasil, berat badan kamu naik menjadi " << getWeight() << endl;
-                    success = true;
+                    Item* p = inventory.getValue(row, col);
+                    if (p->isMakanan())
+                    {
+                        addWeight(p->getAddedWeight());
+                        removeItem(row, col);
+                        cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
+                        cout << "Alhasil, berat badan kamu naik menjadi " << getWeight() << endl << endl;
+                        success = true;
+                    }
+                    else 
+                    {
+                        throw BukanMakananException();
+                    }
+                }
+                else if (inventory.getRows() < row || 1 < row || inventory.getCols() < col || 'A' < col)
+                {
+                    throw outOfBoundException(); 
                 }
                 else
                 {
-                    throw BukanMakananException();
+                    throw SlotKosongException();
                 }
             }
-            else
+            catch (BukanMakananException &e)
             {
-                throw SlotKosongException();
+                cerr << e.what() << endl
+                    << "Silahkan masukan slot yang berisi makanan.\n\n";
             }
-        }
-        catch (BukanMakananException &e)
-        {
-            cerr << e.what() << endl
-                 << "Silahkan masukan slot yang berisi makanan.\n\n";
-        }
-        catch (SlotKosongException &e)
-        {
-            cerr << e.what() << endl
-                 << "Silahkan masukan slot yang berisi makanan.\n\n";
+            catch (outOfBoundException &e)
+            {
+                cerr << e.what() << endl
+                    << "Silahkan masukan slot yang benar.\n\n";
+            }
+            catch (SlotKosongException &e)
+            {
+                cerr << e.what() << endl
+                    << "Silahkan masukan slot yang berisi makanan.\n\n";
+            }
         }
     }
 }
@@ -137,50 +155,50 @@ void Player::nextPlayer()
     currentPlayer = (currentPlayer + 1) % players.size();
 }
 
-void Player::buyItem(Toko &toko)
-{
-    int itemNumber;
-    int quantity;
+// void Player::buyItem(Toko &toko)
+// {
+//     int itemNumber;
+//     int quantity;
 
-    toko.displayToko();
-    std::cout << "Uang Anda: " << money << std::endl;
-    std::cout << "Slot penyimpanan yang tersedia: " << endl
-              << endl;
+//     toko.displayToko();
+//     std::cout << "Uang Anda: " << money << std::endl;
+//     std::cout << "Slot penyimpanan yang tersedia: " << endl
+//               << endl;
 
-    std::cout << "Nomor barang yang ingin dibeli : ";
-    std::cin >> itemNumber;
-    cout << endl;
+//     std::cout << "Nomor barang yang ingin dibeli : ";
+//     std::cin >> itemNumber;
+//     cout << endl;
 
-    std::cout << "Kuantitas : ";
-    std::cin >> quantity;
-    cout << endl;
+//     std::cout << "Kuantitas : ";
+//     std::cin >> quantity;
+//     cout << endl;
 
-    string itemName = toko.getItemNameByNumber(itemNumber);
-    int price = toko.getItemPrice(itemName) * quantity;
-    if (money >= price)
-    {
-        Item* item = toko.getItemToko(itemName);
-        for (int i = 0; i < quantity; ++i)
-        {
-            this->money -= price;
-            toko.removeItemToko(itemName);
-        }
-        std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl;
-        std::cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << std::endl;
-        this->inventory.printInventory();
-        std ::cout << endl;
+//     string itemName = toko.getItemNameByNumber(itemNumber);
+//     int price = toko.getItemPrice(itemName) * quantity;
+//     if (money >= price)
+//     {
+//         Item* item = toko.getItemToko(itemName);
+//         for (int i = 0; i < quantity; ++i)
+//         {
+//             this->money -= price;
+//             toko.removeItemToko(itemName);
+//         }
+//         std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl;
+//         std::cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << std::endl;
+//         this->inventory.printInventory();
+//         std ::cout << endl;
 
-        string slot;
-        for (int i = 0; i < quantity; ++i)
-        {
-            std::cout << "Petak Slot: ";
-            std::cin >> slot;
-            this->inventory.storeItemInSlot(item, slot);
-        }
-    }
+//         string slot;
+//         for (int i = 0; i < quantity; ++i)
+//         {
+//             std::cout << "Petak Slot: ";
+//             std::cin >> slot;
+//             this->inventory.storeItemInSlot(item, slot);
+//         }
+//     }
 
-    else
-    {
-        std::cout << "Uang tidak cukup" << std::endl;
-    }
-}
+//     else
+//     {
+//         std::cout << "Uang tidak cukup" << std::endl;
+//     }
+// }

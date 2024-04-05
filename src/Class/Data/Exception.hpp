@@ -16,6 +16,12 @@ class SlotKosongException : public Exception
         string what() override;
 };
 
+class outOfBoundException : public Exception
+{
+    public :
+        string what() override;
+};
+
 class BukanMakananException : public Exception
 {
     public :

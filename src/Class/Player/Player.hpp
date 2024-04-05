@@ -7,7 +7,7 @@
 #include <typeinfo>
 #include "Inventory.hpp"
 #include "../Data/Exception.hpp"
-#include "Toko.hpp"
+// #include "Toko.hpp"
 
 using namespace std;
 
@@ -26,14 +26,14 @@ protected:
 
 public:
     // Constructor
-    Player(string name, int n, int m);
+    Player(string name, int n, char m);
 
     // Getters
     string getName() const;
     int getWeight() const;
     int getMoney() const;
     Inventory getInventory() const;
-    Item* getItem(int i, int j) const;
+    Item* getItem(int i, char j) const;
 
     // Setters
     void setName(string name);
@@ -42,8 +42,8 @@ public:
     void setInventory(Inventory inventory);
 
     // Methods
-    void addItem(Item* item, int i, int j);
-    void removeItem(int i, int j);
+    void addItem(Item* item, int i, char j);
+    void removeItem(int i, char j);
 
     void addMoney(int money);
     void useMoney(int money);
@@ -56,7 +56,8 @@ public:
 
     //virtual int hitungPajak() = 0;  // Dibikin komen dulu biar bisa di compile
 
-    void buyItem(Toko &toko);
+    // void buyItem(Toko &toko);
+    
 };
 
 #endif

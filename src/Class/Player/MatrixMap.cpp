@@ -90,7 +90,7 @@ int MatrixMap<T>::getRows() const
 
 // Function to get number of columns
 template <typename T>
-int MatrixMap<T>::getCols() const
+char MatrixMap<T>::getCols() const
 {
     return cols;
 }

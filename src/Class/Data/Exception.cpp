@@ -5,6 +5,11 @@ string SlotKosongException::what()
     return "Kamu mengambil harapan kosong dari penyimpanan.";
 }
 
+string outOfBoundException::what()
+{
+    return "Kamu mencoba untuk mengakses indeks yang tidak ada.";
+}
+
 string BukanMakananException::what()
 {
     return "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!";

@@ -21,6 +21,8 @@ public:
     // Methods
     void printInventory() const;
 
+    bool noFood() const;
+
     int getJenisTiapItemNama(string c) const;
 
     void storeItemInSlot(Item* item, const std::string &slot);

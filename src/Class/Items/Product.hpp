@@ -24,7 +24,7 @@ public:
     string getOrigin() const;
     void setOrigin(string o);
 
-    int getAddedWeight() const;
+    int getAddedWeight() const override;
     void setAddedWeight(int a);
 
     int getNumOfProduct();

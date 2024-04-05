@@ -22,6 +22,8 @@ public:
     int getHarvestDuration() const;
     void setHarvestDuration(int h);
 
+    int getAddedWeight() const override;
+
     // Operator Overloading
     Plant& operator+=(int x);
     Plant& operator-=(int x);
