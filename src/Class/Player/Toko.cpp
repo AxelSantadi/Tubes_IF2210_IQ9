@@ -1,6 +1,6 @@
 #include "Toko.hpp"
 
-Toko::Toko(const vector<Animal> &animals, const vector<Plant> &plants)
+Toko::Toko(const vector<Animal*> &animals, const vector<Plant*> &plants)
     : animals(animals), plants(plants)
 {
     for (const auto &animal : animals)
@@ -13,14 +13,14 @@ Toko::Toko(const vector<Animal> &animals, const vector<Plant> &plants)
     }
 }
 
-void Toko::addItemToko(const Item &item)
+void Toko::addItemToko(Item* item)
 {
-    auto it = items.find(item.getName());
+    auto it = items.find(item->getName());
     if (it == items.end())
     {
-        items[item.getName()] = make_pair(item, item.isUnlimited() ? -1 : 1);
+        items[item->getName()] = make_pair(item, item->isUnlimited() ? -1 : 1);
     }
-    else if (!item.isUnlimited())
+    else if (!item->isUnlimited())
     {
         it->second.second++;
     }
@@ -37,7 +37,7 @@ void Toko::removeItemToko(const string &itemName)
         }
         else
         {
-            if (!it->second.first.isUnlimited())
+            if (!it->second.first->isUnlimited())
             {
                 items.erase(it);
             }
@@ -50,7 +50,7 @@ int Toko::getItemPrice(const std::string &itemName) const
     auto it = items.find(itemName);
     if (it != items.end())
     {
-        return it->second.first.getPrice();
+        return it->second.first->getPrice();
     }
     else
     {
@@ -71,7 +71,7 @@ int Toko::getItemQuantity(const std::string &itemName) const
     }
 }
 
-Item Toko::getItemToko(const std::string &itemName) const
+Item* Toko::getItemToko(const std::string &itemName) const
 {
     auto it = items.find(itemName);
     if (it != items.end())
@@ -80,7 +80,7 @@ Item Toko::getItemToko(const std::string &itemName) const
     }
     else
     {
-        return Item();
+        return nullptr;
     }
 }
 
@@ -105,7 +105,7 @@ void Toko::displayToko() const
               << "Berikut merupakan hal yang dapat Anda Beli" << endl;
     for (const auto &pair : items)
     {
-        std::cout << counter << ". " << pair.first << " - " << pair.second.first.getPrice();
+        std::cout << counter << ". " << pair.first << " - " << pair.second.first->getPrice();
         if (pair.second.second != -1)
         {
             std::cout << " (" << pair.second.second << ")";

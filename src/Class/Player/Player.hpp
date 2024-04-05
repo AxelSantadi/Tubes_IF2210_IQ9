@@ -7,7 +7,7 @@
 #include <typeinfo>
 #include "Inventory.hpp"
 #include "../Data/Exception.hpp"
-// #include "Toko.hpp"
+#include "Toko.hpp"
 
 using namespace std;
 
@@ -56,8 +56,8 @@ public:
 
     //virtual int hitungPajak() = 0;  // Dibikin komen dulu biar bisa di compile
 
-    // void buyItem(Toko &toko);
-    
+    void buyItem(Toko &toko);
+    void sellItem(Toko &toko);
 };
 
 #endif

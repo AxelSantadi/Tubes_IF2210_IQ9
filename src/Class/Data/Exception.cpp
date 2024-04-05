@@ -12,7 +12,7 @@ string outOfBoundException::what()
 
 string BukanMakananException::what()
 {
-    return "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!";
+    return "Apa yang kamu lakukan\?\?!! Kamu mencoba untuk memakan itu?!!";
 }
 
 string BukanTanamanExeption::what()

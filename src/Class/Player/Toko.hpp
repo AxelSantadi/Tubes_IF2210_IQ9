@@ -13,22 +13,22 @@ using namespace std;
 class Toko
 {
 private:
-    map<string, pair<Item, int>> items;
-    vector<Animal> animals;
-    vector<Plant> plants;
+    map<string, pair<Item*, int>> items; 
+    vector<Animal*> animals;
+    vector<Plant*> plants;
 
 public:
     // Constructor
-    Toko(const std::vector<Animal> &animals, const std::vector<Plant> &plants);
+    Toko(const vector<Animal*> &animals, const vector<Plant*> &plants);
 
     // Add and Remove Item
-    void addItemToko(const Item &item);
+    void addItemToko(Item* item);
     void removeItemToko(const std::string &itemName);
 
     // Getter
     int getItemPrice(const std::string &itemName) const;
     int getItemQuantity(const std::string &itemName) const;
-    Item getItemToko(const std::string &itemName) const;
+    Item* getItemToko(const std::string &itemName) const;
     string getItemNameByNumber(int number) const;
 
     // Display Toko
