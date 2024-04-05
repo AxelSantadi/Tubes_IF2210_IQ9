@@ -42,6 +42,8 @@ public:
 
     void display() override;
 
+    bool isMakanan() const override;
+
 protected:
     static int numOfProduct;
 

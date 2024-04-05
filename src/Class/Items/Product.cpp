@@ -119,3 +119,8 @@ void Product::display()
     cout << "Origin : " << this->origin << endl;
     cout << "Added Weight : " << this->added_weight << endl;
 }
+
+bool Product::isMakanan() const
+{
+    return (added_weight > 0);
+}

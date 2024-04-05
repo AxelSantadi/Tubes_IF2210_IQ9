@@ -100,6 +100,8 @@ void Animal::display()
 
 bool Animal::isUnlimited() const { return true; }
 
+bool Animal::isMakanan() const { return false; }
+
 Herbivore::Herbivore(int id, string code, string name, int weightToHarvest, int price) : Animal(id, code, name, "HERBIVORE", weightToHarvest, price) {}
 
 Carnivore::Carnivore(int id, string code, string name, int weightToHarvest, int price) : Animal(id, code, name, "CARNIVORE", weightToHarvest, price) {}

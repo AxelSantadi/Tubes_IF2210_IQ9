@@ -38,6 +38,9 @@ public:
     // Determine stock in Toko
     bool isUnlimited() const override;
 
+    // Determine if item is makanan
+    bool isMakanan() const override;
+
 protected:
     static int numOfPlant;
 

@@ -46,6 +46,9 @@ public:
     // Determine Stock in Toko
     virtual bool isUnlimited() const;
 
+    // Determine if item is makanan
+    virtual bool isMakanan() const = 0;
+
 protected:
     static int numOfItem;
     int id;

@@ -38,6 +38,8 @@ public:
     void display() override;
     bool isUnlimited() const override;
 
+    bool isMakanan() const override;
+
 private:
     static int numOfAnimal;
 

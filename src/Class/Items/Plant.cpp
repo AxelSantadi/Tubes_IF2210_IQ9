@@ -99,6 +99,8 @@ ostream& operator<<(ostream &os, const Plant &p)
 
 bool Plant::isUnlimited() const { return true;}
 
+bool Plant::isMakanan() const { return false;}
+
 // Material Plant
 MaterialPlant::MaterialPlant(int id, const std::string &code, const std::string &name, string type, int harvest_duration, int price) : Plant(id, code, name, type, harvest_duration, price)
 {
@@ -109,4 +111,3 @@ FruitPlant::FruitPlant(int id, const std::string &code, const std::string &name,
 {
     type = "Fruit_plant";
 }
-

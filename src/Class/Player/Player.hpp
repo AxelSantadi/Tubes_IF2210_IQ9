@@ -33,7 +33,7 @@ public:
     int getWeight() const;
     int getMoney() const;
     Inventory getInventory() const;
-    Item getItem(int i, int j) const;
+    Item* getItem(int i, int j) const;
 
     // Setters
     void setName(string name);
@@ -42,7 +42,7 @@ public:
     void setInventory(Inventory inventory);
 
     // Methods
-    void addItem(Product item, int i, int j);
+    void addItem(Item* item, int i, int j);
     void removeItem(int i, int j);
 
     void addMoney(int money);

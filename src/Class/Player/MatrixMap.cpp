@@ -24,6 +24,13 @@ bool MatrixMap<T>::isFull() const
     return data.size() == rows * (cols - 'A' + 1);
 }
 
+// Function to check if the matrix is empty
+template <typename T>
+bool MatrixMap<T>::isEmpty() const
+{
+    return data.size() == 0;
+}
+
 template <typename T>
 void MatrixMap<T>::setValue(int x, char c, T value)
 {
@@ -122,7 +129,7 @@ void MatrixMap<T>::print() const
         {
             if (isExist(i, j))
             {
-                cout << " " << getValue(i, j) << " |";
+                cout << " " << *getValue(i, j) << " |";
             }
             else
             {

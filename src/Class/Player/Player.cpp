@@ -28,7 +28,7 @@ Inventory Player::getInventory() const
     return inventory;
 }
 
-Item Player::getItem(int i, int j) const
+Item* Player::getItem(int i, int j) const
 {
     return inventory.getValue(i, j);
 }
@@ -53,7 +53,7 @@ void Player::setInventory(Inventory inventory)
     this->inventory = inventory;
 }
 
-void Player::addItem(Product item, int i, int j)
+void Player::addItem(Item *item, int i, int j)
 {
     inventory.setValue(i, j, item);
 }
@@ -83,7 +83,7 @@ void Player::removeWeight(int weight)
     this->weight -= weight;
 }
 
-/*
+
 void Player::makan()
 {
     cout << "Pilih makanan dari peyimpanan" << endl;
@@ -100,20 +100,14 @@ void Player::makan()
             int row = stoi(slot.substr(1));
             if (inventory.isExist(row, col))
             {
-                if (Product *p = dynamic_cast<Product *>(&inventory.getValue(row, col)))
+                Item* p = inventory.getValue(row, col);
+                if (p.isMakanan())
                 {
-                    if (p->getAddedWeight() > 0)
-                    {
-                        addWeight(p->getAddedWeight());
-                        removeItem(row, col);
-                        cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
-                        cout << "Alhasil, berat badan kamu naik menjadi " << getWeight() << endl;
-                        success = true;
-                    }
-                    else
-                    {
-                        throw BukanMakananException();
-                    }
+                    addWeight(p->getAddedWeight());
+                    removeItem(row, col);
+                    cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
+                    cout << "Alhasil, berat badan kamu naik menjadi " << getWeight() << endl;
+                    success = true;
                 }
                 else
                 {
@@ -137,7 +131,6 @@ void Player::makan()
         }
     }
 }
-*/
 
 void Player::nextPlayer()
 {
@@ -166,7 +159,7 @@ void Player::buyItem(Toko &toko)
     int price = toko.getItemPrice(itemName) * quantity;
     if (money >= price)
     {
-        Item item = toko.getItemToko(itemName);
+        Item* item = toko.getItemToko(itemName);
         for (int i = 0; i < quantity; ++i)
         {
             this->money -= price;

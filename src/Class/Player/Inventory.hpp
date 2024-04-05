@@ -9,7 +9,7 @@
 #include "../Items/Product.hpp"
 
 using namespace std;
-class Inventory : public MatrixMap<Item>
+class Inventory : public MatrixMap<Item*>
 {
 public:
     // Constructors
@@ -23,7 +23,7 @@ public:
 
     int getJenisTiapItemNama(string c) const;
 
-    void storeItemInSlot(const Item &item, const std::string &slot);
+    void storeItemInSlot(Item* item, const std::string &slot);
 };
 
 #endif

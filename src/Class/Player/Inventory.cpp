@@ -1,16 +1,16 @@
 #include "Inventory.hpp"
 #include <iostream>
 
-Inventory::Inventory(int rows, char cols) : MatrixMap<Item>(rows, cols) {}
+Inventory::Inventory(int rows, char cols) : MatrixMap<Item*>(rows, cols) {}
 
 int Inventory::getJenisTiapItem(string c) const
 {
     int count = 0;
-    for (int i = 1; i <= MatrixMap<Item>::getRows(); i++)
+    for (int i = 1; i <= getRows(); i++)
     {
-        for (char j = 'A'; j <= MatrixMap<Item>::getCols(); j++)
+        for (char j = 'A'; j <= getCols(); j++)
         {
-            if (MatrixMap<Item>::isExist(i, j) && MatrixMap<Item>::getValue(i, j).getCode() == c)
+            if (isExist(i, j) && getValue(i, j)->getCode() == c)
             {
                 count++;
             }
@@ -22,11 +22,11 @@ int Inventory::getJenisTiapItem(string c) const
 int Inventory::getJenisTiapItemNama(string c) const
 {
     int count = 0;
-    for (int i = 1; i <= MatrixMap<Item>::getRows(); i++)
+    for (int i = 1; i <= getRows(); i++)
     {
-        for (char j = 'A'; j <= MatrixMap<Item>::getCols(); j++)
+        for (char j = 'A'; j <= getCols(); j++)
         {
-            if (MatrixMap<Item>::isExist(i, j) && MatrixMap<Item>::getValue(i, j).getName() == c)
+            if (isExist(i, j) && getValue(i, j)->getName() == c)
             {
                 count++;
             }
@@ -44,7 +44,7 @@ void Inventory::printInventory() const
     // cout << "Total slot kosong : " << countEmpty() << endl;
 }
 
-void Inventory::storeItemInSlot(const Item &item, const std::string &slot)
+void Inventory::storeItemInSlot(Item* item, const std::string &slot)
 {
     // Convert the slot string to row and column
     int row = std::stoi(slot.substr(1)); // No need to subtract 1 here
@@ -53,5 +53,5 @@ void Inventory::storeItemInSlot(const Item &item, const std::string &slot)
     // Store the item in the specified slot
     this->setValue(row, col, item);
 
-    std::cout << item.getName() << " berhasil disimpan dalam penyimpanan!" << std::endl;
+    std::cout << item->getName() << " berhasil disimpan dalam penyimpanan!" << std::endl;
 }
