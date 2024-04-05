@@ -17,8 +17,8 @@ using namespace std;
 class Player
 {
 protected:
-    static vector<Player> players;
-    static int currentPlayer;
+    static vector<Player*> players;
+    static int idxCurrentPlayer;
     string name;
     int weight;
     int money;
@@ -28,6 +28,14 @@ public:
     // Constructor
     Player(string name, int n, char m);
 
+    // Destructor
+    ~Player();
+
+    // Static Method
+    static void dealocatePlayer();
+    static void nextPlayer();
+    static Player* getCurrentPlayer();
+    
     // Getters
     string getName() const;
     int getWeight() const;
@@ -52,7 +60,6 @@ public:
     void removeWeight(int weight);
 
     void makan();
-    void nextPlayer();
 
     //virtual int hitungPajak() = 0;  // Dibikin komen dulu biar bisa di compile
 

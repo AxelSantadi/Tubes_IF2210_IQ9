@@ -7,6 +7,7 @@
 #include "../Items/Animal.hpp"
 #include "../Items/Plant.hpp"
 #include "../Items/Product.hpp"
+#include "../Data/Exception.hpp"
 
 using namespace std;
 class Inventory : public MatrixMap<Item*>
@@ -17,9 +18,14 @@ public:
 
     // Getters and Setters
     int getJenisTiapItem(string c) const;
+    void setValue(int x, char c, Item* value) override;
+    void removeValue(int x, char c) override;
 
     // Methods
+    void setRandomValue(Item* item);
+
     void printInventory() const;
+
 
     bool noFood() const;
 

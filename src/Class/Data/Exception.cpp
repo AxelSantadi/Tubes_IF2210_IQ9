@@ -1,5 +1,10 @@
 #include "Exception.hpp"
 
+string EmptyInventoryException::what()
+{
+    return "Inventory kamu kosong.";
+}
+
 string SlotKosongException::what()
 {
     return "Kamu mengambil harapan kosong dari penyimpanan.";

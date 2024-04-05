@@ -10,6 +10,11 @@ class Exception
         virtual string what() = 0;
 };
 
+class EmptyInventoryException : public Exception
+{
+    public :
+        string what() override;
+};
 class SlotKosongException : public Exception
 {
     public :

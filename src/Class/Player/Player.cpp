@@ -1,11 +1,35 @@
 #include "Player.hpp"
 
-vector<Player> Player::players;
-int Player::currentPlayer = 0;
+vector<Player*> Player::players;
+int Player::idxCurrentPlayer = 0;
 
 Player::Player(string name, int n, char m) : name(name), weight(DEFAULT_WEIGHT), money(DEFAULT_MONEY), inventory(n, m)
 {
-    players.push_back(*this);
+    players.push_back(this);
+}
+
+Player::~Player()
+{
+    cout << "Player " << name << " has been deleted" << endl;
+}
+
+void Player::dealocatePlayer()
+{
+    for (int i = 0; i < players.size(); i++)
+    {
+        delete players[i];
+    }
+    players.clear();
+}
+
+void Player::nextPlayer()
+{
+    idxCurrentPlayer = (idxCurrentPlayer + 1) % players.size();
+}
+
+Player* Player::getCurrentPlayer()
+{
+    return players[idxCurrentPlayer];
 }
 
 string Player::getName() const
@@ -150,10 +174,6 @@ void Player::makan()
     }
 }
 
-void Player::nextPlayer()
-{
-    currentPlayer = (currentPlayer + 1) % players.size();
-}
 
 void Player::buyItem(Toko &toko)
 {

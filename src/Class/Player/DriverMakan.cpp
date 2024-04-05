@@ -1,5 +1,5 @@
-// #include "Toko.hpp"
-// #include "Toko.cpp"
+#include "Toko.hpp"
+#include "Toko.cpp"
 
 #include "../Items/Item.hpp"
 #include "../Items/Item.cpp"

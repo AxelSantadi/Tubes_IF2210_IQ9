@@ -24,15 +24,13 @@ public:
     bool isEmpty() const;
 
     // Getter and Setter
-    void setValue(int x, char c, T value);
-    void removeValue(int x, char c);
+    virtual void setValue(int x, char c, T value);
+    virtual void removeValue(int x, char c);
     T getValue(int x, char c) const; 
     int getRows() const;
     char getCols() const;
     int countEmpty() const;
     int countNotEmpty() const; 
-
-
 
     // Methods
     virtual void print() const;

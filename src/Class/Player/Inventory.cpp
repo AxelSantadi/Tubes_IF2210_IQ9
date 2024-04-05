@@ -19,6 +19,89 @@ int Inventory::getJenisTiapItem(string c) const
     return count;
 }
 
+void Inventory::setValue(int x, char c, Item* value)
+{
+    try
+    {
+        if (x <= 0 || x > rows || c > cols || c < 'A')
+        {
+            throw outOfBoundException();
+        }
+        else if (isFull())
+        {
+            throw penyimpananPenuhExeption();
+        }
+        else
+        {
+            data[{x, c}] = value;
+        }
+    }
+    catch(outOfBoundException &e)
+    {
+        cerr << e.what() << endl << endl;
+    }
+    catch(penyimpananPenuhExeption &e)
+    {
+        cerr << e.what() <<  endl << endl;
+    }
+}
+
+void Inventory::removeValue(int x, char c)
+{
+    try
+    {
+        if (x <= 0 || x > rows || c > cols || c < 'A')
+        {
+            throw outOfBoundException();
+        }
+        else if (!isExist(x, c))
+        {
+            throw EmptyInventoryException();
+        }
+        else
+        {
+            data.erase({x, c});
+        }
+    }
+    catch(outOfBoundException &e)
+    {
+        cerr << e.what() << endl << endl;
+    }
+    catch(EmptyInventoryException &e)
+    {
+        cerr << e.what() << endl << endl;
+    }
+}
+
+void Inventory::setRandomValue(Item* item)
+{
+    try
+    {
+        if (isFull())
+        {
+            throw penyimpananPenuhExeption();
+        }
+        else
+        {
+            for (int i = 1; i <= getRows(); i++)
+            {
+                for (char j = 'A'; j <= getCols(); j++)
+                {
+                    if (!isExist(i, j))
+                    {
+                        setValue(i, j, item);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    catch(penyimpananPenuhExeption &e)
+    {
+        cerr << e.what() << endl << endl;
+    }
+}
+
 int Inventory::getJenisTiapItemNama(string c) const
 {
     int count = 0;
@@ -41,7 +124,7 @@ void Inventory::printInventory() const
     cout << "================[ Penyimpanan ]==================" << endl;
     print();
     cout << endl << endl;
-    // cout << "Total slot kosong : " << countEmpty() << endl;
+    cout << "Total slot kosong : " << countEmpty() << endl;
 }
 
 bool Inventory::noFood() const
