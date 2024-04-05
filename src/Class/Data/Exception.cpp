@@ -1,8 +1,15 @@
 #include "Exception.hpp"
 
+
+
+string FileNotOpen::what()
+{
+    return "Gagal membuka file.";
+}
+
 string EmptyInventoryException::what()
 {
-    return "Inventory kamu kosong.";
+    return "Penyimpanan kamu kosong.";
 }
 
 string SlotKosongException::what()
@@ -14,6 +21,13 @@ string outOfBoundException::what()
 {
     return "Kamu mencoba untuk mengakses indeks yang tidak ada.";
 }
+
+string noFoodInInventory::what()
+{
+    return "Tidak ada makanan di penyimpanan.";
+}
+
+
 
 string BukanMakananException::what()
 {

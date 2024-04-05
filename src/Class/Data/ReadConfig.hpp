@@ -24,6 +24,7 @@ private:
     vector<Product> product;
 
 public:
+    ReadConfig();
     ReadConfig(string pathName);
     void readMisc(string filename);
     void readAnimal(string filename);

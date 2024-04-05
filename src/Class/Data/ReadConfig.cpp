@@ -1,5 +1,7 @@
 #include "ReadConfig.hpp"
 
+ReadConfig::ReadConfig(){}
+
 ReadConfig::ReadConfig(string folderName)
 {
     string folder = "../../../config/" + folderName;
@@ -16,15 +18,15 @@ void ReadConfig::readMisc(string filename)
     ifstream file(filename);
     if (!file.is_open())
     {
-        cerr << "Gagal membuka file " << filename << endl;
+        throw FileNotOpen();
     }
 
     file >> duitMenang >> beratMenang >> n_inventory >> m_inventory >> n_lahan >> m_lahan >> n_peternakan >> m_peternakan;
 
     file.close();
-    pair<int, int> sizeInventory(n_inventory, m_inventory);
-    pair<int, int> sizeLahan(n_lahan, m_lahan);
-    pair<int, int> sizePeternakan(n_peternakan, m_peternakan);
+    pair<int, char> sizeInventory(n_inventory,'A' + m_inventory - 1);
+    pair<int, char> sizeLahan(n_lahan,'A' + m_lahan - 1);
+    pair<int, char> sizePeternakan(n_peternakan, 'A' + m_peternakan - 1);
     Misc x(duitMenang, beratMenang, sizeInventory, sizeLahan, sizePeternakan);
     misc = x;
 }
@@ -136,13 +138,4 @@ vector<Recipe> ReadConfig::getRecipe() const
 vector<Product> ReadConfig::getProduct() const
 {
     return product;
-}
-
-int main()
-{
-    ReadConfig rc("config1");
-    for (int i = 0; i < rc.getPlant().size(); i++)
-    {
-        rc.getPlant()[i].display();
-    }
 }

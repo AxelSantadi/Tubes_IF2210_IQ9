@@ -10,6 +10,12 @@ class Exception
         virtual string what() = 0;
 };
 
+class FileNotOpen : public Exception
+{
+    public :
+        string what() override;
+};
+
 class EmptyInventoryException : public Exception
 {
     public :
@@ -22,6 +28,12 @@ class SlotKosongException : public Exception
 };
 
 class outOfBoundException : public Exception
+{
+    public :
+        string what() override;
+};
+
+class noFoodInInventory : public Exception
 {
     public :
         string what() override;
@@ -68,6 +80,5 @@ class petakTerisiExeption : public Exception
     public :
         string what() override;
 };
-
 
 #endif

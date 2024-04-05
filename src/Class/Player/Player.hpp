@@ -7,6 +7,7 @@
 #include <typeinfo>
 #include "Inventory.hpp"
 #include "../Data/Exception.hpp"
+#include "../Data/Misc.hpp"
 #include "Toko.hpp"
 
 using namespace std;
@@ -27,6 +28,7 @@ protected:
 public:
     // Constructor
     Player(string name, int n, char m);
+    Player(string name, int n, char m, int weight, int money);
 
     // Destructor
     ~Player();
@@ -35,6 +37,7 @@ public:
     static void dealocatePlayer();
     static void nextPlayer();
     static Player* getCurrentPlayer();
+    static Player* getWinner(Misc m);
     
     // Getters
     string getName() const;

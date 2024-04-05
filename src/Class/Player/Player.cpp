@@ -8,6 +8,11 @@ Player::Player(string name, int n, char m) : name(name), weight(DEFAULT_WEIGHT),
     players.push_back(this);
 }
 
+Player::Player(string name, int n, char m, int weight, int money) : name(name), weight(weight), money(money), inventory(n, m)
+{
+    players.push_back(this);
+}
+
 Player::~Player()
 {
     cout << "Player " << name << " has been deleted" << endl;
@@ -30,6 +35,18 @@ void Player::nextPlayer()
 Player* Player::getCurrentPlayer()
 {
     return players[idxCurrentPlayer];
+}
+
+Player* Player::getWinner(Misc m)
+{
+    for (int i = 0; i < players.size(); i++)
+    {
+        if (players[i]->getWeight() >= m.getWinningWeight() && players[i]->getMoney() >= m.getWinningMoney())
+        {
+            return players[i];
+        }
+    }
+    return NULL;
 }
 
 string Player::getName() const
@@ -109,17 +126,20 @@ void Player::removeWeight(int weight)
 
 void Player::makan()
 {
-    cout << "Pilih makanan dari peyimpanan" << endl;
-    inventory.print();
     bool success = false;
     string slot;
-    if (inventory.isEmpty() || inventory.noFood())
+    if (inventory.isEmpty())
     {
-        cout << "Tidak ada makanan di penyimpanan" << endl;
-        return;
+        throw EmptyInventoryException();
+    }
+    else if (inventory.noFood())
+    {
+        throw noFoodInInventory();
     }
     else
     {
+        cout << "Pilih makanan dari peyimpanan" << endl;
+        inventory.print();
         while (!success)
         {
             try

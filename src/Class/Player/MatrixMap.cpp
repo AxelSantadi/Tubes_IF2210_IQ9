@@ -124,7 +124,15 @@ void MatrixMap<T>::print() const
     cout << "+" <<endl;
     for (int i = 1; i <= rows; i++)
     {
-        cout << " 0"<<i<<" |";
+        if (i < 10)
+        {
+            cout << " 0"<<i<<" |";
+        }
+        else
+        {
+            cout << " "<<i<<" |";
+        }
+        
         for (char j = 'A'; j <= cols; j++)
         {
             if (isExist(i, j))
