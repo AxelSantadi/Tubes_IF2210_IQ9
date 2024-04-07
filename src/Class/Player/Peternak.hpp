@@ -20,6 +20,9 @@ public:
     
     ~Peternak();
 
+    string getRole() const override;
+    void saveStatePlayer(ofstream &file) const override;
+    
     void ternak(const Peternak& p);
     void feedTernak();
     void panenTernak();

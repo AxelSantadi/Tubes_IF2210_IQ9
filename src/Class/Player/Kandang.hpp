@@ -5,7 +5,7 @@
 #include "MatrixMap.hpp"
 #include <string>
 #include <vector>
-#include "../Product/Animal.hpp"
+#include "../Items/Animal.hpp"
 using namespace std;
 
 class Kandang{

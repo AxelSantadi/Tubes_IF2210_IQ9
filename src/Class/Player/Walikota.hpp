@@ -9,6 +9,8 @@ class Walikota : public Player
 public:
     Walikota();
     ~Walikota();
+    string getRole() const override;
+    void saveStatePlayer(ofstream &file) const override;
     void removeBahan(string namaBahan, int jumlah);
     void buatBangunan();
     void jualBangunan();

@@ -24,6 +24,7 @@ Perintah::Perintah()
     cout << "Sekarang adalah giliran " << Player::getCurrentPlayer()->getName() << endl;
     while (!endGame)
     {
+        cout << "Masukkan perintah: ";
         cin >> perintah;
         if (perintah == "NEXT")
         {
@@ -172,8 +173,7 @@ void Perintah::muatState()
              << "Pilihan tidak valid, silahkan masukkan yang benar (y/n): ";
         cin >> pilihan;
     }
-    cout << endl
-         << endl;
+    cout << endl << endl;
     if (pilihan == "n" || pilihan == "N")
     {
         cout << "Anda memilih untuk memulai permainan baru." << endl;
@@ -260,6 +260,17 @@ void Perintah::PANEN()
 }
 void Perintah::SIMPAN()
 {
+    try
+    {
+        string path;
+        cout << "Masukkan Masukkan lokasi berkas state : ";
+        cin >> path;
+        Player::saveState(path);
+    }
+    catch(FileNotFound& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }
 void Perintah::TAMBAH_PEMAIN()
 {

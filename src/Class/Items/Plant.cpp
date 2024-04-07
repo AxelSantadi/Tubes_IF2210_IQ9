@@ -122,6 +122,10 @@ ostream& operator<<(ostream &os, const Plant &p)
     return os;
 }
 
+string Plant::operator*() const
+{
+    return code;
+}
 
 bool Plant::isUnlimited() const { return true;}
 

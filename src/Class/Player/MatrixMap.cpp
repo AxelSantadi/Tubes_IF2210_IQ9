@@ -32,6 +32,11 @@ bool MatrixMap<T>::isEmpty() const
 }
 
 template <typename T>
+map<pair<int, char>, T> MatrixMap<T>::getData() const
+{
+    return data;
+}
+template <typename T>
 void MatrixMap<T>::setValue(int x, char c, T value)
 {
     if (x <= 0 || x > rows || c > cols || c < 'A')

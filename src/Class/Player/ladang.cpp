@@ -1,6 +1,6 @@
 #include "ladang.hpp"
 
-Ladang::Ladang(int panjang, int lebar) : MatrixMap<Plant>(panjang,lebar){}
+Ladang::Ladang(int panjang, char lebar) : MatrixMap<Plant>(panjang,lebar){}
 
 void Ladang::cetakLadang(){
     cout << "================[ Ladang ]=================" << endl;

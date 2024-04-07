@@ -12,6 +12,31 @@ void Peternak::ternak(const Peternak& p){
     cout << "Belum" << endl;
 }
 
+string Peternak::getRole() const
+{
+    return "Peternak";
+}
+
+void Peternak::saveStatePlayer(ofstream &file) const
+{
+    Player::saveStatePlayer(file);
+    file << this->kandang.countNotEmpty() << endl;
+    for (auto it : this->kandang.getData())
+    {
+        file << it.first.second;
+        if (it.first.first >= 10)
+        {
+            file << it.first.first;
+        }
+        else
+        {
+            file << "0" << it.first.first;
+        }
+        file << " " << it.second.getName() << " " << "berat" << endl;
+    }
+}
+
+
 int Peternak::getPajak(){
     int total = 0;
 

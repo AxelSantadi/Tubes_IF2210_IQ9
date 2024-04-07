@@ -49,6 +49,38 @@ Player* Player::getWinner(Misc m)
     return NULL;
 }
 
+void Player::saveState(string path)
+{
+    ofstream file;
+    file.open(path);
+    if (file.is_open())
+    {
+        file << players.size() << endl;
+        for (int i = 0; i < players.size(); i++)
+        {
+            players[i]->saveStatePlayer(file);
+        }
+        file.close();
+    }
+    else
+    {
+        throw FileNotFound();
+    }
+}
+
+void Player::saveStatePlayer(ofstream &file) const
+{
+    // Playernya
+    file << this->name << " " << this->getRole() << " " << this->weight << " " << this->money << endl;
+    file << this->inventory.countNotEmpty() << endl;
+    
+    // Inventorynya
+    for (auto it : this->inventory.getData())
+    {
+        file << it.second->getName() << endl;
+    }
+}
+
 string Player::getName() const
 {
     return name;
@@ -72,6 +104,11 @@ Inventory Player::getInventory() const
 Item *Player::getItem(int i, char j) const
 {
     return inventory.getValue(i, j);
+}
+
+string Player::getRole() const
+{
+    return "Player";
 }
 
 void Player::setName(string name)

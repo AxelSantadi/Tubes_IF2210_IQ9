@@ -40,6 +40,7 @@ public:
     void output(ostream& os) override;
 
     friend ostream& operator<<(ostream& os, const Plant& p);
+    string operator*() const;
 
     // Determine stock in Toko
     bool isUnlimited() const override;

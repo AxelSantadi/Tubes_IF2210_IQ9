@@ -13,7 +13,7 @@ using namespace std;
 class Ladang : public MatrixMap<Plant>{
         
     public:
-        Ladang(int panjang, int lebar);
+        Ladang(int panjang, char lebar);
         void cetakLadang();
         unordered_map<string,int> countPanen();
         void cetakJenisTanaman();

@@ -4,13 +4,36 @@ using namespace std;
 
 Petani::Petani(string nama,int n , int m, int panjang , int lebar): Player(nama, n, m), ladang(panjang,lebar)
 {}
+
 Petani::~Petani(){
 
 }
 
-vector<Product> product = ReadConfig("config/product.csv").getProduct();
+string Petani::getRole() const
+{
+    return "Petani";
+}
 
-void Petani::tanam(){
+void Petani::saveStatePlayer(ofstream &file) const
+{
+    Player::saveStatePlayer(file);
+    file << this->ladang.countNotEmpty() << endl;
+    for (auto it : this->ladang.getData())
+    {
+        file << it.first.second;
+        if (it.first.first >= 10 )
+        {
+            file << it.first.first;
+        } 
+        else 
+        {
+            file << "0" << it.first.first;
+        } 
+        file << " " << it.second.getName() << " " << it.second.getUmur() << endl;
+    }
+}
+
+void Petani::tanam(vector<Product> product){
     // cetak inventory
     cout << "Pilih tanaman dari penyimpanan :" << endl;
 
@@ -76,7 +99,7 @@ void Petani::tanam(){
         
 }
 
-void Petani::panen()
+void Petani::panen(vector<Product> product)
 {
     // print ladang
     ladang.cetakLadang();
@@ -187,41 +210,41 @@ void Petani::panen()
     }  
 }
 
-int Petani::getPajak()
-{
-    int total = 0;
+// int Petani::getPajak()
+// {
+//     int total = 0;
 
-    for (int k = 0; k < resep.size(); k++) {
-        for (int i = 0; i < inventory.getRows(); i++) {
-            for (int j = 0; j < inventory.getCols(); j++) {
-                if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
-                    total += resep.at(k).getPrice();
-                }
-            }
-        }
-    }
+//     for (int k = 0; k < resep.size(); k++) {
+//         for (int i = 0; i < inventory.getRows(); i++) {
+//             for (int j = 0; j < inventory.getCols(); j++) {
+//                 if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
+//                     total += resep.at(k).getPrice();
+//                 }
+//             }
+//         }
+//     }
 
-    for (int i = 0; i < ladang.getRows(); i++) {
-        for (int j = 0; j < ladang.getCols(); j++) {
-            if (ladang.isExist(i, j)) {
-                total += ladang.getValue(i, j).getPrice();
-            }
-        }
-    }
+//     for (int i = 0; i < ladang.getRows(); i++) {
+//         for (int j = 0; j < ladang.getCols(); j++) {
+//             if (ladang.isExist(i, j)) {
+//                 total += ladang.getValue(i, j).getPrice();
+//             }
+//         }
+//     }
 
-    total += money;
+//     total += money;
 
-    if (total < 13) {
-        total = 0;
-    } else {
-        total -= 13;
-    }
+//     if (total < 13) {
+//         total = 0;
+//     } else {
+//         total -= 13;
+//     }
 
-    if (money <= total) {
-        money = 0;
-        return money;
-    } else {
-        money -= total;
-        return total;
-    }
-}
+//     if (money <= total) {
+//         money = 0;
+//         return money;
+//     } else {
+//         money -= total;
+//         return total;
+//     }
+// }

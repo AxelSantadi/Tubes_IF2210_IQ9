@@ -18,6 +18,15 @@ Walikota::Walikota() : w_storage(Inventory(getStorageSize().first, getStorageSiz
 
 Walikota::~Walikota() {}
 
+string Walikota::getRole() const {
+    return "Walikota";
+}
+
+void Walikota::saveStatePlayer(ofstream &file) const 
+{
+    Player::saveStatePlayer(file);
+}
+
 void Walikota::removeBahan(string namaBahan, int jumlah) {
     for (int i = 0; i < w_storage.getRows(); i++) {
         for (int j = 'A'; j < w_storage.getCols(); j++) {

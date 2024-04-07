@@ -24,6 +24,7 @@ public:
     bool isEmpty() const;
 
     // Getter and Setter
+    map<pair<int, char>, T> getData() const;
     virtual void setValue(int x, char c, T value);
     virtual void removeValue(int x, char c);
     T getValue(int x, char c) const; 

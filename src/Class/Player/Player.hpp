@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <typeinfo>
+#include <fstream>
 #include "Inventory.hpp"
 #include "../Data/Exception.hpp"
 #include "../Data/Misc.hpp"
@@ -39,12 +40,17 @@ public:
     static Player* getCurrentPlayer();
     static Player* getWinner(Misc m);
     
+    // Save State
+    static void saveState(string path);
+    virtual void saveStatePlayer(ofstream &file) const;
+
     // Getters
     string getName() const;
     int getWeight() const;
     int getMoney() const;
     Inventory getInventory() const;
     Item* getItem(int i, char j) const;
+    virtual string getRole() const; // nanti dibuat pure virtual
 
     // Setters
     void setName(string name);

@@ -1,6 +1,9 @@
 #include "Exception.hpp"
 
-
+string FileNotFound::what()
+{
+    return "Lokasi berkas tidak valid";
+}
 
 string FileNotOpen::what()
 {

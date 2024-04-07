@@ -10,6 +10,11 @@ class Exception
         virtual string what() = 0;
 };
 
+class FileNotFound : public Exception
+{
+    public :
+        string what() override;
+};
 class FileNotOpen : public Exception
 {
     public :

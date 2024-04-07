@@ -5,7 +5,7 @@
 #include "ladang.hpp"
 #include "Player.hpp"
 #include "../Data/ReadConfig.hpp"
-#include "../Data/Recipe.hpp"
+// #include "../Data/Recipe.hpp"
 
 using namespace std;
 
@@ -17,8 +17,11 @@ public:
     
     ~Petani();
 
-    void tanam();
-    void panen();
+    string getRole() const override;
+    void saveStatePlayer(ofstream &file) const override;
+    
+    void tanam(vector<Product> product);
+    void panen(vector<Product> product);
     void jual();
     void beli();
 
