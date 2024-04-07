@@ -166,6 +166,26 @@ void Perintah::readConfig()
 
 void Perintah::muatState()
 {
+    // Ambil Config
+    vector<Animal> animal = config.getAnimal();
+    vector<Plant> plant = config.getPlant();
+    vector<Product> product = config.getProduct();
+    vector<Recipe> recipe = config.getRecipe();
+    Misc misc = config.getMisc();
+
+    pair<int, char> sizeInventory = misc.getStorageSize();
+    pair<int, char> sizeLahan = misc.getFieldSize();
+    pair<int, char> sizePeternakan = misc.getFarmSize();
+
+    int n_inventory = sizeInventory.first;
+    char m_inventory = sizeInventory.second;
+
+    int n_lahan = sizeLahan.first;
+    char m_lahan = sizeLahan.second;
+
+    int n_peternakan = sizePeternakan.first;
+    char m_peternakan = sizePeternakan.second;
+
     string pilihan;
     cout << "Selamat datang di permainan ini!" << endl;
     cout << "Apakah Anda ingin memuat state? (y/n) ";
@@ -186,10 +206,13 @@ void Perintah::muatState()
         cout << "2. Username Peternak1 (peran : Peternak)" << endl;
         cout << "3. Username Walikota (peran : Walikota)" << endl;
         cout << "Pada awalnya, setiap pemain memiliki uang sebesar 50 gulden dan berat badan 40 kg" << endl;
-        Player *Petani1 = new Player("Petani1", config.getMisc().getStorageSize().first, config.getMisc().getStorageSize().second);
-        Player *Peternak1 = new Player("Peternak1", config.getMisc().getStorageSize().first, config.getMisc().getStorageSize().second);
-        Player *Walikota = new Player("Walikota", config.getMisc().getStorageSize().first, config.getMisc().getStorageSize().second);
+
+        // Inisialisasi Player yang default
+        Player *Petani1 = new Petani("Petani1", n_inventory, m_inventory, n_lahan, m_lahan);
+        // Player *Peternak1 = new Peternak("Peternak1", 40, 50, n_peternakan, m_peternakan);
+        // Player *Walikota = new Walikota(username, n_lahan, m_lahan, weight, money);
     }
+
     else
     {
         ifstream stateFile("state.txt");
@@ -198,26 +221,6 @@ void Perintah::muatState()
             cerr << "File tidak bisa dibuka.";
             exit(1);
         }
-
-        // Ambil Config
-        vector<Animal> animal = config.getAnimal();
-        vector<Plant> plant = config.getPlant();
-        vector<Product> product = config.getProduct();
-        vector<Recipe> recipe = config.getRecipe();
-        Misc misc = config.getMisc();
-
-        pair<int, char> sizeInventory = misc.getStorageSize();
-        pair<int, char> sizeLahan = misc.getFieldSize();
-        pair<int, char> sizePeternakan = misc.getFarmSize();
-
-        int n_inventory = sizeInventory.first;
-        char m_inventory = sizeInventory.second;
-
-        int n_lahan = sizeLahan.first;
-        char m_lahan = sizeLahan.second;
-
-        int n_peternakan = sizePeternakan.first;
-        char m_peternakan = sizePeternakan.second;
 
         // Ambil jumlah pemain
         int numPlayers;
@@ -242,11 +245,11 @@ void Perintah::muatState()
             Player *player;
             if (role == "Petani")
             {
-                //player = new Petani(username, n_inventory, m_inventory, n_lahan, m_lahan);
+                player = new Petani(username, n_inventory, m_inventory, n_lahan, m_lahan);
             }
             else if (role == "Peternak")
             {
-                // Player *player = new Peternak(username, weight, money, n_peternakan, m_peternakan, weight, money);
+                // Player *player = new Peternak(username, weight, money, n_peternakan, m_peternakan);
             }
             else if (role == "Walikota")
             {
@@ -268,6 +271,26 @@ void Perintah::muatState()
 
             int numSpecializedItems;
             stateFile >> numSpecializedItems;
+
+            if (role == "Petani")
+            {
+                for (int k = 0; k < numSpecializedItems; k++)
+                {
+                    string line2;
+                    getline(stateFile, line2);
+
+                    stringstream iss(line2);
+
+                    string slot,plantName;
+                    int agePlant;
+
+                    iss >> slot >> plantName >> agePlant;
+
+                    
+
+                }
+            }
+            // Looping untuk setiap item specialized
         }
     }
 }
