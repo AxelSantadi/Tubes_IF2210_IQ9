@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Petani::Petani(string nama,int n , int m, int panjang , int lebar): Player(nama, n, m), ladang(panjang,lebar)
+Petani::Petani(string nama,int n , char m, int panjang , char lebar): Player(nama, n, m), ladang(panjang,lebar)
 {}
 
 Petani::~Petani(){
@@ -12,6 +12,15 @@ Petani::~Petani(){
 string Petani::getRole() const
 {
     return "Petani";
+}
+
+void Petani::addTanaman(Plant plant, int i, char j)
+{
+    ladang.setValue(i, j, plant);
+}
+
+Ladang Petani::getLadang()const{
+    return ladang;
 }
 
 void Petani::saveStatePlayer(ofstream &file) const
@@ -33,11 +42,12 @@ void Petani::saveStatePlayer(ofstream &file) const
     }
 }
 
-void Petani::tanam(vector<Product> product){
+void Petani::tanam(){
     // cetak inventory
     cout << "Pilih tanaman dari penyimpanan :" << endl;
 
     inventory.printInventory();
+    cout << endl;
     try
     {
         cout << "Slot :" << endl;
@@ -81,7 +91,7 @@ void Petani::tanam(vector<Product> product){
                     throw petakTerisiExeption();
                 }
 
-                ladang.setValue(y,x,*plant);
+                addTanaman(*plant, y, x);
                 success = true;
             }
             catch(petakTerisiExeption e)
@@ -92,6 +102,7 @@ void Petani::tanam(vector<Product> product){
 
         cout << "Cangkul, cangkul, cangkul, yang dalam ~!" << endl;
         cout << plant->getName() << " berhasil ditanam " <<endl;
+        cout << endl;
 
     }catch(BukanTanamanExeption e){
         cerr << e.what() << endl;
@@ -166,7 +177,7 @@ void Petani::panen(vector<Product> product)
         }else if(code == "GAP"){
             idx = 7;
         }
-        Product p = product[idx];
+        Item * p = new Product(product[idx]);
 
         for (int i = 0 ; i < petak.size(); i++ )
         {
@@ -185,7 +196,7 @@ void Petani::panen(vector<Product> product)
                 {
                     if (!inventory.isExist(i,j))
                     {
-                        inventory.setValue(i,j,&p);
+                        addItem(p,i,j);
                         break;
                     }
                 }

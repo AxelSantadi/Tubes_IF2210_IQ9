@@ -3,10 +3,13 @@
 Ladang::Ladang(int panjang, char lebar) : MatrixMap<Plant>(panjang,lebar){}
 
 void Ladang::cetakLadang(){
+    cout << endl;
     cout << "================[ Ladang ]=================" << endl;
     print();
     cout << endl << endl;
 }
+
+
 
 unordered_map<string, int> Ladang::countPanen() {
     unordered_map<string, int> result;
@@ -17,7 +20,7 @@ unordered_map<string, int> Ladang::countPanen() {
         {
             if (isExist(i,j))
             {
-                if(getValue(i,j).getHarvestDuration() <= 0){
+                if(getValue(i,j).getUmur() >= getValue(i,j).getHarvestDuration()){
                     string code = getValue(i,j).getCode();
                     result[code]++;
                 }

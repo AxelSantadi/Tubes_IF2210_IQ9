@@ -13,14 +13,19 @@ class Petani : public Player{
 private:
     Ladang ladang;
 public:
-    Petani(string nama,int n, int m,int panjang,int lebar);
+    Petani(string nama,int n, char m,int panjang,char lebar);
     
     ~Petani();
 
     string getRole() const override;
     void saveStatePlayer(ofstream &file) const override;
     
-    void tanam(vector<Product> product);
+    void addTanaman(Plant plant , int i, char j);
+
+    Ladang getLadang() const;
+
+
+    void tanam();
     void panen(vector<Product> product);
     void jual();
     void beli();

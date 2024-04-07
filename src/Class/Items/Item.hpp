@@ -42,6 +42,7 @@ public:
     // Display item
     virtual void display();
     friend ostream &operator<<(ostream &os,const Item &i);
+    friend ostream &operator<<(ostream &os,const Item* i);
 
     // Determine Stock in Toko
     virtual bool isUnlimited() const;

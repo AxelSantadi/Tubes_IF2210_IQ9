@@ -140,4 +140,10 @@ ostream &operator<<(ostream &os, const Item &i)
     return os;
 }
 
+ostream &operator<<(ostream &os, const Item *i){
+    os << i->getCode();
+    return os;
+}
+
+
 bool Item::isUnlimited() const { return false; }

@@ -118,7 +118,7 @@ void Plant::output(ostream &os)
 
 ostream& operator<<(ostream &os, const Plant &p)
 {
-    os << p.code;
+    os << p.getCode();
     return os;
 }
 
