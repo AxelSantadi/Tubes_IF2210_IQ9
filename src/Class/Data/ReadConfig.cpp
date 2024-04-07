@@ -1,6 +1,6 @@
 #include "ReadConfig.hpp"
 
-ReadConfig::ReadConfig(){}
+ReadConfig::ReadConfig() {}
 
 ReadConfig::ReadConfig(string folderName)
 {
@@ -24,8 +24,8 @@ void ReadConfig::readMisc(string filename)
     file >> duitMenang >> beratMenang >> n_inventory >> m_inventory >> n_lahan >> m_lahan >> n_peternakan >> m_peternakan;
 
     file.close();
-    pair<int, char> sizeInventory(n_inventory,'A' + m_inventory - 1);
-    pair<int, char> sizeLahan(n_lahan,'A' + m_lahan - 1);
+    pair<int, char> sizeInventory(n_inventory, 'A' + m_inventory - 1);
+    pair<int, char> sizeLahan(n_lahan, 'A' + m_lahan - 1);
     pair<int, char> sizePeternakan(n_peternakan, 'A' + m_peternakan - 1);
     Misc x(duitMenang, beratMenang, sizeInventory, sizeLahan, sizePeternakan);
     misc = x;
@@ -110,9 +110,7 @@ void ReadConfig::readProduct(string filename)
             Product p(id, code, name, type, origin, added_weight, price);
             product.push_back(p);
         }
-        
     }
-    
 }
 
 Misc ReadConfig::getMisc() const
@@ -138,4 +136,48 @@ vector<Recipe> ReadConfig::getRecipe() const
 vector<Product> ReadConfig::getProduct() const
 {
     return product;
+}
+
+Item *ReadConfig::createItem(string itemName) const
+{
+    // Iterate over animals
+    for (const auto &a : animal)
+    {
+        if (a.getName() == itemName)
+        {
+            return new Animal(a.getId(), a.getCode(), a.getName(), a.getType(), a.getWeightToHarvest(), a.getPrice());
+        }
+    }
+
+    // Iterate over plants
+    for (const auto &p : plant)
+    {
+        if (p.getName() == itemName)
+        {
+            // Replace with the correct constructor for Plant
+            return new Plant(p.getId(), p.getCode(), p.getName(), p.getType(), p.getHarvestDuration(), p.getPrice());
+        }
+    }
+
+    // Iterate over products
+    for (const auto &p : product)
+    {
+        if (p.getName() == itemName)
+        {
+            // Replace with the correct constructor for Product
+            return new Product(p.getId(), p.getCode(), p.getName(), p.getType(), p.getOrigin(), p.getAddedWeight(), p.getPrice());
+        }
+    }
+
+    // Iterate over recipes
+
+    /*for (const auto& r : recipe) {
+        if (r.getName() == itemName) {
+            // Replace with the correct constructor for Recipe
+            return new Recipe( parameters);
+        }
+    } */
+
+    // If no match found, return null
+    return nullptr;
 }

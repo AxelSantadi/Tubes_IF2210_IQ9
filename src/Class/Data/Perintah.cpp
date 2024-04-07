@@ -18,7 +18,8 @@ Perintah::Perintah()
 
     // Alur 3
     cout << "Urutan giliran permainan berdasarkan urutan leksikografis dari username pemain." << endl;
-    cout << "Selamat bermain!" << endl << endl;
+    cout << "Selamat bermain!" << endl
+         << endl;
 
     // Alur 4
     cout << "Sekarang adalah giliran " << Player::getCurrentPlayer()->getName() << endl;
@@ -147,10 +148,12 @@ void Perintah::readConfig()
     {
         try
         {
-            cout << endl << "Masukkan config yang ingin di-load (config harus terdapat pada folder config): ";
+            cout << endl
+                 << "Masukkan config yang ingin di-load (config harus terdapat pada folder config): ";
             cin >> folderName;
             config = ReadConfig(folderName);
-            cout << "Config berhasil di-load" << endl << endl;
+            cout << "Config berhasil di-load" << endl
+                 << endl;
             valid = true;
         }
         catch (FileNotOpen &e)
@@ -173,7 +176,8 @@ void Perintah::muatState()
              << "Pilihan tidak valid, silahkan masukkan yang benar (y/n): ";
         cin >> pilihan;
     }
-    cout << endl << endl;
+    cout << endl
+         << endl;
     if (pilihan == "n" || pilihan == "N")
     {
         cout << "Anda memilih untuk memulai permainan baru." << endl;
@@ -188,7 +192,83 @@ void Perintah::muatState()
     }
     else
     {
-        // chris
+        ifstream stateFile("state.txt");
+        if (!stateFile)
+        {
+            cerr << "File tidak bisa dibuka.";
+            exit(1);
+        }
+
+        // Ambil Config
+        vector<Animal> animal = config.getAnimal();
+        vector<Plant> plant = config.getPlant();
+        vector<Product> product = config.getProduct();
+        vector<Recipe> recipe = config.getRecipe();
+        Misc misc = config.getMisc();
+
+        pair<int, char> sizeInventory = misc.getStorageSize();
+        pair<int, char> sizeLahan = misc.getFieldSize();
+        pair<int, char> sizePeternakan = misc.getFarmSize();
+
+        int n_inventory = sizeInventory.first;
+        char m_inventory = sizeInventory.second;
+
+        int n_lahan = sizeLahan.first;
+        char m_lahan = sizeLahan.second;
+
+        int n_peternakan = sizePeternakan.first;
+        char m_peternakan = sizePeternakan.second;
+
+        // Ambil jumlah pemain
+        int numPlayers;
+        stateFile >> numPlayers;
+
+        // Looping untuk setiap pemain
+        for (int i = 0; i < numPlayers; i++)
+        {
+            // Baca data pemain
+            string line;
+            getline(stateFile, line);
+
+            stringstream ss(line);
+
+            // Atribut pemain
+            string username, role;
+            double weight;
+            int money;
+
+            ss >> username >> role >> weight >> money;
+
+            Player *player;
+            if (role == "Petani")
+            {
+                player = new Petani(username, n_inventory, m_inventory, n_lahan, m_lahan);
+            }
+            else if (role == "Peternak")
+            {
+                // Player *player = new Peternak(username, weight, money, n_peternakan, m_peternakan, weight, money);
+            }
+            else if (role == "Walikota")
+            {
+                // Player *player = new Walikota(username, n_lahan, m_lahan, weight, money);
+            }
+
+            // Baca banyak inventory
+            int numItems;
+            stateFile >> numItems;
+
+            // Looping untuk setiap item terus set ke inventory nya si player
+            for (int j = 0; j < numItems; j++)
+            {
+                string itemName;
+                stateFile >> itemName;
+                Item *item = config.createItem(itemName);
+                player->getInventory().setRandomValue(item);
+            }
+
+            int numSpecializedItems;
+            stateFile >> numSpecializedItems;
+        }
     }
 }
 
@@ -235,15 +315,15 @@ void Perintah::MAKAN()
     {
         Player::getCurrentPlayer()->makan();
     }
-    catch(noFoodInInventory &e)
+    catch (noFoodInInventory &e)
     {
         std::cerr << e.what() << '\n';
     }
-    catch(EmptyInventoryException &e)
+    catch (EmptyInventoryException &e)
     {
         std::cerr << e.what() << '\n';
     }
-    
+
     cout << endl;
 }
 void Perintah::KASIH_MAKAN()
@@ -267,7 +347,7 @@ void Perintah::SIMPAN()
         cin >> path;
         Player::saveState(path);
     }
-    catch(FileNotFound& e)
+    catch (FileNotFound &e)
     {
         std::cerr << e.what() << '\n';
     }

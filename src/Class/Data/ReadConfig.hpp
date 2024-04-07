@@ -37,6 +37,7 @@ public:
     vector<Plant> getPlant() const;
     vector<Recipe> getRecipe() const;
     vector<Product> getProduct() const;
+    Item *ReadConfig::createItem(string itemName) const;
 };
 
 #endif
