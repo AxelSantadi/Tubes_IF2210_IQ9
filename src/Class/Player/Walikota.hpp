@@ -9,6 +9,7 @@ class Walikota : public Player
 public:
     Walikota();
     ~Walikota();
+    void removeBahan(string namaBahan, int jumlah);
     void buatBangunan();
     void jualBangunan();
     float tagihPajak();

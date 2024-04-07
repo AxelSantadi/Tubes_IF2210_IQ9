@@ -9,7 +9,7 @@
 #include "../Data/ReadConfig.hpp"
 #include "../Data/ReadConfig.cpp"
 
-using namespace std;
+
 
 Walikota::Walikota() : w_storage(Inventory(getStorageSize().first, getStorageSize().second)) {
     this->Berat_badan = 40;
@@ -17,6 +17,17 @@ Walikota::Walikota() : w_storage(Inventory(getStorageSize().first, getStorageSiz
 }
 
 Walikota::~Walikota() {}
+
+void Walikota::removeBahan(string namaBahan, int jumlah) {
+    for (int i = 0; i < w_storage.getRows(); i++) {
+        for (int j = 'A'; j < w_storage.getCols(); j++) {
+            if (w_storage.getValue(i, j)->getName() == namaBahan) {
+                w_storage.removeValue(i, j);
+                jumlah--;
+            }
+        }
+    }
+}
 
 void Walikota::buatBangunan() {
     if (w_storage.isFull()) {
@@ -43,23 +54,20 @@ void Walikota::buatBangunan() {
             }
         }
 
+        for (int i = 0; i < resep.size(); i++) {
+            if (resep.at(i).getName() == a) {
+                for (int j = 0; j < resep.at(i).namaMaterial.size(); j++) {
+                    removeBahan(resep.at(i).getNamaMaterial(j), resep.at(i).getJumlahMaterialNeeded(j));
+                }
+            }
+        }
+
         
         cout << a << " berhasil dibangun dan telah menjadi hak milik walikota!" << endl;
     }
 }
 
-void Walikota::jualBangunan() {
-    cout << "Berikut merupakan penyimpanan Anda" << endl;
-    w_storage.print();
-    int a;
-    cout << "Ada berapa bangunan yang ingin dijual: ";
-    cin >> a;
-    
-    for (int i = 0; i < a; i++) {
-        cout << "Silahkan pilih petak yang ingin Anda jual!" << endl << "Petak: ";
-        cin >> 
-    }
-}
+void Walikota::jualBangunan() {}
 
 float Walikota::tagihPajak() {
     float total;
