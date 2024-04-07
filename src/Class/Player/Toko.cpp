@@ -13,6 +13,15 @@ Toko::Toko(const vector<Animal*> &animals, const vector<Plant*> &plants)
     }
 }
 
+void Toko::saveStatetoko(ofstream &file)
+{
+    file << items.size() << endl;
+    for (const auto &pair : items)
+    {
+        file << pair.first << " " << pair.second.second << endl;
+    }
+}
+
 void Toko::addItemToko(Item* item)
 {
     auto it = items.find(item->getName());

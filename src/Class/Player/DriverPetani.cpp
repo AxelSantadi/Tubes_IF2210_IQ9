@@ -40,12 +40,12 @@ int main (){
         
         petani->getInventory().printInventory();
 
-        petani->getInventory().setValue(1,'A',plant1);
-        petani->getInventory().setValue(1,'B',plant2);
-        petani->getInventory().setValue(2,'C',plant3);
-        petani->getInventory().setValue(3,'D',plant4);
-        petani->getInventory().setValue(4,'E',plant5);
-        petani->getInventory().setValue(5,'F',plant6);
+        petani->addItem(plant1, 1, 'A');
+        petani->addItem(plant2, 1, 'B');
+        petani->addItem(plant3, 1, 'C');
+        petani->addItem(plant4, 2, 'A');
+        petani->addItem(plant5, 2, 'B');
+        petani->addItem(plant6, 2, 'C');
 
         petani->getInventory().printInventory();
     return 0;

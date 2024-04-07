@@ -44,7 +44,7 @@ int main()
     Inventory inventory(3, 'A');
     
     // Create a Player object
-    Player petani("Player1", DEFAULT_WEIGHT, DEFAULT_MONEY); // Player starts with default weight and money
+    Player petani("Player1", 4, 'D'); // Player starts with default weight and money
     Product* product1 = new Product(7, "MAK", "product1","","" , 50, 5);
 
 

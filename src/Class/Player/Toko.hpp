@@ -8,6 +8,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <fstream>
 using namespace std;
 
 class Toko
@@ -21,6 +22,7 @@ public:
     // Constructor
     Toko(const vector<Animal*> &animals, const vector<Plant*> &plants);
 
+    void saveStatetoko(ofstream &file);   
     // Add and Remove Item
     void addItemToko(Item* item);
     void removeItemToko(const std::string &itemName);
