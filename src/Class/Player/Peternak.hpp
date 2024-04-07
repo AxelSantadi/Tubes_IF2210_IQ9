@@ -25,7 +25,7 @@ public:
     void panenTernak();
     void jualTernak();
 
-
+    int getPajak();
 
 };
 

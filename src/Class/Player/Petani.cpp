@@ -1,4 +1,8 @@
 #include "Petani.hpp"
+#include "../Items/Animal.hpp"
+#include "../Items/Plant.hpp"
+#include "../Data/Recipe.hpp"
+
 using namespace std;
 Petani::Petani(string nama, int Berat_badan, int w_gulden, int panjang , int lebar): Player(nama, Berat_badan, w_gulden), ladang(panjang,lebar)
 {}
@@ -133,4 +137,43 @@ void Petani::panen()
     }catch(penyimpananPenuhExeption e){
         cerr << e.what() << endl;
     }  
+}
+
+int Petani::getPajak()
+{
+    int total = 0;
+
+    for (int k = 0; k < resep.size(); k++) {
+        for (int i = 0; i < inventory.getRows(); i++) {
+            for (int j = 0; j < inventory.getCols(); j++) {
+                if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
+                    total += resep.at(k).getPrice();
+                }
+            }
+        }
+    }
+
+    for (int i = 0; i < panjang; i++) {
+        for (int j = 0; j < lebar; j++) {
+            if (ladang.isExist(i, j)) {
+                total += ladang.getValue(i, j).getPrice();
+            }
+        }
+    }
+
+    total += money;
+
+    if (total < 13) {
+        total = 0;
+    } else {
+        total -= 13;
+    }
+
+    if (money <= total) {
+        money = 0;
+        return money;
+    } else {
+        money -= total;
+        return total;
+    }
 }

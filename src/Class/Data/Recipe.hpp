@@ -18,7 +18,7 @@ public:
     3 LRH LARGE_HOUSE 90 TEAK_WOOD 2 ALOE_WOOD 1 IRONWOOD_WOOD 1
     4 HTL HOTEL 150 TEAK_WOOD 3 ALOE_WOOD 4 IRONWOOD_WOOD 4 SANDAL_WOOD 2
     */
-   Recipe(int id, string code, string name, int price, vector<string> namaMaterial, vector<int> jumlahMaterialNeeded);
+    Recipe(int id, string code, string name, int price, vector<string> namaMaterial, vector<int> jumlahMaterialNeeded);
     
     bool cekResep(string name);
     /*Resep bangunan yang ada adalah sebagai berikut.
@@ -27,12 +27,25 @@ public:
         3. LARGE_HOUSE (90 gulden, teak wood 2, aloe wood 1, ironwood wood 1)
         4. HOTEL (150 gulden, teak wood 3, aloe wood 4, ironwood wood 4, sandal wood 2)
     */
-
-    void printBangunan();
-
-    
+    void printBangunan(int i);
     void selisihBahan(string name, Inventory w_storage);
-    
+
+    void setID(int id);
+    void setCode(string code);
+    void setName(string name);
+    void setPrice(int price);
+    void setNamaMaterial(vector<string> namaMaterial);
+    void setSatuNamaMaterial(string namaMaterial);
+    void setJumlahMaterialNeeded(vector<int> jumlahMaterialNeeded);
+    void setSatuJumlahMaterialNeeded(int jumlahMaterialNeeded);
+
+    int getID();
+    string getCode();
+    string getName();
+    int getPrice();
+    string getNamaMaterial(int idx);
+    int getJumlahMaterialNeeded(int idx);
+
 private:
     int id;
     string code;
@@ -40,6 +53,7 @@ private:
     int price;
     vector<string> namaMaterial;
     vector<int> jumlahMaterialNeeded;
+    
 };
 
 #endif

@@ -10,9 +10,10 @@ using namespace std;
 
 class Kandang{
     private:
-        MatrixMap<Animal> kandang;
         vector<Animal> listTanaman;
     public:
+        MatrixMap<Animal> kandang;
+        
         Kandang(int panjang, int lebar);
         void cetakKandang();
         vector<Animal> getListTanaman();

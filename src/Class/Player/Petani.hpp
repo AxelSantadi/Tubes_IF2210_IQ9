@@ -23,6 +23,8 @@ public:
     void panen();
     void jual();
     void beli();
+
+    int getPajak();
 };
 
 #endif
