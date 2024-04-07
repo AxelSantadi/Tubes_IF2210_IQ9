@@ -1,13 +1,16 @@
 #include "Petani.hpp"
-#include "../Items/Animal.hpp"
-#include "../Items/Plant.hpp"
-#include "../Data/Recipe.hpp"
 
 using namespace std;
-Petani::Petani(string nama, int Berat_badan, int w_gulden, int panjang , int lebar): Player(nama, Berat_badan, w_gulden), ladang(panjang,lebar)
-{}
 
-void Petani::tanam(const Petani& p){
+Petani::Petani(string nama,int n , int m, int panjang , int lebar): Player(nama, n, m), ladang(panjang,lebar)
+{}
+Petani::~Petani(){
+
+}
+
+vector<Product> product = ReadConfig("config/product.csv").getProduct();
+
+void Petani::tanam(){
     // cetak inventory
     cout << "Pilih tanaman dari penyimpanan :" << endl;
 
@@ -22,13 +25,12 @@ void Petani::tanam(const Petani& p){
         a = slot[0];
         slot = slot.substr(1, slot.length()-1);
         b = stoi(slot);
-        if (!inventory.isExist(b,a) || !dynamic_cast<Plant*>(&inventory.getValue(b,a)))
+        if (!inventory.isExist(b,a) || !dynamic_cast<Plant*>(inventory.getValue(b,a)))
         {
             throw BukanTanamanExeption();
         }
-        Plant* plant = dynamic_cast<Plant*>(&inventory.getValue(b,a));
-
-        // pilih barang dari inventory
+        Plant* plant = dynamic_cast<Plant*>(inventory.getValue(b,a));
+        inventory.removeValue(b,a);
 
         cout << "Kamu memilih" << plant->getName() << endl;
         // pilih posisi tanam
@@ -78,10 +80,10 @@ void Petani::panen()
 {
     // print ladang
     ladang.cetakLadang();
-    
+    cout << endl;
     // print isi ladang
     ladang.cetakJenisTanaman();
-    
+    cout << endl;
     // pilih panen
     cout << "Pilih tanaman siap panen yang kamu miliki " << endl;
     int i = 1 ; // indeks pilihan
@@ -102,11 +104,12 @@ void Petani::panen()
             throw salahPanenExeption();
         }
 
+        // menyimpan kode tanaman dan jumlah tanaman yang siap panen
         pair<string,int> pilihan_panen = pilihan[a];
         string code = pilihan_panen.first;
         int jumlah = pilihan_panen.second;
         
-
+        // input jumlah tanaman yang ingin dipanen
         int b;
         cout << "Berapa petak yang ingin dipanen: ";
         cin >> b;
@@ -120,6 +123,51 @@ void Petani::panen()
         
         vector<string> petak;
         petak = ladang.ambilPanen(code,b);
+
+        // Merubah tanaman yang dipanen menjadi product
+        int idx;
+        if(code == "TAW"){
+            idx = 0;
+        }else if(code == "SAW"){
+            idx = 1;
+        }else if(code == "ALW"){
+            idx = 2;
+        }else if(code == "IRW"){
+            idx = 3;
+        }else if(code == "APP"){
+            idx = 4;
+        }else if(code == "ORP"){
+            idx = 5;
+        }else if(code == "BNP"){
+            idx = 6;
+        }else if(code == "GAP"){
+            idx = 7;
+        }
+        Product p = product[idx];
+
+        for (int i = 0 ; i < petak.size(); i++ )
+        {
+            string koordinat;
+            koordinat = petak[i];
+            char a;
+            int b;
+            a = koordinat[0];
+            koordinat = koordinat.substr(1, koordinat.length()-1);
+            b = stoi(koordinat);
+
+
+            for (int i = 0; i < inventory.getRows(); i++)
+            {
+                for (char j = 'A'; j <= inventory.getCols(); j++)
+                {
+                    if (!inventory.isExist(i,j))
+                    {
+                        inventory.setValue(i,j,&p);
+                        break;
+                    }
+                }
+            }
+        }
         
         cout << b << "petak tanaman "<< code << " pada petak ";
         for (int i = 0; i < petak.size(); i++)
@@ -153,8 +201,8 @@ int Petani::getPajak()
         }
     }
 
-    for (int i = 0; i < panjang; i++) {
-        for (int j = 0; j < lebar; j++) {
+    for (int i = 0; i < ladang.getRows(); i++) {
+        for (int j = 0; j < ladang.getCols(); j++) {
             if (ladang.isExist(i, j)) {
                 total += ladang.getValue(i, j).getPrice();
             }

@@ -63,3 +63,8 @@ string petakTerisiExeption::what()
 {
     return "Petak sudah terisi.";
 }
+
+string belumPanenExeption::what()
+{
+    return "Tanaman belum siap panen.";
+}

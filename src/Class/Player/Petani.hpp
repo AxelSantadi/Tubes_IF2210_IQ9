@@ -4,22 +4,20 @@
 #include <iostream>
 #include "ladang.hpp"
 #include "Player.hpp"
+#include "../Data/ReadConfig.hpp"
+#include "../Data/Recipe.hpp"
 
 using namespace std;
 
 class Petani : public Player{
 private:
     Ladang ladang;
-    int panjang;
-    int lebar;
 public:
-    Petani(string nama);
-
-    Petani(string nama,int Berat_badan, int w_gulden,int panjang,int lebar);
+    Petani(string nama,int n, int m,int panjang,int lebar);
     
     ~Petani();
 
-    void tanam(const Petani& p);
+    void tanam();
     void panen();
     void jual();
     void beli();

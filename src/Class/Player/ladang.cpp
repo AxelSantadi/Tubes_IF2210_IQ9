@@ -17,8 +17,10 @@ unordered_map<string, int> Ladang::countPanen() {
         {
             if (isExist(i,j))
             {
-                string code = getValue(i,j).getCode();
-                result[code]++;
+                if(getValue(i,j).getHarvestDuration() <= 0){
+                    string code = getValue(i,j).getCode();
+                    result[code]++;
+                }
             }
         }
     }
@@ -62,6 +64,10 @@ vector<string> Ladang::ambilPanen(string code, int n){
             b = stoi(slot);
             if (isExist(b,a) && getValue(b,a).getCode() == code)
             {
+                if (getValue(b,a).getUmur() < getValue(b,a).getHarvestDuration())
+                {
+                    throw belumPanenExeption();
+                }
                 removeValue(b,a);
                 n--;
                 i++;
@@ -73,7 +79,10 @@ vector<string> Ladang::ambilPanen(string code, int n){
         }catch(salahPetakExeption e)
         {
             cerr << e.what() << endl;
-        }  
+        }catch(belumPanenExeption e)
+        {
+            cerr << e.what() << endl;
+        }
     }
     return result;
 }
@@ -85,15 +94,8 @@ void Ladang::tambahUmur(){
         {
             if (isExist(i,j))
             {
-                getValue(i,j).setHarvestDuration(getValue(i,j).getHarvestDuration() - 1);
+                getValue(i,j).setUmur(getValue(i,j).getUmur() + 1);
             }
         }
     }
 }
-
-
-
-
-
-
-

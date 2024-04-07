@@ -81,4 +81,10 @@ class petakTerisiExeption : public Exception
         string what() override;
 };
 
+class belumPanenExeption : public Exception
+{
+    public :
+        string what() override;
+};
+
 #endif
