@@ -16,6 +16,7 @@ public:
     void jualBangunan();
     float tagihPajak();
     void tambahPemain();
+    void wMakan();
 private:
     int Berat_badan;
     int w_gulden;

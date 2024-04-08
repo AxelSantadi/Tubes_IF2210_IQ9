@@ -1,0 +1,64 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/mnt/c/Users/Axel Santadi/Documents/Cool_Yeah/Tingkat_2/Semester_4/OOP/Tubes/Tubes_IF2210_IQ9'
+mkdir -p obj/Class/Data
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Data/DriverPerintah.cpp -o obj/Class/Data/DriverPerintah.o
+mkdir -p obj/Class/Data
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Data/Exception.cpp -o obj/Class/Data/Exception.o
+mkdir -p obj/Class/Data
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Data/Misc.cpp -o obj/Class/Data/Misc.o
+mkdir -p obj/Class/Data
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Data/Perintah.cpp -o obj/Class/Data/Perintah.o
+mkdir -p obj/Class/Data
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Data/ReadConfig.cpp -o obj/Class/Data/ReadConfig.o
+mkdir -p obj/Class/Data
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Data/Recipe.cpp -o obj/Class/Data/Recipe.o
+mkdir -p obj/Class/Items
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Items/Animal.cpp -o obj/Class/Items/Animal.o
+mkdir -p obj/Class/Items
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Items/Driveranimal.cpp -o obj/Class/Items/Driveranimal.o
+mkdir -p obj/Class/Items
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Items/Driveritem.cpp -o obj/Class/Items/Driveritem.o
+mkdir -p obj/Class/Items
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Items/Driverplant.cpp -o obj/Class/Items/Driverplant.o
+mkdir -p obj/Class/Items
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Items/Driverproduct.cpp -o obj/Class/Items/Driverproduct.o
+mkdir -p obj/Class/Items
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Items/Item.cpp -o obj/Class/Items/Item.o
+mkdir -p obj/Class/Items
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Items/Plant.cpp -o obj/Class/Items/Plant.o
+mkdir -p obj/Class/Items
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Items/Product.cpp -o obj/Class/Items/Product.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/DriverInventory.cpp -o obj/Class/Player/DriverInventory.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/DriverLadang.cpp -o obj/Class/Player/DriverLadang.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/DriverMakan.cpp -o obj/Class/Player/DriverMakan.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/DriverPetani.cpp -o obj/Class/Player/DriverPetani.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/DriverSave.cpp -o obj/Class/Player/DriverSave.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/DriverToko.cpp -o obj/Class/Player/DriverToko.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/DriverTurnPlayer.cpp -o obj/Class/Player/DriverTurnPlayer.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/Inventory.cpp -o obj/Class/Player/Inventory.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/Kandang.cpp -o obj/Class/Player/Kandang.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/MatrixMap.cpp -o obj/Class/Player/MatrixMap.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/Petani.cpp -o obj/Class/Player/Petani.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/Peternak.cpp -o obj/Class/Player/Peternak.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/Player.cpp -o obj/Class/Player/Player.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/Toko.cpp -o obj/Class/Player/Toko.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/Walikota.cpp -o obj/Class/Player/Walikota.o
+mkdir -p obj/Class/Player
+g++ -Wall -std=c++11 -Isrc/Class/Data/ -Isrc/Class/Items/ -Isrc/Class/Player/ -c src/Class/Player/ladang.cpp -o obj/Class/Player/ladang.o
+make: Leaving directory '/mnt/c/Users/Axel Santadi/Documents/Cool_Yeah/Tingkat_2/Semester_4/OOP/Tubes/Tubes_IF2210_IQ9'
+ 
