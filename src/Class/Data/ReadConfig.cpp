@@ -181,3 +181,17 @@ Item *ReadConfig::createItem(string itemName) const
     // If no match found, return null
     return nullptr;
 }
+
+Plant ReadConfig::createItemPlant(string itemName) const
+{
+    for (const auto &p : plant)
+    {
+        if (p.getName() == itemName)
+        {
+            return Plant(p.getId(), p.getCode(), p.getName(), p.getType(), p.getHarvestDuration(), p.getPrice());
+        }
+    }
+
+    // If no match found, return a default Plant object
+    return Plant();
+}

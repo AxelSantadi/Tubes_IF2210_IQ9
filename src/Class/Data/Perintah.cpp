@@ -167,10 +167,6 @@ void Perintah::readConfig()
 void Perintah::muatState()
 {
     // Ambil Config
-    vector<Animal> animal = config.getAnimal();
-    vector<Plant> plant = config.getPlant();
-    vector<Product> product = config.getProduct();
-    vector<Recipe> recipe = config.getRecipe();
     Misc misc = config.getMisc();
 
     pair<int, char> sizeInventory = misc.getStorageSize();
@@ -281,16 +277,24 @@ void Perintah::muatState()
 
                     stringstream iss(line2);
 
-                    string slot,plantName;
+                    string slot, plantName;
                     int agePlant;
 
                     iss >> slot >> plantName >> agePlant;
 
-                    
+                    Plant plant = config.createItemPlant(plantName);
+                    plant.setUmur(agePlant);
 
+                    int row = slot[1] - '0';
+                    char col = slot[0];
+
+                    Petani *petani = dynamic_cast<Petani *>(player);
+                    if (petani)
+                    {
+                        petani->addTanaman(plant, row, col);
+                    }
                 }
             }
-            // Looping untuk setiap item specialized
         }
     }
 }

@@ -38,6 +38,7 @@ public:
     vector<Recipe> getRecipe() const;
     vector<Product> getProduct() const;
     Item *createItem(string itemName) const;
+    Plant createItemPlant(string itemName) const;
 };
 
 #endif
