@@ -7,10 +7,7 @@
 #include "../Data/ReadConfig.cpp"
 
 
-Walikota::Walikota() : w_storage(Inventory(misc.getStorageSize().first, misc.getStorageSize().second)) {
-    this->Berat_badan = 40;
-    this->w_gulden = 50;
-}
+Walikota::Walikota(Misc m) : Player("Walikota", m.getStorageSize().first, m.getStorageSize().second) {}
 
 Walikota::~Walikota() {}
 
@@ -24,18 +21,18 @@ void Walikota::saveStatePlayer(ofstream &file) const
 }
 
 void Walikota::removeBahan(string namaBahan, int jumlah) {
-    for (int i = 0; i < w_storage.getRows(); i++) {
-        for (int j = 'A'; j < w_storage.getCols(); j++) {
-            if (w_storage.getValue(i, j)->getName() == namaBahan) {
-                w_storage.removeValue(i, j);
+    for (int i = 0; i < inventory.getRows(); i++) {
+        for (int j = 'A'; j < inventory.getCols(); j++) {
+            if (inventory.getValue(i, j)->getName() == namaBahan) {
+                inventory.removeValue(i, j);
                 jumlah--;
             }
         }
     }
 }
 
-void Walikota::buatBangunan() {
-    if (w_storage.isFull()) {
+void Walikota::buatBangunan(Misc m, vector<Recipe> resep) {
+    if (inventory.isFull()) {
         cout << "Bangunan sudah penuh!" << endl;
         return;
     } else {
@@ -58,7 +55,7 @@ void Walikota::buatBangunan() {
 
         if (adaResep) {
             for (int j = 0; j < resep.at(idx).getNamaMaterialWhole().size(); j++) {
-                if (w_storage.getJenisTiapItem(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
+                if (inventory.getJenisTiapItem(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
                     adaBahan = false;
                 }
             }
@@ -79,7 +76,7 @@ void Walikota::buatBangunan() {
                 cin >> a;
             } else if (!adaBahan){
                 cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
-                resep.at(idx).selisihBahan(a, w_storage);
+                resep.at(idx).selisihBahan(a, inventory);
                 cout << "!" << endl << endl;
                 adaResep = false;
                 adaBahan = true;
@@ -96,7 +93,7 @@ void Walikota::buatBangunan() {
 
             if (adaResep) {
                 for (int j = 0; j < resep.at(idx).getNamaMaterialWhole().size(); j++) {
-                    if (w_storage.getJenisTiapItem(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
+                    if (inventory.getJenisTiapItem(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
                         adaBahan = false;
                     }
                 }
@@ -123,14 +120,14 @@ float Walikota::tagihPajak() {
         cout << i+1 << ". " << players.at(i)->getName() << " - " << getRole() << ": " << players.at(i)->getPajak() << "Gulden" << endl;
         total += getPajak();
     }
-    w_gulden += total;
+    money += total;
     cout << "Negara mendapatkan pemasukkan sebesar " << total << " gulden." << endl << "Gunakan dengan baik dan jangan dikorupsi ya!" << endl;
 }
 
-void Walikota::tambahPemain() {
+void Walikota::tambahPemain(Misc misc) {
     string jenis_pemain;
     string nama_pemain;
-    if (w_gulden < 50) {
+    if (money < 50) {
         cout << "Uang tidak cukup";
     } else {
         cout << "Masukkan jenis pemain (petani / peternak): ";
@@ -147,13 +144,13 @@ void Walikota::tambahPemain() {
             Peternak a(nama_pemain, 40, 50, misc.getFarmSize().first, misc.getFarmSize().second);
             ar = &a;
             players.push_back(ar);
-            w_gulden -= 50;
+            money -= 50;
         } else if (jenis_pemain == "petani" || jenis_pemain == "Petani") {
             Petani *ar;
             Petani a(nama_pemain, 40, 50, misc.getFarmSize().first, misc.getFarmSize().second);
             ar = &a;
             players.push_back(ar);
-            w_gulden -= 50;
+            money -= 50;
         }
 
         cout << "Pemain baru ditambahkan!" << endl << 'Selamat datang "' << nama_pemain << '" di kota ini!' << endl;
@@ -163,18 +160,18 @@ void Walikota::tambahPemain() {
 void Walikota::wMakan() {
     bool success = false;
     string slot;
-    if (w_storage.isEmpty())
+    if (inventory.isEmpty())
     {
         throw EmptyInventoryException();
     }
-    else if (w_storage.noFood())
+    else if (inventory.noFood())
     {
         throw noFoodInInventory();
     }
     else
     {
         cout << "Pilih makanan dari peyimpanan" << endl;
-        w_storage.print();
+        inventory.print();
         while (!success)
         {
             try
@@ -183,10 +180,10 @@ void Walikota::wMakan() {
                 cin >> slot;
                 char col = slot[0];
                 int row = stoi(slot.substr(1));
-                cout << w_storage.getRows() << " " << row << " " << w_storage.getCols() << " " << col << endl;
-                if (w_storage.isExist(row, col))
+                cout << inventory.getRows() << " " << row << " " << inventory.getCols() << " " << col << endl;
+                if (inventory.isExist(row, col))
                 {
-                    Item *p = w_storage.getValue(row, col);
+                    Item *p = inventory.getValue(row, col);
                     if (p->isMakanan())
                     {
                         addWeight(p->getAddedWeight());
@@ -201,7 +198,7 @@ void Walikota::wMakan() {
                         throw BukanMakananException();
                     }
                 }
-                else if (w_storage.getRows() < row || 1 < row || w_storage.getCols() < col || 'A' < col)
+                else if (inventory.getRows() < row || 1 < row || inventory.getCols() < col || 'A' < col)
                 {
                     throw outOfBoundException();
                 }

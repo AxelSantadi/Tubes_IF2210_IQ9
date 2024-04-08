@@ -9,20 +9,13 @@ using namespace std;
 class Walikota : public Player
 {
 public:
-    Walikota();
+    Walikota(Misc m);
     ~Walikota();
     string getRole() const override;
     void saveStatePlayer(ofstream &file) const override;
     void removeBahan(string namaBahan, int jumlah);
-    void buatBangunan();
+    void buatBangunan(Misc m, vector<Recipe> resep);
     float tagihPajak();
-    void tambahPemain();
+    void tambahPemain(Misc misc);
     void wMakan();
-private:
-    int Berat_badan;
-    int w_gulden;
-    Inventory w_storage;
-
-    Misc misc;
-    vector<Recipe> resep;
 };
