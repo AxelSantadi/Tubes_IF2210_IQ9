@@ -105,16 +105,24 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
     }
 }
 
-void Walikota::tagihPajak(vector<Recipe> resep) {
+int Walikota::getPajak(vector<Recipe> resep) {
     float total;
     cout << "Cring cring cring..." << endl << "Pajak sudah dipungut!" << endl << endl;
     cout << "Berikut adalah detil dari pemungutan pajak:" << endl;
     for (int i = 0; i < players.size(); i++) {
-        cout << i+1 << ". " << players.at(i)->getName() << " - " << getRole() << ": " << players.at(i)->getPajak(resep) << "Gulden" << endl;
-        total += getPajak(resep);
+        if (players.at(i)->getRole() == "Walikota") {
+            continue;
+        } else {
+            cout << i+1 << ". " << players.at(i)->getName() << " - " << getRole() << ": " << players.at(i)->getPajak(resep) << "Gulden" << endl;
+            total += getPajak(resep);
+        }
     }
-    money += total;
     cout << "Negara mendapatkan pemasukkan sebesar " << total << " gulden." << endl << "Gunakan dengan baik dan jangan dikorupsi ya!" << endl;
+    return total;
+}
+
+void Walikota::dapatPajak(vector<Recipe> resep) {
+    money += getPajak(resep);
 }
 
 void Walikota::tambahPemain(Misc misc) {

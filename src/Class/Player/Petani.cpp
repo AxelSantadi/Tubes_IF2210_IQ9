@@ -264,6 +264,18 @@ int Petani::getPajak(vector<Recipe> resep) {
         total -= 13;
     }
 
+    if (total <= 6) {
+        total = total * 5 / 100;
+    } else if (total > 6 && total <= 25) {
+        total = total * 15 / 100;
+    } else if (total > 25 && total <= 50) {
+        total = total * 25 / 100;
+    } else if (total > 50 && total <= 500){
+        total = total * 30 / 100;
+    } else {
+        total = total * 35 / 100;
+    }
+
     if (money <= total) {
         money = 0;
         return money;

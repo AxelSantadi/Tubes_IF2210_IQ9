@@ -5,7 +5,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "Bangunan.hpp"
 #include "../Player/Inventory.hpp"
 #include "../Player/Inventory.cpp"
 
