@@ -2,8 +2,10 @@
 #define PETERNAK_HPP
 
 #include <iostream>
-#include "Kandang.cpp"
-#include "Player.cpp"
+#include "Kandang.hpp"
+#include "Player.hpp"
+#include "../Data/ReadConfig.hpp"
+
 
 using namespace std;
 
@@ -11,21 +13,21 @@ class Peternak : public Player{
     
 private:
     Kandang kandang;
-    int panjang;
-    int lebar;
 
 public:
 
-    Peternak(string nama, int Berat_badan, int w_gulden, int panjang, int lebar);
+    Peternak(string nama,int n, char m,int panjang,char lebar);
     
     ~Peternak();
 
     string getRole() const override;
     void saveStatePlayer(ofstream &file) const override;
+
+    void addTernak(Animal animal , int i, char j);
     
-    void ternak(const Peternak& p);
+    void ternak();
     void feedTernak();
-    void panenTernak();
+    void panenTernak(vector<Product> product);
     void jualTernak();
 
     int getPajak();

@@ -21,6 +21,9 @@ public:
     string getType() const;
     void setType(string t);
 
+    int getBerat() const;
+    void setBerat(int b);
+
     int getWeightToHarvest() const;
     void setWeightToHarvest(int w);
 
@@ -49,6 +52,7 @@ private:
 
     string type;
     int weightToHarvest;
+    int berat;
 };
 
 class Herbivore : public Animal
@@ -71,53 +75,6 @@ public:
 };
 
 
-class Cow : public Herbivore
-{
-public:
-    Cow(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
-        : Herbivore(id, code, name, weightToHarvest, price) {}
-};
 
-class Sheep : public Herbivore
-{
-public:
-    Sheep(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
-        : Herbivore(id, code, name, weightToHarvest, price) {}
-};
-
-class Horse : public Herbivore
-{
-public:
-    Horse(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
-        : Herbivore(id, code, name, weightToHarvest, price) {}
-};
-
-class Rabbit : public Herbivore
-{
-public:
-    Rabbit(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
-        : Herbivore(id, code, name, weightToHarvest, price) {}
-};
-
-class Snake : public Carnivore
-{
-public:
-    Snake(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
-        : Carnivore(id, code, name, weightToHarvest, price) {}
-};
-
-class chicken : public Omnivore
-{
-public:
-    chicken(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
-        : Omnivore(id, code, name, weightToHarvest, price) {}
-};
-
-class duck : public Omnivore
-{
-public:
-    duck(int id, const std::string &code, const std::string &name, int weightToHarvest, int price)
-        : Omnivore(id, code, name, weightToHarvest, price) {}
-};
 
 #endif // ANIMAL_HPP

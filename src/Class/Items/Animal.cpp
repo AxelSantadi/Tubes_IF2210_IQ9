@@ -14,6 +14,7 @@ Animal::Animal(int id, string code, string name, string type, int weightToHarves
 {
     this->type = type;
     this->weightToHarvest = weightToHarvest;
+    this->berat = 0;
 
     Animal::numOfAnimal++;
 }
@@ -51,7 +52,26 @@ void Animal::setWeightToHarvest(int w)
     weightToHarvest = w;
 }
 
+int Animal::getBerat() const
+{
+    return berat;
+}
+
+void Animal::setBerat(int b)
+{
+    berat = b;
+}
+
+
 int Animal::getAddedWeight() const { return 0; }
+
+Animal &Animal::operator=(const Animal &a)
+{
+    Item::operator=(a);
+    this->type = a.type;
+    this->weightToHarvest = a.weightToHarvest;
+    return *this;
+}
 
 Animal &Animal::operator+=(int x)
 {

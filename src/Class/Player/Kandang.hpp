@@ -4,19 +4,19 @@
 #include <iostream>
 #include "MatrixMap.hpp"
 #include <string>
+#include <unordered_map>
 #include <vector>
 #include "../Items/Animal.hpp"
+#include "../Data/Exception.hpp"
 using namespace std;
 
-class Kandang{
-    private:
-        vector<Animal> listTanaman;
-    public:
-        MatrixMap<Animal> kandang;
+class Kandang : public MatrixMap<Animal>{
         
-        Kandang(int panjang, int lebar);
+    public:
+        Kandang(int panjang, char lebar);
         void cetakKandang();
-        vector<Animal> getListTanaman();
+        unordered_map<string,int> countPanen();
+        void cetakJenisHewan();
+        vector<string> ambilPanen(string code, int n);
 };
-
 #endif

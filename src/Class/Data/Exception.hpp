@@ -50,6 +50,12 @@ class BukanMakananException : public Exception
         string what() override;
 };
 
+class BukanHewanException : public Exception
+{
+    public :
+        string what() override;
+};
+
 class BukanTanamanExeption : public Exception
 {
     public :

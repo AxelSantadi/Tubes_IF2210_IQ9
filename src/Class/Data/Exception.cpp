@@ -37,6 +37,11 @@ string BukanMakananException::what()
     return "Apa yang kamu lakukan\?\?!! Kamu mencoba untuk memakan itu?!!";
 }
 
+string BukanHewanException::what()
+{
+    return "Kamu mencoba untuk memelihara sesuatu yang bukan hewan.";
+}
+
 string BukanTanamanExeption::what()
 {
     return "Kamu mencoba untuk menanam sesuatu yang bukan tanaman.";
