@@ -5,7 +5,7 @@
 #include "ladang.hpp"
 #include "Player.hpp"
 #include "../Data/ReadConfig.hpp"
-// #include "../Data/Recipe.hpp"
+#include "../Data/Recipe.hpp"
 
 using namespace std;
 
@@ -30,7 +30,7 @@ public:
     void jual();
     void beli();
 
-    // int getPajak();
+    int getPajak(vector<Recipe> resep) override;
 };
 
 #endif

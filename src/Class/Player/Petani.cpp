@@ -235,41 +235,40 @@ void Petani::panen(vector<Product> product)
     }  
 }
 
-// int Petani::getPajak()
-// {
-//     int total = 0;
+int Petani::getPajak(vector<Recipe> resep) {
+    int total = 0;
 
-//     for (int k = 0; k < resep.size(); k++) {
-//         for (int i = 0; i < inventory.getRows(); i++) {
-//             for (int j = 0; j < inventory.getCols(); j++) {
-//                 if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
-//                     total += resep.at(k).getPrice();
-//                 }
-//             }
-//         }
-//     }
+    for (int k = 0; k < resep.size(); k++) {
+        for (int i = 0; i < inventory.getRows(); i++) {
+            for (int j = 0; j < inventory.getCols(); j++) {
+                if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
+                    total += resep.at(k).getPrice();
+                }
+            }
+        }
+    }
 
-//     for (int i = 0; i < ladang.getRows(); i++) {
-//         for (int j = 0; j < ladang.getCols(); j++) {
-//             if (ladang.isExist(i, j)) {
-//                 total += ladang.getValue(i, j).getPrice();
-//             }
-//         }
-//     }
+    for (int i = 0; i < ladang.getRows(); i++) {
+        for (int j = 0; j < ladang.getCols(); j++) {
+            if (ladang.isExist(i, j)) {
+                total += ladang.getValue(i, j).getPrice();
+            }
+        }
+    }
 
-//     total += money;
+    total += money;
 
-//     if (total < 13) {
-//         total = 0;
-//     } else {
-//         total -= 13;
-//     }
+    if (total < 13) {
+        total = 0;
+    } else {
+        total -= 13;
+    }
 
-//     if (money <= total) {
-//         money = 0;
-//         return money;
-//     } else {
-//         money -= total;
-//         return total;
-//     }
-// }
+    if (money <= total) {
+        money = 0;
+        return money;
+    } else {
+        money -= total;
+        return total;
+    }
+}

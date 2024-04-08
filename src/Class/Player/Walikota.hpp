@@ -21,7 +21,7 @@ public:
     void saveStatePlayer(ofstream &file) const override;
     void removeBahan(string namaBahan, int jumlah);
     void buatBangunan(vector<Recipe> resep);
-    void tagihPajak();
+    void tagihPajak(vector<Recipe> resep);
     void tambahPemain(Misc misc);
 };
 

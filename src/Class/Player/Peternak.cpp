@@ -306,43 +306,40 @@ void Peternak::panenTernak(vector<Product> product){
         
 }   
 
+int Peternak::getPajak(vector<Recipe> resep){
+    int total = 0;
 
+    for (int k = 0; k < resep.size(); k++) {
+        for (int i = 0; i < inventory.getRows(); i++) {
+            for (int j = 0; j < inventory.getCols(); j++) {
+                if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
+                    total += resep.at(k).getPrice();
+                }
+            }
+        }
+    }
 
+    for (int i = 0; i < kandang.getRows(); i++) {
+        for (int j = 0; j < kandang.getCols(); j++) {
+            if (kandang.isExist(i, j)) {
+                total += kandang.getValue(i, j).getPrice();
+            }
+        }
+    }
 
-// int Peternak::getPajak(){
-//     int total = 0;
+    total += money;
 
-//     for (int k = 0; k < resep.size(); k++) {
-//         for (int i = 0; i < inventory.getRows(); i++) {
-//             for (int j = 0; j < inventory.getCols(); j++) {
-//                 if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
-//                     total += resep.at(k).getPrice();
-//                 }
-//             }
-//         }
-//     }
+    if (total < 11) {
+        total = 0;
+    } else {
+        total -= 11;
+    }
 
-//     for (int i = 0; i < panjang; i++) {
-//         for (int j = 0; j < lebar; j++) {
-//             if (kandang.isExist(i, j)) {
-//                 total += kandang.getValue(i, j).getPrice();
-//             }
-//         }
-//     }
-
-//     total += money;
-
-//     if (total < 11) {
-//         total = 0;
-//     } else {
-//         total -= 11;
-//     }
-
-//     if (money <= total) {
-//         money = 0;
-//         return money;
-//     } else {
-//         money -= total;
-//         return total;
-//     }
-// }
+    if (money <= total) {
+        money = 0;
+        return money;
+    } else {
+        money -= total;
+        return total;
+    }
+}

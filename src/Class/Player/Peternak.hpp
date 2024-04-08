@@ -30,7 +30,7 @@ public:
     void panenTernak(vector<Product> product);
     void jualTernak();
 
-    int getPajak();
+    int getPajak(vector<Recipe> resep) override;
 
 };
 
