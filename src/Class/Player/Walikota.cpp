@@ -24,7 +24,7 @@ void Walikota::removeBahan(string namaBahan, int jumlah) {
     }
 }
 
-void Walikota::buatBangunan(Misc m, vector<Recipe> resep) {
+void Walikota::buatBangunan(vector<Recipe> resep) {
     if (inventory.isFull()) {
         cout << "Bangunan sudah penuh!" << endl;
         return;
@@ -105,7 +105,7 @@ void Walikota::buatBangunan(Misc m, vector<Recipe> resep) {
     }
 }
 
-float Walikota::tagihPajak() {
+void Walikota::tagihPajak() {
     float total;
     cout << "Cring cring cring..." << endl << "Pajak sudah dipungut!" << endl << endl;
     cout << "Berikut adalah detil dari pemungutan pajak:" << endl;
@@ -146,6 +146,6 @@ void Walikota::tambahPemain(Misc misc) {
             money -= 50;
         }
 
-        cout << "Pemain baru ditambahkan!" << endl << 'Selamat datang "' << nama_pemain << '" di kota ini!' << endl;
+        cout << "Pemain baru ditambahkan!" << endl << "Selamat datang" << '"' << nama_pemain << '"' << "di kota ini!" << endl;
     }
 }

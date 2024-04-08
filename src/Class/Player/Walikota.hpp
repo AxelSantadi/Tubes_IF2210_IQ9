@@ -20,8 +20,8 @@ public:
     string getRole() const override;
     void saveStatePlayer(ofstream &file) const override;
     void removeBahan(string namaBahan, int jumlah);
-    void buatBangunan(Misc m, vector<Recipe> resep);
-    float tagihPajak();
+    void buatBangunan(vector<Recipe> resep);
+    void tagihPajak();
     void tambahPemain(Misc misc);
 };
 
