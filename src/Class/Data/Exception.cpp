@@ -76,3 +76,8 @@ string belumPanenExeption::what()
 {
     return "Tanaman belum siap panen.";
 }
+
+string bukanPetaniExeption::what()
+{
+    return "Kamu bukan petani.";
+}

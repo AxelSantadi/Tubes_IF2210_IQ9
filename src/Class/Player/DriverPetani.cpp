@@ -38,9 +38,9 @@ int main (){
         Item * plant6 = new Plant(2, "GAP", "Grape", "Fruit Tree", 10, 2000);
         Item * plant7 = new Plant(2, "GAP", "Grape", "Fruit Tree", 0, 2000);
         Item * plant8 = new Plant(2, "GAP", "Grape", "Fruit Tree", 0, 2000);
+        Item * plant9 = new Plant(2, "GAP", "Grape", "Fruit Tree", 0, 2000);
+        Item * plant10 = new Plant(2, "GAP", "Grape", "Fruit Tree", 0, 2000);
 
-        Plant plant9(2, "GAP", "Grape", "Fruit Tree", 10, 2000);
-        
 
         Petani* petani = new Petani("Jokowi", 5, 'F',5,'F');
         
@@ -52,6 +52,8 @@ int main (){
         petani->addItem(plant6,2,'C');
         petani->addItem(plant7,3,'D');
         petani->addItem(plant8,4,'D');
+        petani->addItem(plant8,5,'D');
+        petani->addItem(plant8,1,'D');
 
         petani->tanam();
         petani->tanam();

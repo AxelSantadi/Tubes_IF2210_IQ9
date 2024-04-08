@@ -64,8 +64,6 @@ void Petani::tanam(){
             throw BukanTanamanExeption();
         }
         Plant* plant = dynamic_cast<Plant*>(inventory.getValue(b,a));
-        inventory.removeValue(b,a);
-
         cout << "Kamu memilih" << plant->getName() << endl;
         // pilih posisi tanam
         cout << "Pilih petak tanah yang akan ditanami ";
@@ -90,12 +88,19 @@ void Petani::tanam(){
                 if(ladang.isExist(y,x))
                 {
                     throw petakTerisiExeption();
+                }else if (y < 1 || y >= ladang.getRows() || x < 'A' || x >= ladang.getCols())
+                {
+                    throw salahPetakExeption();
                 }
-
+                inventory.removeValue(b,a);
                 addTanaman(*plant, y, x);
                 success = true;
             }
             catch(petakTerisiExeption e)
+            {
+                cerr << e.what() << endl;
+            }
+            catch(salahPetakExeption e)
             {
                 cerr << e.what() << endl;
             }
@@ -183,38 +188,15 @@ void Petani::panen(vector<Product> product)
         }
         Item * p = new Product(product[idx]);
 
-        for (int i = 0 ; i < petak.size(); i++ )
+        // menyimpan hasil panen ke inventory
+        int n = b;
+        while (n > 0)
         {
-            string koordinat;
-            koordinat = petak[i];
-            char a;
-            int b;
-            a = koordinat[0];
-            koordinat = koordinat.substr(1, koordinat.length()-1);
-            b = stoi(koordinat);
-            int n = 0;
-            while(n < b){
-                for (int i = 1; i < inventory.getRows(); i++)
-                {
-                    for (char j = 'A'; j <= inventory.getCols(); j++)
-                    {
-                        if(n == b){
-                            break;
-                        }
-                        if (!inventory.isExist(i,j))
-                        {
-                            addItem(p,i,j);
-                            n++;
-                            break;
-                        }
-                    }
-                    if(n == b){
-                        break;
-                    }
-                }
-            }
-            
-        }
+            cout << n << endl;
+            inventory.setRandomValue(p);
+            n--;
+        } 
+
         
         cout << b << " petak tanaman "<< code << " pada petak ";
         for (int i = 0; i < petak.size(); i++)
@@ -233,6 +215,11 @@ void Petani::panen(vector<Product> product)
     }catch(penyimpananPenuhExeption e){
         cerr << e.what() << endl;
     }  
+}
+
+void Petani::nextDay()
+{
+    ladang.nextUmur();
 }
 
 int Petani::getPajak(vector<Recipe> resep) {

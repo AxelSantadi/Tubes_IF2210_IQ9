@@ -98,4 +98,10 @@ class belumPanenExeption : public Exception
         string what() override;
 };
 
+class bukanPetaniExeption : public Exception
+{
+    public :
+        string what() override;
+};
+
 #endif

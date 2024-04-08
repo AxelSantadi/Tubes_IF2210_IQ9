@@ -27,8 +27,8 @@ public:
 
     void tanam();
     void panen(vector<Product> product);
-    void jual();
-    void beli();
+    
+    void nextDay();
 
     int getPajak(vector<Recipe> resep) override;
 };
