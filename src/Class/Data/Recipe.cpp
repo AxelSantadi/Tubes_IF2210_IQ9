@@ -1,11 +1,7 @@
 #include "Recipe.hpp"
 #include "ReadConfig.hpp"
 
-Recipe::Recipe(int id, string code, string name, int price, vector<string> namaMaterial, vector<int> jumlahMaterialNeeded) {
-    this->id = id;
-    this->code = code;
-    this->name = name;
-    this->price = price;
+Recipe::Recipe(int id, string code, string name, int price, vector<string> namaMaterial, vector<int> jumlahMaterialNeeded) : Bangunan(id, code, name, price) {
     this->namaMaterial = namaMaterial;
     this->jumlahMaterialNeeded = jumlahMaterialNeeded;
 }
@@ -44,22 +40,6 @@ void Recipe::selisihBahan(string name, Inventory w_storage) {
     }
 }
 
-void Recipe::setID(int id) {
-    this->id = id;
-}
-
-void Recipe::setCode(string code) {
-    this->code = code;
-}
-
-void Recipe::setName(string name) {
-    this->name = name;
-}
-
-void Recipe::setPrice(int price) {
-    this->price = price;
-}
-
 void Recipe::setNamaMaterial(vector<string> namaMaterial) {
     this->namaMaterial = namaMaterial;
 }
@@ -96,6 +76,14 @@ string Recipe::getNamaMaterial(int idx) {
     return namaMaterial[idx];
 }
 
+vector<string> Recipe::getNamaMaterialWhole() {
+    return namaMaterial;
+}
+
 int Recipe::getJumlahMaterialNeeded(int idx) {
     return jumlahMaterialNeeded[idx];
+}
+
+vector<int> Recipe::getJumlahMaterialNeededWhole() {
+    return jumlahMaterialNeeded;
 }

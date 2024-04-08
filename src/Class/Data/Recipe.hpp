@@ -5,12 +5,13 @@
 #include <string>
 #include <map>
 #include <vector>
+#include "Bangunan.hpp"
 #include "../Player/Inventory.hpp"
 #include "../Player/Inventory.cpp"
 
 using namespace std;
 
-class Recipe {
+class Recipe : public Bangunan{
 public:
     /*
     1 SMH SMALL_HOUSE 50 TEAK_WOOD 1 SANDAL_WOOD 1
@@ -30,10 +31,6 @@ public:
     void printBangunan(int i);
     void selisihBahan(string name, Inventory w_storage);
 
-    void setID(int id);
-    void setCode(string code);
-    void setName(string name);
-    void setPrice(int price);
     void setNamaMaterial(vector<string> namaMaterial);
     void setSatuNamaMaterial(string namaMaterial);
     void setJumlahMaterialNeeded(vector<int> jumlahMaterialNeeded);
@@ -43,17 +40,14 @@ public:
     string getCode();
     string getName();
     int getPrice();
+    vector<string> getNamaMaterialWhole();
     string getNamaMaterial(int idx);
+    vector<int> getJumlahMaterialNeededWhole();
     int getJumlahMaterialNeeded(int idx);
 
 private:
-    int id;
-    string code;
-    string name;
-    int price;
     vector<string> namaMaterial;
     vector<int> jumlahMaterialNeeded;
-    
 };
 
 #endif

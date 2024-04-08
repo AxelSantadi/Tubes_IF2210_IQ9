@@ -1,14 +1,13 @@
 #include <iostream>
 #include "Walikota.hpp"
 #include "Inventory.hpp"
-#include "../Data/Misc.hpp"
 #include "Peternak.hpp"
 #include "Petani.hpp"
-#include "Player.hpp"
 #include "../Data/ReadConfig.hpp"
+#include "../Data/ReadConfig.cpp"
 
 
-Walikota::Walikota() : w_storage(Inventory(getMisc().getStorageSize().first, getMisc().getStorageSize().second)) {
+Walikota::Walikota() : w_storage(Inventory(misc.getStorageSize().first, misc.getStorageSize().second)) {
     this->Berat_badan = 40;
     this->w_gulden = 50;
 }
@@ -42,24 +41,24 @@ void Walikota::buatBangunan() {
     } else {
         cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
         int idx;
-        for (int i = 0; i < getRecipe().size(); i++) {
-            getRecipe().at(i).printBangunan(i+1);
+        for (int i = 0; i < resep.size(); i++) {
+            resep.at(i).printBangunan(i+1);
         }
         string a;
         cout << "Bangunan yang ingin dibangun (bisa ketik 'Batal' untuk membatalkan): ";
         cin >> a;
         bool adaResep = false, adaBahan = true;
 
-        for (int i = 0; i < getRecipe().size(); i++) {
-            if (getRecipe().at(i).getName() == a) {
+        for (int i = 0; i < resep.size(); i++) {
+            if (resep.at(i).getName() == a) {
                 adaResep = true;
                 idx = i;
             }
         }
 
         if (adaResep) {
-            for (int j = 0; j < getRecipe().at(idx).namaMaterial.size(); j++) {
-                if (w_storage.getJenisTiapItem(getRecipe().at(idx).getNamaMaterial(j)) < getRecipe().at(idx).getJumlahMaterialNeeded(j)) {
+            for (int j = 0; j < resep.at(idx).getNamaMaterialWhole().size(); j++) {
+                if (w_storage.getJenisTiapItem(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
                     adaBahan = false;
                 }
             }
@@ -73,39 +72,41 @@ void Walikota::buatBangunan() {
                 cout << "Kamu tidak punya resep bangunan tersebut!";
                 adaResep = false;
                 adaBahan = true;
-                for (int i = 0; i < getRecipe().size(); i++) {
-                    getRecipe().at(i).printBangunan(i+1);
+                for (int i = 0; i < resep.size(); i++) {
+                    resep.at(i).printBangunan(i+1);
                 }
                 cout << "Bangunan yang ingin dibangun: ";
                 cin >> a;
             } else if (!adaBahan){
-                cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan " << getRecipe().at(idx).selisihBahan(a, w_storage) << "!" << endl << endl;
+                cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
+                resep.at(idx).selisihBahan(a, w_storage);
+                cout << "!" << endl << endl;
                 adaResep = false;
                 adaBahan = true;
                 cout << "Bangunan yang ingin dibangun: ";
                 cin >> a;
             }
 
-            for (int i = 0; i < getRecipe().size(); i++) {
-                if (getRecipe().at(i).getName() == a) {
+            for (int i = 0; i < resep.size(); i++) {
+                if (resep.at(i).getName() == a) {
                     adaResep = true;
                     idx = i;
                 }
             }
 
             if (adaResep) {
-                for (int j = 0; j < getRecipe().at(idx).namaMaterial.size(); j++) {
-                    if (w_storage.getJenisTiapItem(getRecipe().at(idx).getNamaMaterial(j)) < getRecipe().at(idx).getJumlahMaterialNeeded(j)) {
+                for (int j = 0; j < resep.at(idx).getNamaMaterialWhole().size(); j++) {
+                    if (w_storage.getJenisTiapItem(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
                         adaBahan = false;
                     }
                 }
             }
         }
 
-        for (int i = 0; i < getRecipe().size(); i++) {
-            if (getRecipe().at(i).getName() == a) {
-                for (int j = 0; j < getRecipe().at(i).namaMaterial.size(); j++) {
-                    removeBahan(getRecipe().at(i).getNamaMaterial(j), getRecipe().at(i).getJumlahMaterialNeeded(j));
+        for (int i = 0; i < resep.size(); i++) {
+            if (resep.at(i).getName() == a) {
+                for (int j = 0; j < resep.at(i).getNamaMaterialWhole().size(); j++) {
+                    removeBahan(resep.at(i).getNamaMaterial(j), resep.at(i).getJumlahMaterialNeeded(j));
                 }
             }
         }
@@ -113,8 +114,6 @@ void Walikota::buatBangunan() {
         cout << a << " berhasil dibangun dan telah menjadi hak milik walikota!" << endl;
     }
 }
-
-void Walikota::jualBangunan() {}
 
 float Walikota::tagihPajak() {
     float total;
@@ -144,12 +143,16 @@ void Walikota::tambahPemain() {
         cin >> nama_pemain;
 
         if (jenis_pemain == "peternak" || jenis_pemain == "Peternak") {
-            Peternak a(nama_pemain, 40, 50, getMisc().getFarmSize().first, getMisc().getFarmSize().second);
-            players.push_back(a);
+            Peternak *ar;
+            Peternak a(nama_pemain, 40, 50, misc.getFarmSize().first, misc.getFarmSize().second);
+            ar = &a;
+            players.push_back(ar);
             w_gulden -= 50;
         } else if (jenis_pemain == "petani" || jenis_pemain == "Petani") {
-            Petani a(nama_pemain);
-            players.push_back(a);
+            Petani *ar;
+            Petani a(nama_pemain, 40, 50, misc.getFarmSize().first, misc.getFarmSize().second);
+            ar = &a;
+            players.push_back(ar);
             w_gulden -= 50;
         }
 
