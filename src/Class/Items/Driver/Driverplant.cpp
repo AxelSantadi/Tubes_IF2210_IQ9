@@ -1,4 +1,8 @@
-#include "Plant.hpp"
+#include "../Plant.hpp"
+#include "../Plant.cpp"
+#include "../Item.hpp"
+#include "../Item.cpp"
+
 #include <iostream>
 
 int main() {

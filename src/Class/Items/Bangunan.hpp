@@ -1,6 +1,9 @@
+#ifndef BANGUNAN_HPP
+#define BANGUNAN_HPP
+
 #include <iostream>
-#include "../Items/Item.hpp"
-#include "Recipe.hpp"
+#include "Item.hpp"
+#include "../Data/Recipe.hpp"
 
 using namespace std;
 
@@ -13,13 +16,9 @@ public:
     Bangunan &operator=(const Bangunan &b);
     ~Bangunan();
 
-    // Getter and Setter
-    string getType() const;
-    string getCode() const;
-    string getName() const;
-
-    void setCode(string c);
-    void setName(string n);
+    // Pure virtual function yang diimplementasiin
+    int getAddedWeight() const;
+    bool isMakanan() const;
 
     // Operator Overloading
     Bangunan &operator+=(int x);
@@ -27,8 +26,11 @@ public:
 
     Bangunan &operator+=(const Bangunan &b);
     Bangunan &operator-=(const Bangunan &b);
+
 protected:
     static int numOfBangunan;
     string code;
     string nama;
 };
+
+#endif

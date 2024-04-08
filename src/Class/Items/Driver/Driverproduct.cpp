@@ -1,4 +1,9 @@
-#include "Product.hpp"
+#include "../Product.hpp"
+#include "../Product.cpp"
+#include "../Item.hpp"
+#include "../Item.cpp"
+
+
 #include <iostream>
 
 int main() {

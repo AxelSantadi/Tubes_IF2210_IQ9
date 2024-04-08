@@ -1,4 +1,8 @@
-#include "Animal.hpp"
+#include "../Animal.hpp"
+#include "../Animal.cpp"
+#include "../Item.hpp"
+#include "../Item.cpp"
+
 #include <iostream>
 
 int main() {
