@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class Recipe : public Bangunan{
+class Recipe{
 public:
     /*
     1 SMH SMALL_HOUSE 50 TEAK_WOOD 1 SANDAL_WOOD 1
@@ -45,7 +45,11 @@ public:
     vector<int> getJumlahMaterialNeededWhole();
     int getJumlahMaterialNeeded(int idx);
 
-private:
+protected:
+    int id;
+    string code;
+    string name;
+    int price;
     vector<string> namaMaterial;
     vector<int> jumlahMaterialNeeded;
 };
