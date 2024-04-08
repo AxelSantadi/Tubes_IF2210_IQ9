@@ -27,6 +27,9 @@
 
 
 int main (){
+        ReadConfig readConfig("config1");
+
+        vector<Product> product =  readConfig.getProduct();
         Item * plant1 = new Plant(1, "TAW" , "Teak Wood Tree", "Material Tree", 4, 1000);
         Item * plant2 = new Plant(1, "TAW" , "Teak Wood Tree", "Material Tree", 4, 1000);
         Item * plant3 = new Plant(1, "TAW" , "Teak Wood Tree", "Material Tree", 4, 1000);
@@ -39,9 +42,8 @@ int main (){
         Plant plant9(2, "GAP", "Grape", "Fruit Tree", 10, 2000);
         
 
-
         Petani* petani = new Petani("Jokowi", 5, 'F',5,'F');
-
+        
         petani->addItem(plant1,1,'A');
         petani->addItem(plant2,1,'B');
         petani->addItem(plant3,1,'C');
@@ -51,13 +53,14 @@ int main (){
         petani->addItem(plant7,3,'D');
         petani->addItem(plant8,4,'D');
 
-        petani->getInventory().printInventory();
         petani->tanam();
         petani->tanam();
         petani->tanam();
         // petani->tanam();
         petani->getLadang().cetakLadang();
-        // // petani->panen(product)
+        petani->panen(product);
+        petani->getInventory().printInventory();
+        petani->getLadang().cetakLadang();
 
 
 

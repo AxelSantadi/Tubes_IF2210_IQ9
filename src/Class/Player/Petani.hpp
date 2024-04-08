@@ -30,7 +30,7 @@ public:
     void jual();
     void beli();
 
-    int getPajak();
+    // int getPajak();
 };
 
 #endif

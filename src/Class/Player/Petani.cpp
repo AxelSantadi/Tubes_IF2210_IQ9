@@ -50,9 +50,10 @@ void Petani::tanam(){
     cout << endl;
     try
     {
-        cout << "Slot :" << endl;
+        cout << "Slot : ";
         string slot;
         cin >> slot;
+        cout << endl;
         char a;
         int b;
         a = slot[0];
@@ -125,12 +126,14 @@ void Petani::panen(vector<Product> product)
     for (auto it = ladang.countPanen().begin(); it != ladang.countPanen().end(); it++)
     {
         cout << i << "." << it->first << " ( " << it->second <<" petak siap panen)" << endl;
-        i++;
         pilihan[i] = {it->first,it->second};
+        i++;
     }
+    cout<<endl;
+
     try{
         int a; // input pilihan
-        cout<< "Nomor tanaman yang ingin dipanen:";  
+        cout<< "Nomor tanaman yang ingin dipanen: ";  
         cin >> a;
         // validasi apakah terdapat inputan a
 
@@ -145,10 +148,11 @@ void Petani::panen(vector<Product> product)
         
         // input jumlah tanaman yang ingin dipanen
         int b;
-        cout << "Berapa petak yang ingin dipanen: ";
+        cout << "Berapa petak yang ingin dipanen  : ";
         cin >> b;
+
         // validasi apakah b cukup
-        if (b > jumlah || b < 0){
+        if (b > jumlah){
             throw jumlahPanenExeption();
         }
         if (inventory.countEmpty() < b){
@@ -188,22 +192,31 @@ void Petani::panen(vector<Product> product)
             a = koordinat[0];
             koordinat = koordinat.substr(1, koordinat.length()-1);
             b = stoi(koordinat);
-
-
-            for (int i = 0; i < inventory.getRows(); i++)
-            {
-                for (char j = 'A'; j <= inventory.getCols(); j++)
+            int n = 0;
+            while(n < b){
+                for (int i = 1; i < inventory.getRows(); i++)
                 {
-                    if (!inventory.isExist(i,j))
+                    for (char j = 'A'; j <= inventory.getCols(); j++)
                     {
-                        addItem(p,i,j);
+                        if(n == b){
+                            break;
+                        }
+                        if (!inventory.isExist(i,j))
+                        {
+                            addItem(p,i,j);
+                            n++;
+                            break;
+                        }
+                    }
+                    if(n == b){
                         break;
                     }
                 }
             }
+            
         }
         
-        cout << b << "petak tanaman "<< code << " pada petak ";
+        cout << b << " petak tanaman "<< code << " pada petak ";
         for (int i = 0; i < petak.size(); i++)
         {
             if (i == petak.size()-1){
@@ -212,6 +225,7 @@ void Petani::panen(vector<Product> product)
                 cout << petak[i] << ", ";
             }
         }
+        cout << endl;
     }catch(salahPanenExeption e){
         cerr << e.what() << endl;
     }catch(jumlahPanenExeption e){

@@ -73,7 +73,7 @@ public:
     void buyItem(Toko &toko);
     void sellItem(Toko &toko);
 
-    virtual int getPajak();
+    // virtual int getPajak();
 };
 
 #endif

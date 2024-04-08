@@ -9,19 +9,23 @@ void Ladang::cetakLadang(){
     cout << endl << endl;
 }
 
-
+Plant Ladang::getPlant(int x, char a) const{
+    Plant plant = getValue(x , a);
+    return plant;
+}
 
 unordered_map<string, int> Ladang::countPanen() {
     unordered_map<string, int> result;
     
-    for (int i = 0; i < getRows(); i++)
+    for (int i = 1; i < getRows(); i++)
     {
         for(char j= 'A' ; j < getCols(); j++)
         {
             if (isExist(i,j))
             {
-                if(getValue(i,j).getUmur() >= getValue(i,j).getHarvestDuration()){
-                    string code = getValue(i,j).getCode();
+                Plant p = getValue(i,j);
+                if(p.getUmur() >= p.getHarvestDuration()){
+                    string code = getValue(i,j).getCode();  
                     result[code]++;
                 }
             }
@@ -33,7 +37,7 @@ unordered_map<string, int> Ladang::countPanen() {
 void Ladang::cetakJenisTanaman(){
     map<string,string> result;
     
-    for(int i = 0; i < getRows(); i++)
+    for(int i = 1; i < getRows(); i++)
     {
         for (char j = 'A'; j< getCols(); j++ )
         {
@@ -57,24 +61,28 @@ vector<string> Ladang::ambilPanen(string code, int n){
     {
         try
         {
-            cout << "petak ke-"<< i <<" :" << endl;
+            cout << "petak ke-"<< i+1 <<" : ";
             string slot;
             cin >> slot;
             char a;
             int b;
             a = slot[0];
+            string rslot = slot;
             slot = slot.substr(1, slot.length()-1);
             b = stoi(slot);
-            if (isExist(b,a) && getValue(b,a).getCode() == code)
+            Plant p = getValue(b,a);
+            if (isExist(b,a) && p.getCode() == code)
             {
                 if (getValue(b,a).getUmur() < getValue(b,a).getHarvestDuration())
                 {
                     throw belumPanenExeption();
+                }else{
+                    removeValue(b,a);
+                    n--;
+                    i++;
+                    result.push_back(rslot);
                 }
-                removeValue(b,a);
-                n--;
-                i++;
-                result.push_back(slot);
+                
             } else 
             {
                 throw salahPetakExeption();
@@ -90,14 +98,17 @@ vector<string> Ladang::ambilPanen(string code, int n){
     return result;
 }
 
-void Ladang::tambahUmur(){
-    for (int i = 0; i < getRows(); i++)
+void Ladang::nextUmur(){
+    for (int i = 1; i < getRows(); i++)
     {
         for (char j = 'A'; j < getCols(); j++)
         {
             if (isExist(i,j))
             {
-                getValue(i,j).setUmur(getValue(i,j).getUmur() + 1);
+                Plant p = getValue(i,j);
+                p.tambahUmur();
+                removeValue(i,j);
+                setValue(i,j,p);
             }
         }
     }

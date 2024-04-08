@@ -62,6 +62,11 @@ void Plant::setUmur(int h)
     umur = h;
 }
 
+void Plant::tambahUmur()
+{
+    umur++;
+}
+
 int Plant::getAddedWeight() const { return 0; }
 
 Plant &Plant::operator=(const Plant &p)
