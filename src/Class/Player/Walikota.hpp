@@ -1,15 +1,21 @@
+#ifndef WALIKOTA_HPP
+#define WALIKOTA_HPP
+
 #include <iostream>
 #include "Inventory.hpp"
 #include "Player.hpp"
+#include "Peternak.hpp"
+#include "Petani.hpp"
 #include "../Data/Misc.hpp"
 #include "../Data/Recipe.hpp"
+#include "../Data/ReadConfig.hpp"
 
 using namespace std;
 
 class Walikota : public Player
 {
 public:
-    Walikota(Misc m);
+    Walikota(string nama,int n, char m);
     ~Walikota();
     string getRole() const override;
     void saveStatePlayer(ofstream &file) const override;
@@ -17,5 +23,6 @@ public:
     void buatBangunan(Misc m, vector<Recipe> resep);
     float tagihPajak();
     void tambahPemain(Misc misc);
-    void wMakan();
 };
+
+#endif

@@ -70,8 +70,6 @@ public:
 
     void makan();
 
-    //virtual int hitungPajak() = 0;  // Dibikin komen dulu biar bisa di compile
-
     void buyItem(Toko &toko);
     void sellItem(Toko &toko);
 

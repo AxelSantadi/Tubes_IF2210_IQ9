@@ -93,6 +93,17 @@ void Animal::output(ostream &os)
     os << "Weight to Harvest: " << weightToHarvest << endl;
 }
 
+ostream& operator<<(ostream &os, const Animal &p)
+{
+    os << p.getCode();
+    return os;
+}
+
+string Animal::operator*() const
+{
+    return code;
+}
+
 void Animal::display()
 {
     Item::display();

@@ -36,6 +36,9 @@ public:
     void input(istream &is) override;
     void output(ostream &os) override;
 
+    friend ostream& operator<<(ostream& os, const Animal& p);
+    string operator*() const;
+
     void display() override;
     bool isUnlimited() const override;
 

@@ -1,13 +1,6 @@
-#include <iostream>
 #include "Walikota.hpp"
-#include "Inventory.hpp"
-#include "Peternak.hpp"
-#include "Petani.hpp"
-#include "../Data/ReadConfig.hpp"
-#include "../Data/ReadConfig.cpp"
 
-
-Walikota::Walikota(Misc m) : Player("Walikota", m.getStorageSize().first, m.getStorageSize().second) {}
+Walikota::Walikota(string nama, int n, char m) : Player(nama, n, m) {}
 
 Walikota::~Walikota() {}
 
@@ -154,74 +147,5 @@ void Walikota::tambahPemain(Misc misc) {
         }
 
         cout << "Pemain baru ditambahkan!" << endl << 'Selamat datang "' << nama_pemain << '" di kota ini!' << endl;
-    }
-}
-
-void Walikota::wMakan() {
-    bool success = false;
-    string slot;
-    if (inventory.isEmpty())
-    {
-        throw EmptyInventoryException();
-    }
-    else if (inventory.noFood())
-    {
-        throw noFoodInInventory();
-    }
-    else
-    {
-        cout << "Pilih makanan dari peyimpanan" << endl;
-        inventory.print();
-        while (!success)
-        {
-            try
-            {
-                cout << "Slot: ";
-                cin >> slot;
-                char col = slot[0];
-                int row = stoi(slot.substr(1));
-                cout << inventory.getRows() << " " << row << " " << inventory.getCols() << " " << col << endl;
-                if (inventory.isExist(row, col))
-                {
-                    Item *p = inventory.getValue(row, col);
-                    if (p->isMakanan())
-                    {
-                        addWeight(p->getAddedWeight());
-                        removeItem(row, col);
-                        cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
-                        cout << "Alhasil, berat badan kamu naik menjadi " << getWeight() << endl
-                             << endl;
-                        success = true;
-                    }
-                    else
-                    {
-                        throw BukanMakananException();
-                    }
-                }
-                else if (inventory.getRows() < row || 1 < row || inventory.getCols() < col || 'A' < col)
-                {
-                    throw outOfBoundException();
-                }
-                else
-                {
-                    throw SlotKosongException();
-                }
-            }
-            catch (BukanMakananException &e)
-            {
-                cerr << e.what() << endl
-                     << "Silahkan masukan slot yang berisi makanan.\n\n";
-            }
-            catch (outOfBoundException &e)
-            {
-                cerr << e.what() << endl
-                     << "Silahkan masukan slot yang benar.\n\n";
-            }
-            catch (SlotKosongException &e)
-            {
-                cerr << e.what() << endl
-                     << "Silahkan masukan slot yang berisi makanan.\n\n";
-            }
-        }
     }
 }
