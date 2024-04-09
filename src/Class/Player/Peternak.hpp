@@ -17,18 +17,18 @@ private:
 public:
 
     Peternak(string nama,int n, char m,int panjang,char lebar);
-    
+    Peternak(string nama,int n, char m,int money,int weight,int panjang,char lebar);    
     ~Peternak();
 
     string getRole() const override;
     void saveStatePlayer(ofstream &file) const override;
 
-    void addTernak(Animal animal , int i, char j);
+    void addTernak(Animal animal , int i, char j) override;
     
-    void ternak();
-    void feedTernak();
-    void panenTernak(vector<Product> product);
-    void jualTernak();
+    void ternak()override;
+    void feedTernak()override;
+    void panenTernak(vector<Product> product)override;
+    void jualTernak()override;
 
     int getPajak(vector<Recipe> resep) override;
 

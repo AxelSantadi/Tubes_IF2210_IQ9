@@ -305,8 +305,7 @@ void Perintah::NEXT()
     {   
         if (Player::getCurrentPlayer()->getRole() == "Petani")
         {
-            Petani *petani = dynamic_cast<Petani *>(Player::getCurrentPlayer());
-            petani->nextDay();
+            Player::getCurrentPlayer()->nextDay();
         }
         Player::nextPlayer();
         cout << "Sekarang adalah giliran " << Player::getCurrentPlayer()->getName() << endl;
@@ -345,7 +344,7 @@ void Perintah::TANAM()
 {
     try
     {
-        dynamic_cast<Petani *>(Player::getCurrentPlayer())->tanam();
+        Player::getCurrentPlayer()->tanam();
     }
     catch (BukanTanamanExeption &e)
     {
@@ -389,9 +388,7 @@ void Perintah::PANEN()
 {
     if (Player::getCurrentPlayer()->getRole() == "Petani")
     {
-        ReadConfig readConfig("config1");
-        vector<Product> product =  readConfig.getProduct();
-        dynamic_cast<Petani *>(Player::getCurrentPlayer())->panen(product);
+        Player::getCurrentPlayer()->panen(config.getProduct());
     }
     
 }

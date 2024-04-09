@@ -302,3 +302,22 @@ void Player::sellItem(Toko &toko)
 
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << item->getPrice() << " gulden!" << endl;
 }
+
+// Petani
+void Player::addTanaman(Plant plant , int i, char j){}
+void Player::tanam(){}
+void Player::panen(vector<Product> product){}
+void Player::nextDay(){}
+
+// Peternak
+void Player::addTernak(Animal animal , int i, char j){}
+void Player::ternak(){}
+void Player::feedTernak(){}
+void Player::panenTernak(vector<Product> product){}
+void Player::jualTernak(){}
+
+// Walkot
+void Player::removeBahan(string namaBahan, int jumlah){}
+void Player::buatBangunan(vector<Recipe> resep){}
+void Player::dapatPajak(vector<Recipe> resep){}
+void Player::tambahPemain(Misc misc){}

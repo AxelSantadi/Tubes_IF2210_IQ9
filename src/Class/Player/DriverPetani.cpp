@@ -41,8 +41,7 @@ int main (){
         Item * plant9 = new Plant(2, "GAP", "Grape", "Fruit Tree", 0, 2000);
         Item * plant10 = new Plant(2, "GAP", "Grape", "Fruit Tree", 0, 2000);
 
-
-        Petani* petani = new Petani("Jokowi", 5, 'F',5,'F');
+        Player* petani = new Petani("Jokowi", 5, 'F',5,'F');
         
         petani->addItem(plant1,1,'A');
         petani->addItem(plant2,1,'B');
@@ -57,14 +56,13 @@ int main (){
 
         petani->tanam();
         petani->tanam();
-        petani->tanam();
         // petani->tanam();
-        petani->getLadang().cetakLadang();
-        petani->panen(product);
+        // petani->tanam();
+        // petani->getLadang().cetakLadang();
+        // petani->panen(product);
         petani->getInventory().printInventory();
-        petani->getLadang().cetakLadang();
-
-
+        Petani *p = dynamic_cast<Petani*>(petani);
+        p->getLadang().cetakLadang();
 
     return 0;
 }

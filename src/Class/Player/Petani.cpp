@@ -5,6 +5,9 @@ using namespace std;
 Petani::Petani(string nama,int n , char m, int panjang , char lebar): Player(nama, n, m), ladang(panjang,lebar)
 {}
 
+Petani::Petani(string nama,int n , char m, int money, int weight, int panjang , char lebar): Player(nama, n, m, money, weight), ladang(panjang,lebar)
+{}
+
 Petani::~Petani(){
 
 }
@@ -14,7 +17,7 @@ string Petani::getRole() const
     return "Petani";
 }
 
-void Petani::addTanaman(Plant plant, int i, char j)
+void Petani::addTanaman(Plant plant, int i, char j) 
 {
     ladang.setValue(i, j, plant);
 }

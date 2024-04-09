@@ -3,6 +3,9 @@
 Peternak::Peternak(string nama,int n, char m,int panjang,char lebar) : Player(nama,n,m), kandang(panjang,lebar)
 {}
 
+Peternak::Peternak(string nama,int n, char m,int money,int weight,int panjang,char lebar) : Player(nama,n,m,money,weight), kandang(panjang,lebar)
+{}
+
 Peternak::~Peternak(){}
 
 void Peternak::addTernak(Animal animal, int i, char j)

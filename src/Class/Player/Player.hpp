@@ -74,6 +74,25 @@ public:
     void sellItem(Toko &toko);
 
     virtual int getPajak(vector<Recipe> resep) = 0;
+
+    // Method petani
+    virtual void addTanaman(Plant plant , int i, char j);
+    virtual void tanam();
+    virtual void panen(vector<Product> product);
+    virtual void nextDay();
+
+    // Method peternak
+    virtual void addTernak(Animal animal , int i, char j);
+    virtual void ternak();
+    virtual void feedTernak();
+    virtual void panenTernak(vector<Product> product);
+    virtual void jualTernak();
+
+    // Method Walkot
+    virtual void removeBahan(string namaBahan, int jumlah);
+    virtual void buatBangunan(vector<Recipe> resep);
+    virtual void dapatPajak(vector<Recipe> resep);
+    virtual void tambahPemain(Misc misc);
 };
 
 #endif

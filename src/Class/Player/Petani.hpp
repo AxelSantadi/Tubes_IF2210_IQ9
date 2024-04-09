@@ -14,21 +14,22 @@ private:
     Ladang ladang;
 public:
     Petani(string nama,int n, char m,int panjang,char lebar);
+    Petani(string nama,int n, char m,int money,int weight,int panjang,char lebar);
     
     ~Petani();
 
     string getRole() const override;
     void saveStatePlayer(ofstream &file) const override;
     
-    void addTanaman(Plant plant , int i, char j);
+    void addTanaman(Plant plant , int i, char j) override;
 
     Ladang getLadang() const;
 
 
-    void tanam();
-    void panen(vector<Product> product);
+    void tanam()override;
+    void panen(vector<Product> product)override;
     
-    void nextDay();
+    void nextDay()override;
 
     int getPajak(vector<Recipe> resep) override;
 };
