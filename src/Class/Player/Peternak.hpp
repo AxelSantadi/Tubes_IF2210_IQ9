@@ -26,9 +26,9 @@ public:
     void addTernak(Animal animal , int i, char j) override;
     
     void ternak()override;
-    void feedTernak()override;
+    //void feedTernak()override;
     void panenTernak(vector<Product> product)override;
-    void jualTernak()override;
+    //void jualTernak()override;  dikomenin dlu biar bisa debugging
 
     int getPajak(vector<Recipe> resep) override;
 

@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "Item.hpp"
-#include "../Data/Recipe.hpp"
 
 using namespace std;
 
@@ -16,10 +15,6 @@ public:
     Bangunan &operator=(const Bangunan &b);
     ~Bangunan();
 
-    // Pure virtual function yang diimplementasiin
-    int getAddedWeight() const;
-    bool isMakanan() const;
-
     // Operator Overloading
     Bangunan &operator+=(int x);
     Bangunan &operator-=(int x);
@@ -27,10 +22,12 @@ public:
     Bangunan &operator+=(const Bangunan &b);
     Bangunan &operator-=(const Bangunan &b);
 
+    // Method buat makan
+    int getAddedWeight() const;
+    bool isMakanan() const;
+
 protected:
     static int numOfBangunan;
-    string code;
-    string nama;
 };
 
 #endif

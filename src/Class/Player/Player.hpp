@@ -52,6 +52,8 @@ public:
     int getWeight() const;
     int getMoney() const;
     Inventory getInventory() const;
+    Inventory& getInventoryPointer();
+
     Item* getItem(int i, char j) const;
     virtual string getRole() const; // nanti dibuat pure virtual
 

@@ -27,7 +27,6 @@ public:
     int getWeightToHarvest() const;
     void setWeightToHarvest(int w);
 
-    int getAddedWeight() const override;
     // Operator Overloading
     Animal &operator+=(int x);
     Animal &operator-=(int x);
@@ -42,10 +41,13 @@ public:
     friend ostream& operator<<(ostream& os, const Animal& p);
     string operator*() const;
 
+    // Display
     void display() override;
-    bool isUnlimited() const override;
 
+    // Method buat toko sama Makan
+    bool isUnlimited() const override;
     bool isMakanan() const override;
+    int getAddedWeight() const override;
 
 private:
     static int numOfAnimal;

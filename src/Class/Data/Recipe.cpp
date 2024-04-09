@@ -2,6 +2,10 @@
 #include "ReadConfig.hpp"
 
 Recipe::Recipe(int id, string code, string name, int price, vector<string> namaMaterial, vector<int> jumlahMaterialNeeded){
+    this->id = id;
+    this->code = code;
+    this->name = name;
+    this->price = price;
     this->namaMaterial = namaMaterial;
     this->jumlahMaterialNeeded = jumlahMaterialNeeded;
 }

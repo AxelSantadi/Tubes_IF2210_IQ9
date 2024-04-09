@@ -29,15 +29,18 @@ public:
     void printBangunan(int i);
     void selisihBahan(string name, Inventory w_storage);
 
+    // Setter
     void setNamaMaterial(vector<string> namaMaterial);
     void setSatuNamaMaterial(string namaMaterial);
     void setJumlahMaterialNeeded(vector<int> jumlahMaterialNeeded);
     void setSatuJumlahMaterialNeeded(int jumlahMaterialNeeded);
 
+    // Getter
     int getID();
     string getCode();
     string getName();
     int getPrice();
+
     vector<string> getNamaMaterialWhole();
     string getNamaMaterial(int idx);
     vector<int> getJumlahMaterialNeededWhole();

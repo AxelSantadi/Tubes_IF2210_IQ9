@@ -119,6 +119,11 @@ Inventory Player::getInventory() const
     return inventory;
 }
 
+Inventory& Player::getInventoryPointer() {
+    return inventory;
+}
+
+
 Item *Player::getItem(int i, char j) const
 {
     return inventory.getValue(i, j);

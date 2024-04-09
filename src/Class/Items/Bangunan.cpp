@@ -21,14 +21,6 @@ Bangunan &Bangunan::operator+=(int x)
     return *this;
 }
 
-int Bangunan::getAddedWeight() const{
-    return 0;
-}
-
-bool Bangunan::isMakanan() const{
-    return false;
-}
-
 Bangunan &Bangunan::operator-=(int x)
 {
     Item::operator-=(x);
@@ -45,4 +37,12 @@ Bangunan &Bangunan::operator-=(const Bangunan &b)
 {
     Item::operator-=(b);
     return *this;
+}
+
+int Bangunan::getAddedWeight() const{
+    return 0;
+}
+
+bool Bangunan::isMakanan() const{
+    return false;
 }
