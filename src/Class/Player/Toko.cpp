@@ -1,13 +1,12 @@
 #include "Toko.hpp"
 
-Toko::Toko(const vector<Animal*> &animals, const vector<Plant*> &plants)
-    : animals(animals), plants(plants)
+Toko::Toko(const ReadConfig& config)
 {
-    for (const auto &animal : animals)
+    for (const auto &animal : config.getAnimalPointer())
     {
         addItemToko(animal);
     }
-    for (const auto &plant : plants)
+    for (const auto &plant : config.getPlantPointer())
     {
         addItemToko(plant);
     }
@@ -121,5 +120,13 @@ void Toko::displayToko() const
         }
         std::cout << std::endl;
         counter++;
+    }
+}
+
+Toko::~Toko()
+{
+    for (auto &pair : items)
+    {
+        delete pair.second.first;
     }
 }

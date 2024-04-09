@@ -5,6 +5,7 @@
 #include "../Items/Item.hpp"
 #include "../Items/Animal.hpp"
 #include "../Items/Plant.hpp"
+#include "../Data/ReadConfig.hpp"
 #include <map>
 #include <string>
 #include <vector>
@@ -15,12 +16,12 @@ class Toko
 {
 private:
     map<string, pair<Item*, int>> items; 
-    vector<Animal*> animals;
-    vector<Plant*> plants;
 
 public:
     // Constructor
-    Toko(const vector<Animal*> &animals, const vector<Plant*> &plants);
+    Toko(const ReadConfig& config);
+    ~Toko();
+
 
     void saveStatetoko(ofstream &file);   
     // Add and Remove Item

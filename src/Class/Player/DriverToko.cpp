@@ -16,6 +16,9 @@
 #include "Player.hpp"
 #include "Player.cpp"
 
+#include "Petani.hpp"
+#include "Petani.cpp"
+
 #include "Inventory.hpp"
 #include "Inventory.cpp"
 
@@ -25,48 +28,59 @@
 #include "../Data/Exception.hpp"
 #include "../Data/Exception.cpp"
 
+#include "Toko.hpp"
+
+#include "../Data/ReadConfig.hpp"
+#include "../Data/ReadConfig.cpp"
+
+#include "../Data/Misc.hpp"
+#include "../Data/Misc.cpp"
+
+#include "../Data/Recipe.hpp"
+#include "../Data/Recipe.cpp"
+
+#include "../Items/Bangunan.hpp"
+#include "../Items/Bangunan.cpp"
+
+#include "ladang.hpp"
+#include "ladang.cpp"
+
+// very gud verry well kumaha toko? well
 int main()
 {
-    // Create some Item, Plant, and Animal objects
-    Plant* plant1 = new Plant(3, "code3", "plant1", "type1", 10, 5);
-    Plant* plant2 = new Plant(4, "code4", "plant2", "type2", 20, 5);
-    Cow* cow1 = new Cow(5, "code5", "cow1", 30, 5);
-    Sheep* sheep1 = new Sheep(6, "code6", "sheep1", 40, 5);
+    // Baca Config
+    ReadConfig config("config1");
 
-    // Create a vector of Animal and Plant pointers
-    std::vector<Animal*> animals = {cow1, sheep1};
-    std::vector<Plant*> plants = {plant1, plant2};
+    // Bikin Toko
+    Toko toko(config);
 
-    // Create a Toko object
-    Toko toko(animals, plants);
+    // Percobaan membuat item
+    Item* product1 = new Product(1, "code1", "product1", "type1", "origin1", 10, 100);
+    Item* product2 = new Product(2, "code2", "product2", "type2", "origin2", 20, 200);
 
-    // Create an Inventory object
+    // Masukin item ke toko
+    toko.addItemToko(product1);
+    toko.addItemToko(product2);
+
+    // Membuat player sama inventory
     Inventory inventory(3, 'A');
-    
-    // Create a Player object
-    Player petani("Player1", 4, 'D'); // Player starts with default weight and money
-    Product* product1 = new Product(7, "MAK", "product1","","" , 50, 5);
+    Player* petani = new Petani("Jokowi", 5, 'F',500,40,5,'F');
+    petani->setInventory(inventory);
 
+    // Pengen beli dong
+    petani->buyItem(toko);
 
-    // Set the player's inventory
-    petani.setInventory(inventory);
-    petani.addItem(product1, 1, 'A');
+    // Pengen jual di shopee
+    petani->sellItem(toko);
 
-    // Call the buyItem function
-    petani.buyItem(toko);
+    petani->getInventory().printInventory();
 
-    // Call the sellItem function
-    petani.sellItem(toko);
-
-    petani.getInventory().printInventory();
-
+    // Display the items in the toko
     toko.displayToko();
 
-    // Don't forget to delete the dynamically allocated objects
-    delete plant1;
-    delete plant2;
-    delete cow1;
-    delete sheep1;
+    // Clean up
+    delete product1;
+    delete product2;
 
     return 0;
 }

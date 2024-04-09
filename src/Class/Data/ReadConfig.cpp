@@ -195,3 +195,24 @@ Plant ReadConfig::createItemPlant(string itemName) const
     // If no match found, return a default Plant object
     return Plant();
 }
+
+// Toko Related
+vector<Item*> ReadConfig::getAnimalPointer() const
+{
+    vector<Item*> animalPointers;
+    for (const auto &a : animal)
+    {
+        animalPointers.push_back(new Animal(a.getId(), a.getCode(), a.getName(), a.getType(), a.getWeightToHarvest(), a.getPrice()));
+    }
+    return animalPointers;
+}
+
+vector<Item*> ReadConfig::getPlantPointer() const
+{
+    vector<Item*> plantPointers;
+    for (const auto &p : plant)
+    {
+        plantPointers.push_back(new Plant(p.getId(), p.getCode(), p.getName(), p.getType(), p.getHarvestDuration(), p.getPrice()));
+    }
+    return plantPointers;
+}

@@ -39,6 +39,9 @@ public:
     vector<Product> getProduct() const;
     Item *createItem(string itemName) const;
     Plant createItemPlant(string itemName) const;
+
+    vector<Item *> getPlantPointer() const;
+    vector<Item *> getAnimalPointer() const;
 };
 
 #endif

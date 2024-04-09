@@ -238,9 +238,10 @@ void Player::buyItem(Toko &toko)
     int quantity;
 
     toko.displayToko();
+    cout << endl;
     std::cout << "Uang Anda: " << money << std::endl;
-    std::cout << "Slot penyimpanan yang tersedia: " << endl
-              << endl;
+    std::cout << "Slot penyimpanan yang tersedia: " << inventory.countEmpty() << endl
+<< endl;
 
     std::cout << "Nomor barang yang ingin dibeli : ";
     std::cin >> itemNumber;
@@ -260,7 +261,7 @@ void Player::buyItem(Toko &toko)
             this->money -= price;
             toko.removeItemToko(itemName);
         }
-        std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl;
+        std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl << endl;
         std::cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << std::endl;
         this->inventory.printInventory();
         std ::cout << endl;
