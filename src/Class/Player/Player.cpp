@@ -1,21 +1,39 @@
 #include "Player.hpp"
 
-vector<Player*> Player::players;
+vector<Player *> Player::players;
 int Player::idxCurrentPlayer = 0;
+
+
+bool Player::comparePlayers(const Player* a, const Player* b) {
+    return a->name < b->name;
+}
 
 Player::Player(string name, int n, char m) : name(name), weight(DEFAULT_WEIGHT), money(DEFAULT_MONEY), inventory(n, m)
 {
     players.push_back(this);
+    sort(players.begin(), players.end(), [](const Player* a, const Player* b) 
+    {
+        return a->name < b->name;
+    });
 }
 
 Player::Player(string name, int n, char m, int weight, int money) : name(name), weight(weight), money(money), inventory(n, m)
 {
     players.push_back(this);
+    sort(players.begin(), players.end(), [](const Player* a, const Player* b) 
+    {
+        return a->name < b->name;
+    });
 }
 
 Player::~Player()
 {
     cout << "Player " << name << " has been deleted" << endl;
+}
+
+vector<Player *> Player::getPlayers()
+{
+    return players;
 }
 
 void Player::dealocatePlayer()
@@ -32,12 +50,12 @@ void Player::nextPlayer()
     idxCurrentPlayer = (idxCurrentPlayer + 1) % players.size();
 }
 
-Player* Player::getCurrentPlayer()
+Player *Player::getCurrentPlayer()
 {
     return players[idxCurrentPlayer];
 }
 
-Player* Player::getWinner(Misc m)
+Player *Player::getWinner(Misc m)
 {
     for (int i = 0; i < players.size(); i++)
     {
@@ -73,7 +91,7 @@ void Player::saveStatePlayer(ofstream &file) const
     // Playernya
     file << this->name << " " << this->getRole() << " " << this->weight << " " << this->money << endl;
     file << this->inventory.countNotEmpty() << endl;
-    
+
     // Inventorynya
     for (auto it : this->inventory.getData())
     {
@@ -231,7 +249,6 @@ void Player::makan()
     }
 }
 
-
 void Player::buyItem(Toko &toko)
 {
     int itemNumber;
@@ -241,7 +258,7 @@ void Player::buyItem(Toko &toko)
     cout << endl;
     std::cout << "Uang Anda: " << money << std::endl;
     std::cout << "Slot penyimpanan yang tersedia: " << inventory.countEmpty() << endl
-<< endl;
+              << endl;
 
     std::cout << "Nomor barang yang ingin dibeli : ";
     std::cin >> itemNumber;
@@ -261,7 +278,8 @@ void Player::buyItem(Toko &toko)
             this->money -= price;
             toko.removeItemToko(itemName);
         }
-        std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl << endl;
+        std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl
+                  << endl;
         std::cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << std::endl;
         this->inventory.printInventory();
         std ::cout << endl;
@@ -305,20 +323,20 @@ void Player::sellItem(Toko &toko)
 }
 
 // Petani
-void Player::addTanaman(Plant plant , int i, char j){}
-void Player::tanam(){}
-void Player::panen(vector<Product> product){}
-void Player::nextDay(){}
+void Player::addTanaman(Plant plant, int i, char j) {}
+void Player::tanam() {}
+void Player::panen(vector<Product> product) {}
+void Player::nextDay() {}
 
 // Peternak
-void Player::addTernak(Animal animal , int i, char j){}
-void Player::ternak(){}
-void Player::feedTernak(){}
-void Player::panenTernak(vector<Product> product){}
-void Player::jualTernak(){}
+void Player::addTernak(Animal animal, int i, char j) {}
+void Player::ternak() {}
+void Player::feedTernak() {}
+void Player::panenTernak(vector<Product> product) {}
+void Player::jualTernak() {}
 
 // Walkot
-void Player::removeBahan(string namaBahan, int jumlah){}
-void Player::buatBangunan(vector<Recipe> resep){}
-void Player::dapatPajak(vector<Recipe> resep){}
-void Player::tambahPemain(Misc misc){}
+void Player::removeBahan(string namaBahan, int jumlah) {}
+void Player::buatBangunan(vector<Recipe> resep) {}
+void Player::dapatPajak(vector<Recipe> resep) {}
+void Player::tambahPemain(Misc misc) {}

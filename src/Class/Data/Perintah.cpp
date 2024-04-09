@@ -205,8 +205,8 @@ void Perintah::muatState()
 
         // Inisialisasi Player yang default
         Player *Petani1 = new Petani("Petani1", n_inventory, m_inventory, n_lahan, m_lahan);
-        // Player *Peternak1 = new Peternak("Peternak1", 40, 50, n_peternakan, m_peternakan);
-        // Player *Walikota = new Walikota(username, n_lahan, m_lahan, weight, money);
+        Player *Peternak1 = new Peternak("Peternak1", n_inventory, m_inventory, n_peternakan, m_peternakan);
+        Player *Walikota1 = new Walikota("Walikota1", n_inventory, m_inventory);
     }
 
     else

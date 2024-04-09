@@ -6,6 +6,7 @@
 #include <vector>
 #include <typeinfo>
 #include <fstream>
+#include <algorithm>
 #include "Inventory.hpp"
 #include "../Data/Exception.hpp"
 #include "../Data/Misc.hpp"
@@ -35,10 +36,12 @@ public:
     ~Player();
 
     // Static Method
+    static vector<Player*> getPlayers();
     static void dealocatePlayer();
     static void nextPlayer();
     static Player* getCurrentPlayer();
     static Player* getWinner(Misc m);
+    
     
     // Save State
     static void saveState(string path);
@@ -73,6 +76,7 @@ public:
     void buyItem(Toko &toko);
     void sellItem(Toko &toko);
 
+    bool comparePlayers(const Player* a, const Player* b);
     virtual int getPajak(vector<Recipe> resep) = 0;
 
     // Method petani
