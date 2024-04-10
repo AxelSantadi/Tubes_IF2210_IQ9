@@ -23,6 +23,7 @@ Plant::Plant(const Plant &p) : Item(p.id, p.code, p.name, p.price)
 {
     this->type = p.type;
     this->harvest_duration = p.harvest_duration;
+    this->umur = p.umur;
 
     Plant::numOfPlant++;
 }
@@ -77,6 +78,7 @@ Plant &Plant::operator=(const Plant &p)
     this->type = p.type;
     this->harvest_duration = p.harvest_duration;
     this->price = p.price;
+    this->umur = p.umur;
 
     return *this;
 }

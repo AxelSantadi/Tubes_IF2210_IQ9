@@ -16,6 +16,7 @@
 
 #include "MatrixMap.cpp"
 #include "ladang.cpp"
+#include "Inventory.cpp"
 
 #include "../Data/Recipe.cpp"
 #include "../Data/ReadConfig.cpp"
@@ -55,14 +56,21 @@ int main (){
         petani->addItem(plant8,1,'D');
 
         petani->tanam();
-        petani->tanam();
-        // petani->tanam();
-        // petani->tanam();
-        // petani->getLadang().cetakLadang();
-        // petani->panen(product);
-        petani->getInventory().printInventory();
         Petani *p = dynamic_cast<Petani*>(petani);
+        petani->nextDay();
+        petani->nextDay();
+        // petani->nextDay();
+        // Plant pl = p->getLadang().getValue(1,'A');
+        // cout << "Umur : " <<pl.getUmur()<< endl;
+        // cout << "code : " << pl.getCode() << endl;
+        petani->tanam();
+        petani->tanam();
         p->getLadang().cetakLadang();
+        petani->panen(product);
+        petani->getInventory().printInventory();
+        p->getLadang().cetakLadang();
+        Plant p1 = p->getLadang().getValue(1,'A');
+        cout << "Umur : "<<p1.getUmur()<< endl;
 
     return 0;
 }

@@ -23,9 +23,8 @@ unordered_map<string, int> Ladang::countPanen() {
         {
             if (isExist(i,j))
             {
-                Plant p = getValue(i,j);
-                if(p.getUmur() >= p.getHarvestDuration()){
-                    string code = getValue(i,j).getCode();  
+                if(getValue(i,j).getUmur() >= getValue(i,j).getHarvestDuration()){
+                    string code = getValue(i,j).getCode(); 
                     result[code]++;
                 }
             }
@@ -108,6 +107,7 @@ void Ladang::nextUmur(){
                 Plant p = getValue(i,j);
                 p.tambahUmur();
                 removeValue(i,j);
+                Plant * plant = new Plant(p);
                 setValue(i,j,p);
             }
         }
