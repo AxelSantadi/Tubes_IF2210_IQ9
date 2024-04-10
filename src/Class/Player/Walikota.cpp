@@ -65,7 +65,7 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
         }
 
         while (!adaResep || !adaBahan) {
-            if (a == "Batal") {
+            if (a == "Batal" || a == "batal") {
                 cout << "Pembangunan dibatalkan!" << endl;
                 return;
             } else if (!adaResep) {
@@ -122,7 +122,7 @@ void Walikota::dapatPajak(vector<Recipe> resep) {
     int j = 1;
     cout << "Cring cring cring..." << endl << "Pajak sudah dipungut!" << endl << endl;
     cout << "Berikut adalah detil dari pemungutan pajak:" << endl;
-    for (int i = 0; i < players.size()-1; i++) {
+    for (int i = 0; i < players.size(); i++) {
         if (players.at(i)->getRole() == "Walikota") {
             continue;
         } else {
@@ -139,6 +139,10 @@ void Walikota::dapatPajak(vector<Recipe> resep) {
 void Walikota::tambahPemain(Misc misc) {
     string jenis_pemain;
     string nama_pemain;
+    for (int i = 0; i < players.size(); i++) {
+        cout << players.at(i)->getName() << endl;
+    }
+
     if (money < 50) {
         cout << "Uang tidak cukup";
     } else {
@@ -153,14 +157,15 @@ void Walikota::tambahPemain(Misc misc) {
 
         if (jenis_pemain == "peternak" || jenis_pemain == "Peternak") {
             Peternak *ar = new Peternak(nama_pemain, 40, 50, misc.getFarmSize().first, misc.getFarmSize().second);
-            players.push_back(ar);
             money -= 50;
         } else if (jenis_pemain == "petani" || jenis_pemain == "Petani") {
             Petani *ar = new Petani(nama_pemain, misc.getStorageSize().first, misc.getStorageSize().second, misc.getFarmSize().first, misc.getFarmSize().second);
-            players.push_back(ar);
             money -= 50;
         }
 
+        for (int i = 0; i < players.size(); i++) {
+            cout << players.at(i)->getName() << endl;
+        }
         cout << "Pemain baru ditambahkan!" << endl << "Selamat datang " << '"' << nama_pemain << '"' << " di kota ini!" << endl << endl;
     }
 }

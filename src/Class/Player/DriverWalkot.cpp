@@ -94,13 +94,15 @@ int main()
     walikota->getInventoryPointer().printInventory();
 
     // Call the tambahPemain method (assuming Misc is a class you have defined)
-    walikota->addMoney(100);
+    walikota->addMoney(50);
     Misc misc = config.getMisc();
+    walikota->tambahPemain(misc);
     walikota->tambahPemain(misc);
     
     // Call the dapatPajak method
     walikota->dapatPajak(resep);
 
+    cout << walikota->getMoney() << endl;
 
     return 0;
 }
