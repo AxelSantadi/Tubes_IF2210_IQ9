@@ -115,29 +115,25 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
     }
 }
 
-int Walikota::getPajak(vector<Recipe> resep) {
-    float total, totalTemp;
-    int playerSize = players.size(), j = 1;
+int Walikota::getPajak(vector<Recipe> resep) {return 0;}
+
+void Walikota::dapatPajak(vector<Recipe> resep) {
+    int total = 0, totalTemp;
+    int j = 1;
     cout << "Cring cring cring..." << endl << "Pajak sudah dipungut!" << endl << endl;
     cout << "Berikut adalah detil dari pemungutan pajak:" << endl;
-    for (int i = 0; i < playerSize; i++) {
-        cout << "i : " << i << endl;
+    for (int i = 0; i < players.size()-1; i++) {
         if (players.at(i)->getRole() == "Walikota") {
             continue;
         } else {
-            cout << "udah sampe sini nih" << endl;
             totalTemp = players.at(i)->getPajak(resep);
             cout << j << ". " << players.at(i)->getName() << " - " << players.at(i)->getRole() << ": " << totalTemp << " Gulden" << endl;
-            total += getPajak(resep);
+            total += totalTemp;
             j++;
         }
     }
+    this->money += total;
     cout << "Negara mendapatkan pemasukkan sebesar " << total << " gulden." << endl << "Gunakan dengan baik dan jangan dikorupsi ya!" << endl;
-    return total;
-}
-
-void Walikota::dapatPajak(vector<Recipe> resep) {
-    money += getPajak(resep);
 }
 
 void Walikota::tambahPemain(Misc misc) {
@@ -165,6 +161,6 @@ void Walikota::tambahPemain(Misc misc) {
             money -= 50;
         }
 
-        cout << "Pemain baru ditambahkan!" << endl << "Selamat datang " << '"' << nama_pemain << '"' << " di kota ini!" << endl;
+        cout << "Pemain baru ditambahkan!" << endl << "Selamat datang " << '"' << nama_pemain << '"' << " di kota ini!" << endl << endl;
     }
 }

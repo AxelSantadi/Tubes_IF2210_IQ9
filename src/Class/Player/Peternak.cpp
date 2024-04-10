@@ -313,9 +313,11 @@ int Peternak::getPajak(vector<Recipe> resep){
     int total = 0;
 
     for (int k = 0; k < resep.size(); k++) {
-        for (int i = 0; i < inventory.getRows(); i++) {
-            for (int j = 0; j < inventory.getCols(); j++) {
-                if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
+        for (int i = 0; i <= inventory.getRows(); i++) {
+            for (char j = 'A'; j <= inventory.getCols(); j++) {
+                if (!inventory.isExist(i,j)) {
+                    continue;
+                } else if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
                     total += resep.at(k).getPrice();
                 }
             }
@@ -324,13 +326,15 @@ int Peternak::getPajak(vector<Recipe> resep){
 
     for (int i = 0; i < kandang.getRows(); i++) {
         for (int j = 0; j < kandang.getCols(); j++) {
-            if (kandang.isExist(i, j)) {
+            if (!kandang.isExist(i, j)) {
+                continue;
+            } else {
                 total += kandang.getValue(i, j).getPrice();
             }
         }
     }
 
-    total += money;
+    total += this->money;
 
     if (total < 11) {
         total = 0;
