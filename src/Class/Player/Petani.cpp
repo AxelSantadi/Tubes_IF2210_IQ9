@@ -228,17 +228,16 @@ void Petani::nextDay()
 int Petani::getPajak(vector<Recipe> resep) {
     int total = 0;
 
-    for (int k = 0; k < resep.size(); k++) {
-        for (int i = 1; i <= inventory.getRows(); i++) {
-            for (char j = 'A'; j <= inventory.getCols(); j++) {
-                if (!inventory.isExist(i,j)) {
-                    continue;
-                } else if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
-                    total += resep.at(k).getPrice();
-                }
+    for (int i = 1; i <= inventory.getRows(); i++) {
+        for (char j = 'A'; j <= inventory.getCols(); j++) {
+            if (!inventory.isExist(i,j)) {
+                continue;
+            } else {
+                total += inventory.getValue(i, j)->getPrice();
             }
         }
     }
+
 
     for (int i = 0; i < ladang.getRows(); i++) {
         for (int j = 0; j < ladang.getCols(); j++) {

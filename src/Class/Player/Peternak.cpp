@@ -312,14 +312,12 @@ void Peternak::panenTernak(vector<Product> product){
 int Peternak::getPajak(vector<Recipe> resep){
     int total = 0;
 
-    for (int k = 0; k < resep.size(); k++) {
-        for (int i = 0; i <= inventory.getRows(); i++) {
-            for (char j = 'A'; j <= inventory.getCols(); j++) {
-                if (!inventory.isExist(i,j)) {
-                    continue;
-                } else if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
-                    total += resep.at(k).getPrice();
-                }
+    for (int i = 1; i <= inventory.getRows(); i++) {
+        for (char j = 'A'; j <= inventory.getCols(); j++) {
+            if (!inventory.isExist(i,j)) {
+                continue;
+            } else {
+                total += inventory.getValue(i, j)->getPrice();
             }
         }
     }
