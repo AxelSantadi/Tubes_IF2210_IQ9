@@ -1,5 +1,7 @@
 #include "Perintah.hpp"
 
+
+
 Perintah::Perintah()
 {
     // Deklarasi
@@ -408,4 +410,16 @@ void Perintah::SIMPAN()
 }
 void Perintah::TAMBAH_PEMAIN()
 {
+}
+
+void Perintah::BUAT_BANGUNAN() {
+    try
+    {
+        Player::getCurrentPlayer()->buatBangunan(Recipe);
+    }
+    catch (BukanWalikotaExeption &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    cout << endl;
 }

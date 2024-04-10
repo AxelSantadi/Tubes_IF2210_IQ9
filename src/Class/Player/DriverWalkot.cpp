@@ -57,6 +57,8 @@
 #include "Toko.hpp"
 #include "Toko.cpp"
 
+using namespace std;
+
 int main()
 {
     // Create a Walikota
@@ -91,12 +93,13 @@ int main()
 
     walikota->getInventoryPointer().printInventory();
 
-    // // Call the tambahPemain method (assuming Misc is a class you have defined)
-    // Misc misc = config.getMisc();
-    // walikota->tambahPemain(misc);
+    // Call the tambahPemain method (assuming Misc is a class you have defined)
+    walikota->addMoney(100);
+    Misc misc = config.getMisc();
+    walikota->tambahPemain(misc);
     
-    // // Call the dapatPajak method
-    // walikota->dapatPajak(resep);
+    // Call the dapatPajak method
+    walikota->dapatPajak(resep);
 
 
     return 0;

@@ -229,10 +229,13 @@ int Petani::getPajak(vector<Recipe> resep) {
     int total = 0;
 
     for (int k = 0; k < resep.size(); k++) {
-        for (int i = 0; i < inventory.getRows(); i++) {
-            for (int j = 0; j < inventory.getCols(); j++) {
-                if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
+        for (int i = 1; i <= inventory.getRows(); i++) {
+            for (char j = 'A'; j <= inventory.getCols(); j++) {
+                if (!inventory.isExist(i,j)){
+                    continue;
+                } else if (inventory.getValue(i, j)->getCode() == resep.at(k).getCode()) {
                     total += resep.at(k).getPrice();
+                    std::cout << "totalnya nambah nih" << endl;
                 }
             }
         }
@@ -246,7 +249,7 @@ int Petani::getPajak(vector<Recipe> resep) {
         }
     }
 
-    total += money;
+    total += this->money;
 
     if (total < 13) {
         total = 0;

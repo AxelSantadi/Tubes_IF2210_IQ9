@@ -81,3 +81,8 @@ string bukanPetaniExeption::what()
 {
     return "Kamu bukan petani.";
 }
+
+string BukanWalikotaExeption::what()
+{
+    return "Loheh, sopo iki? bukan pak walikota gausah sok berkuasa ya.";
+}
