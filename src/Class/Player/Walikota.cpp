@@ -1,4 +1,8 @@
+#include <iostream>
 #include "Walikota.hpp"
+#include "../Items/Bangunan.hpp"
+
+// using namespace std;
 
 Walikota::Walikota(string nama, int n, char m) : Player(nama, n, m) {}
 
@@ -16,32 +20,43 @@ void Walikota::saveStatePlayer(ofstream &file) const
 }
 
 void Walikota::removeBahan(string namaBahan, int jumlah) {
-    for (int i = 0; i < inventory.getRows(); i++) {
-        for (int j = 'A'; j < inventory.getCols(); j++) {
-            if (inventory.getValue(i, j)->getName() == namaBahan) {
-                inventory.removeValue(i, j);
-                jumlah--;
+    for (int i = 1; i <= this->inventory.getRows(); i++) {
+        for (char j = 'A'; j < this->inventory.getCols(); j++) {
+            if (this->inventory.getValue(i, j)->getName() == namaBahan && jumlah > 0) {
+                this->inventory.removeValue(i, j);
+                jumlah -= 1;
+            }
+        }
+    }
+}
+
+void Walikota::removeBahan(string namaBahan, int jumlah, Inventory* inven) {
+    for (int i = 1; i <= inven->getRows(); i++) {
+        for (char j = 'A'; j < inven->getCols(); j++) {
+            if (inven->getValue(i, j)->getName() == namaBahan && jumlah > 0) {
+                inven->removeValue(i, j);
+                jumlah -= 1;
             }
         }
     }
 }
 
 void Walikota::buatBangunan(vector<Recipe> resep) {
-    if (inventory.isFull()) {
+    if (this->inventory.isFull()) {
         cout << "Bangunan sudah penuh!" << endl;
         return;
     } else {
         cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
-        int idx;
-        for (int i = 0; i < resep.size(); i++) {
+        int idx, resepSize = resep.size();
+        for (int i = 0; i < resepSize; i++) {
             resep.at(i).printBangunan(i+1);
         }
         string a;
-        cout << "Bangunan yang ingin dibangun (bisa ketik 'Batal' untuk membatalkan): ";
+        cout << endl << "Bangunan yang ingin dibangun (bisa ketik 'Batal' untuk membatalkan): ";
         cin >> a;
         bool adaResep = false, adaBahan = true;
 
-        for (int i = 0; i < resep.size(); i++) {
+        for (int i = 0; i < resepSize; i++) {
             if (resep.at(i).getName() == a) {
                 adaResep = true;
                 idx = i;
@@ -49,8 +64,9 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
         }
 
         if (adaResep) {
-            for (int j = 0; j < resep.at(idx).getNamaMaterialWhole().size(); j++) {
-                if (inventory.getJenisTiapItem(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
+            int p = resep.at(idx).getNamaMaterialWhole().size();
+            for (int j = 0; j < p; j++) {
+                if (this->inventory.getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
                     adaBahan = false;
                 }
             }
@@ -61,25 +77,25 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
                 cout << "Pembangunan dibatalkan!" << endl;
                 return;
             } else if (!adaResep) {
-                cout << "Kamu tidak punya resep bangunan tersebut!";
+                cout << "Kamu tidak punya resep bangunan tersebut!" << endl;
                 adaResep = false;
                 adaBahan = true;
-                for (int i = 0; i < resep.size(); i++) {
+                for (int i = 0; i < resepSize; i++) {
                     resep.at(i).printBangunan(i+1);
                 }
-                cout << "Bangunan yang ingin dibangun: ";
+                cout << endl << "Bangunan yang ingin dibangun (bisa ketik 'Batal' untuk membatalkan): ";
                 cin >> a;
             } else if (!adaBahan){
                 cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
                 resep.at(idx).selisihBahan(a, inventory);
-                cout << "!" << endl << endl;
+                cout << endl << endl;
                 adaResep = false;
                 adaBahan = true;
-                cout << "Bangunan yang ingin dibangun: ";
+                cout << endl << "Bangunan yang ingin dibangun (bisa ketik 'Batal' untuk membatalkan): ";
                 cin >> a;
             }
 
-            for (int i = 0; i < resep.size(); i++) {
+            for (int i = 0; i < resepSize; i++) {
                 if (resep.at(i).getName() == a) {
                     adaResep = true;
                     idx = i;
@@ -87,31 +103,128 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
             }
 
             if (adaResep) {
-                for (int j = 0; j < resep.at(idx).getNamaMaterialWhole().size(); j++) {
-                    if (inventory.getJenisTiapItem(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
+                int p = resep.at(idx).getNamaMaterialWhole().size();
+                for (int j = 0; j < p; j++) {
+                    if (this->inventory.getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
                         adaBahan = false;
                     }
                 }
             }
         }
 
-        for (int i = 0; i < resep.size(); i++) {
+        int p = resep.at(idx).getNamaMaterialWhole().size();
+        for (int j = 0; j < p; j++) {
+            removeBahan(resep.at(idx).getNamaMaterial(j), resep.at(idx).getJumlahMaterialNeeded(j));
+        }
+
+        Bangunan bangun(resep.at(idx).getID(), resep.at(idx).getCode(), resep.at(idx).getName(), resep.at(idx).getPrice());
+        for (int i = 1; i <= this->inventory.getRows(); i++) {
+            for (char j = 'A'; j < this->inventory.getCols(); j++) {
+                if (!this->inventory.isExist(i, j)) {
+                    this->inventory.setValue(i, j, &bangun);
+                }
+            }
+        }
+        cout << a << " berhasil dibangun dan telah menjadi hak milik walikota!" << endl;
+        
+    }
+}
+
+void Walikota::buatBangunan(vector<Recipe> resep, Inventory* invent) {
+    if (invent->isFull()) {
+        cout << "Bangunan sudah penuh!" << endl;
+        return;
+    } else {
+        cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
+        int idx, resepSize = resep.size();
+        for (int i = 0; i < resepSize; i++) {
+            resep.at(i).printBangunan(i+1);
+        }
+        string a;
+        cout << endl << "Bangunan yang ingin dibangun (bisa ketik 'Batal' untuk membatalkan): ";
+        cin >> a;
+        bool adaResep = false, adaBahan = true;
+
+        for (int i = 0; i < resepSize; i++) {
             if (resep.at(i).getName() == a) {
-                for (int j = 0; j < resep.at(i).getNamaMaterialWhole().size(); j++) {
-                    removeBahan(resep.at(i).getNamaMaterial(j), resep.at(i).getJumlahMaterialNeeded(j));
+                adaResep = true;
+                idx = i;
+            }
+        }
+
+        if (adaResep) {
+            int p = resep.at(idx).getNamaMaterialWhole().size();
+            for (int j = 0; j < p; j++) {
+                if (invent->getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
+                    adaBahan = false;
                 }
             }
         }
 
+        while (!adaResep || !adaBahan) {
+            if (a == "Batal") {
+                cout << "Pembangunan dibatalkan!" << endl;
+                return;
+            } else if (!adaResep) {
+                cout << "Kamu tidak punya resep bangunan tersebut!" << endl;
+                adaResep = false;
+                adaBahan = true;
+                for (int i = 0; i < resepSize; i++) {
+                    resep.at(i).printBangunan(i+1);
+                }
+                cout << endl << "Bangunan yang ingin dibangun (bisa ketik 'Batal' untuk membatalkan): ";
+                cin >> a;
+            } else if (!adaBahan){
+                cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
+                resep.at(idx).selisihBahan(a, *invent);
+                cout << endl << endl;
+                adaResep = false;
+                adaBahan = true;
+                cout << endl << "Bangunan yang ingin dibangun (bisa ketik 'Batal' untuk membatalkan): ";
+                cin >> a;
+            }
+
+            for (int i = 0; i < resepSize; i++) {
+                if (resep.at(i).getName() == a) {
+                    adaResep = true;
+                    idx = i;
+                }
+            }
+
+            if (adaResep) {
+                int p = resep.at(idx).getNamaMaterialWhole().size();
+                for (int j = 0; j < p; j++) {
+                    if (invent->getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
+                        adaBahan = false;
+                    }
+                }
+            }
+        }
+
+        int p = resep.at(idx).getNamaMaterialWhole().size();
+        for (int j = 0; j < p; j++) {
+            removeBahan(resep.at(idx).getNamaMaterial(j), resep.at(idx).getJumlahMaterialNeeded(j), invent);
+        }
+
+        Bangunan bangun(resep.at(idx).getID(), resep.at(idx).getCode(), resep.at(idx).getName(), resep.at(idx).getPrice());
+        for (int i = 1; i <= invent->getRows(); i++) {
+            for (char j = 'A'; j < invent->getCols(); j++) {
+                if (!invent->isExist(i, j)) {
+                    invent->setValue(i, j, &bangun);
+                }
+            }
+        }
         cout << a << " berhasil dibangun dan telah menjadi hak milik walikota!" << endl;
+        
     }
 }
 
 int Walikota::getPajak(vector<Recipe> resep) {
     float total;
+    int playerSize = players.size();
     cout << "Cring cring cring..." << endl << "Pajak sudah dipungut!" << endl << endl;
     cout << "Berikut adalah detil dari pemungutan pajak:" << endl;
-    for (int i = 0; i < players.size(); i++) {
+    for (int i = 0; i < playerSize; i++) {
         if (players.at(i)->getRole() == "Walikota") {
             continue;
         } else {
@@ -156,6 +269,6 @@ void Walikota::tambahPemain(Misc misc) {
             money -= 50;
         }
 
-        cout << "Pemain baru ditambahkan!" << endl << "Selamat datang" << '"' << nama_pemain << '"' << "di kota ini!" << endl;
+        cout << "Pemain baru ditambahkan!" << endl << "Selamat datang " << '"' << nama_pemain << '"' << " di kota ini!" << endl;
     }
 }

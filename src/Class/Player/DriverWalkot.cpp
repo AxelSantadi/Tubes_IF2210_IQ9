@@ -66,7 +66,9 @@ int main()
     std::cout << "Role: " << walikota->getRole() << std::endl;
 
     // Create a vector of Recipe objects (assuming Recipe is a class you have defined)
-    ReadConfig config("config1");
+
+    ReadConfig config("C:/Users/Axel Santadi/Documents/Cool_Yeah/Tingkat_2/Semester_4/OOP/Tubes/Tubes_IF2210_IQ9/config/config1");
+    std::cout << "berhasil load config" << std::endl;
 
     Inventory inventory(3, 'A');
     walikota->setInventory(inventory);
@@ -87,16 +89,15 @@ int main()
     // Call the buatBangunan method
     walikota->buatBangunan(resep);
 
-    // Call the getPajak method
-    //int pajak = walikota->getPajak(resep);
-    ///std::cout << "Pajak: " << pajak << std::endl;
-
-    // Call the dapatPajak method
-    //walikota.dapatPajak(resep);
+    walikota->getInventory().printInventory();
 
     // Call the tambahPemain method (assuming Misc is a class you have defined)
-    //Misc misc;
-    //walikota->tambahPemain(misc);
+    Misc misc = config.getMisc();
+    walikota->tambahPemain(misc);
+    
+    // Call the dapatPajak method
+    walikota->dapatPajak(resep);
+
 
     return 0;
 }

@@ -4,12 +4,18 @@ ReadConfig::ReadConfig() {}
 
 ReadConfig::ReadConfig(string folderName)
 {
-    string folder = "../../../config/" + folderName;
+    string folder = folderName;
+    cout << folder << endl;
     readMisc(folder + "/misc.txt");
+    cout << "misc read" << endl;
     readAnimal(folder + "/animal.txt");
+    cout << "animal read" << endl;
     readPlant(folder + "/plant.txt");
+    cout << "plant read" << endl;
     readRecipe(folder + "/recipe.txt");
+    cout << "recipe read" << endl;
     readProduct(folder + "/product.txt");
+    cout << "product read" << endl;
 }
 
 void ReadConfig::readMisc(string filename)

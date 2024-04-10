@@ -38,8 +38,13 @@ void Recipe::printBangunan(int i) {
 
 void Recipe::selisihBahan(string name, Inventory w_storage) {
     for (int i = 0; i < namaMaterial.size(); i++) {
-        if (w_storage.getJenisTiapItem(namaMaterial[i]) < jumlahMaterialNeeded[i]) {
-            cout << jumlahMaterialNeeded[i] - w_storage.getJenisTiapItem(namaMaterial[i]) << " " << namaMaterial[i] << endl;
+        if (w_storage.getJenisTiapItemNama(namaMaterial[i]) < jumlahMaterialNeeded[i]) {
+            cout << jumlahMaterialNeeded[i] - w_storage.getJenisTiapItemNama(namaMaterial[i]) << " " << namaMaterial[i];
+            if (i == namaMaterial.size() - 1) {
+                cout << "!";
+            } else {
+                cout << ", ";
+            }
         }
     }
 }

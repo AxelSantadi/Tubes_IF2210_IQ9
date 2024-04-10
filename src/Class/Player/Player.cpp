@@ -28,7 +28,7 @@ Player::Player(string name, int n, char m, int weight, int money) : name(name), 
 
 Player::~Player()
 {
-    cout << "Player " << name << " has been deleted" << endl;
+    //cout << "Player " << name << " has been deleted" << endl;
 }
 
 vector<Player *> Player::getPlayers()
@@ -342,6 +342,8 @@ void Player::jualTernak() {}
 
 // Walkot
 void Player::removeBahan(string namaBahan, int jumlah) {}
+void Player::removeBahan(string namaBahan, int jumlah, Inventory* inven) {}
 void Player::buatBangunan(vector<Recipe> resep) {}
+void Player::buatBangunan(vector<Recipe> resep, Inventory* inven) {}
 void Player::dapatPajak(vector<Recipe> resep) {}
 void Player::tambahPemain(Misc misc) {}
