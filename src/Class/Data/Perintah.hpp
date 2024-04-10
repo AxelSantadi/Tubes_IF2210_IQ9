@@ -36,7 +36,6 @@ class Perintah
         void PANEN();
         void SIMPAN();
         void TAMBAH_PEMAIN();
-        void BUAT_BANGUNAN();
 
     private:
         ReadConfig config;

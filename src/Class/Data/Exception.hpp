@@ -110,6 +110,12 @@ class BukanWalikotaExeption : public Exception
         string what() override;
 };
 
+class BukanPeternakExeption : public Exception
+{
+    public :
+        string what() override;
+};
+
 // class FileNotOpen : public exception {
 // private:
 //     std::string filename;

@@ -326,6 +326,20 @@ void Perintah::CETAK_PENYIMPANAN()
 }
 void Perintah::PUNGUT_PAJAK()
 {
+    try
+    {
+    
+        if (Player::getCurrentPlayer()->getRole() != "Walikota")
+        {
+            throw BukanWalikotaExeption();
+        }
+        // FUNGSINYA BELUM ADA
+        cout << endl;
+    }
+    catch (BukanWalikotaExeption &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }
 void Perintah::CETAK_LADANG()
 {
@@ -341,24 +355,74 @@ void Perintah::CETAK_LADANG()
 }
 void Perintah::CETAK_PETERNAKAN()
 {
+    try
+    {
+    
+        if (Player::getCurrentPlayer()->getRole() != "Peternak")
+        {
+            throw BukanPeternakExeption();
+        }
+        // FUNGSINYA BELUM ADA
+        cout << endl;
+    }
+    catch (BukanPeternakExeption &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }
 void Perintah::TANAM()
 {
     try
     {
+        if (Player::getCurrentPlayer()->getRole() != "Petani")
+        {
+            throw bukanPetaniExeption();
+        }
         Player::getCurrentPlayer()->tanam();
+        cout << endl;
+    }
+    catch (bukanPetaniExeption &e)
+    {
+        std::cerr << e.what() << '\n';
     }
     catch (BukanTanamanExeption &e)
     {
         std::cerr << e.what() << '\n';
     }
-    cout << endl;
 }
 void Perintah::TERNAK()
 {
+    try
+    {
+    
+        if (Player::getCurrentPlayer()->getRole() != "Peternak")
+        {
+            throw BukanPeternakExeption();
+        }
+        // FUNGSINYA BELUM ADA
+        cout << endl;
+    }
+    catch (BukanPeternakExeption &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }
 void Perintah::BANGUN()
 {
+    try
+    {
+    
+        if (Player::getCurrentPlayer()->getRole() != "Walikota")
+        {
+            throw BukanWalikotaExeption();
+        }
+        Player::getCurrentPlayer()->buatBangunan(config.getRecipe());   
+        cout << endl;
+    }
+    catch (BukanWalikotaExeption &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }
 void Perintah::MAKAN()
 {
@@ -379,6 +443,20 @@ void Perintah::MAKAN()
 }
 void Perintah::KASIH_MAKAN()
 {
+    try
+    {
+    
+        if (Player::getCurrentPlayer()->getRole() != "Peternak")
+        {
+            throw BukanPeternakExeption();
+        }
+        // FUNGSINYA BELUM ADA
+        cout << endl;
+    }
+    catch (BukanPeternakExeption &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }
 void Perintah::BELI()
 {
@@ -388,9 +466,19 @@ void Perintah::JUAL()
 }
 void Perintah::PANEN()
 {
-    if (Player::getCurrentPlayer()->getRole() == "Petani")
+    try
     {
+    
+        if (Player::getCurrentPlayer()->getRole() != "Petani")
+        {
+            throw bukanPetaniExeption();
+        }
         Player::getCurrentPlayer()->panen(config.getProduct());
+        cout << endl;
+    }
+    catch (bukanPetaniExeption &e)
+    {
+        std::cerr << e.what() << '\n';
     }
     
 }
@@ -410,16 +498,18 @@ void Perintah::SIMPAN()
 }
 void Perintah::TAMBAH_PEMAIN()
 {
-}
-
-void Perintah::BUAT_BANGUNAN() {
     try
     {
-        Player::getCurrentPlayer()->buatBangunan(Recipe);
+    
+        if (Player::getCurrentPlayer()->getRole() != "Walikota")
+        {
+            throw BukanWalikotaExeption();
+        }
+        // FUNGSINYA BELUM ADA
+        cout << endl;
     }
     catch (BukanWalikotaExeption &e)
     {
         std::cerr << e.what() << '\n';
     }
-    cout << endl;
 }

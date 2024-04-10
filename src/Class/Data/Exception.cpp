@@ -79,10 +79,15 @@ string belumPanenExeption::what()
 
 string bukanPetaniExeption::what()
 {
-    return "Kamu bukan petani.";
+    return "Kamu bukan petani, kamu tidak bisa menggunakan perintah ini.";
 }
 
 string BukanWalikotaExeption::what()
 {
-    return "Loheh, sopo iki? bukan pak walikota gausah sok berkuasa ya.";
+    return "Kamu bukan walikota, kamu tidak bisa menggunakan perintah ini.";
+}
+
+string BukanPeternakExeption::what()
+{
+    return "Kamu bukan Peternak, kamu tidak bisa menggunakan perintah ini.";
 }
