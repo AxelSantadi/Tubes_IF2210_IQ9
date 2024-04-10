@@ -4,18 +4,12 @@ ReadConfig::ReadConfig() {}
 
 ReadConfig::ReadConfig(string folderName)
 {
-    string folder = folderName;
-    cout << folder << endl;
+    string folder = "../../../config/" + folderName;
     readMisc(folder + "/misc.txt");
-    cout << "misc read" << endl;
     readAnimal(folder + "/animal.txt");
-    cout << "animal read" << endl;
     readPlant(folder + "/plant.txt");
-    cout << "plant read" << endl;
     readRecipe(folder + "/recipe.txt");
-    cout << "recipe read" << endl;
     readProduct(folder + "/product.txt");
-    cout << "product read" << endl;
 }
 
 void ReadConfig::readMisc(string filename)
@@ -203,9 +197,9 @@ Plant ReadConfig::createItemPlant(string itemName) const
 }
 
 // Toko Related
-vector<Item*> ReadConfig::getAnimalPointer() const
+vector<Item *> ReadConfig::getAnimalPointer() const
 {
-    vector<Item*> animalPointers;
+    vector<Item *> animalPointers;
     for (const auto &a : animal)
     {
         animalPointers.push_back(new Animal(a.getId(), a.getCode(), a.getName(), a.getType(), a.getWeightToHarvest(), a.getPrice()));
@@ -213,9 +207,9 @@ vector<Item*> ReadConfig::getAnimalPointer() const
     return animalPointers;
 }
 
-vector<Item*> ReadConfig::getPlantPointer() const
+vector<Item *> ReadConfig::getPlantPointer() const
 {
-    vector<Item*> plantPointers;
+    vector<Item *> plantPointers;
     for (const auto &p : plant)
     {
         plantPointers.push_back(new Plant(p.getId(), p.getCode(), p.getName(), p.getType(), p.getHarvestDuration(), p.getPrice()));

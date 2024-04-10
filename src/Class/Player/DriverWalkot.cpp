@@ -67,7 +67,7 @@ int main()
 
     // Create a vector of Recipe objects (assuming Recipe is a class you have defined)
 
-    ReadConfig config("C:/Users/Axel Santadi/Documents/Cool_Yeah/Tingkat_2/Semester_4/OOP/Tubes/Tubes_IF2210_IQ9/config/config1");
+    ReadConfig config("config1");
     std::cout << "berhasil load config" << std::endl;
 
     Inventory inventory(3, 'A');
