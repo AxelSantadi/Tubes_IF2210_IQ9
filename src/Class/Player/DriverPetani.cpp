@@ -71,6 +71,7 @@ int main (){
         p->getLadang().cetakLadang();
         Plant p1 = p->getLadang().getValue(1,'A');
         cout << "Umur : "<<p1.getUmur()<< endl;
+        
 
     return 0;
 }

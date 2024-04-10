@@ -6,6 +6,67 @@ void Ladang::cetakLadang(){
     cout << endl;
     cout << "================[ Ladang ]=================" << endl;
     print();
+    
+    cout << endl << endl;
+}
+
+void Ladang::cetakLadangPanen(){
+    cout << endl;
+    cout << "================[ Ladang ]=================" << endl;
+    cout << "     ";
+    for (char i = 'A'; i <= cols; i++)
+    {
+        cout << "  "<< i <<"   ";
+    }
+    cout << endl << "    ";
+    for (char i = 'A'; i <= cols; i++)
+    {
+        cout << "+-----";
+    }
+    cout << "+" <<endl;
+    for (int i = 1; i <= rows; i++)
+    {
+        if (i < 10)
+        {
+            cout << " 0"<<i<<" |";
+        }
+        else
+        {
+            cout << " "<<i<<" |";
+        }
+        
+        for (char j = 'A'; j <= cols; j++)
+        {
+            if (isExist(i, j))
+            {
+                if (getValue(i, j).getUmur() >= getValue(i, j).getHarvestDuration())
+                {
+                    Plant p = getValue(i,j);
+                    string text = p.getCode();
+                    string coloredText = "\x1b[32m"+ text + "\x1b[0m";
+                    cout << " " << coloredText<< " |";
+                }
+                else
+                {
+                    Plant p = getValue(i,j);
+                    string text = p.getCode();
+                    string coloredText = "\x1b[31m"+ text + "\x1b[0m";
+                    cout << " " << coloredText << " |";
+                }
+            }
+            else
+            {
+                cout << "     |";
+            }
+        }
+        cout << endl << "    ";
+        for (char i = 'A'; i <= cols; i++)
+        {
+            cout << "+-----";
+        }
+        cout << "+" <<endl;
+    }
+    
     cout << endl << endl;
 }
 

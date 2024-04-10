@@ -15,6 +15,7 @@ class Ladang : public MatrixMap<Plant>{
     public:
         Ladang(int panjang, char lebar);
         void cetakLadang();
+        void cetakLadangPanen();
         unordered_map<string,int> countPanen();
         void cetakJenisTanaman();
         Plant getPlant(int x, char a) const;

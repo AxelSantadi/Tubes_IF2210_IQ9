@@ -122,7 +122,7 @@ void Petani::tanam(){
 void Petani::panen(vector<Product> product)
 {
     // print ladang
-    ladang.cetakLadang();
+    ladang.cetakLadangPanen();
     cout << endl;
     // print isi ladang
     ladang.cetakJenisTanaman();
@@ -145,7 +145,7 @@ void Petani::panen(vector<Product> product)
         cin >> a;
         // validasi apakah terdapat inputan a
 
-        if (a > i || a < 0){
+        if (a >= i || a < 0){
             throw salahPanenExeption();
         }
 
