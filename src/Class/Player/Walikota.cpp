@@ -19,22 +19,24 @@ void Walikota::saveStatePlayer(ofstream &file) const
     Player::saveStatePlayer(file);
 }
 
+// nih keknya errornya disini
 void Walikota::removeBahan(string namaBahan, int jumlah) {
-    for (int i = 1; i <= this->inventory.getRows(); i++) {
-        for (char j = 'A'; j < this->inventory.getCols(); j++) {
-            if (this->inventory.getValue(i, j)->getName() == namaBahan && jumlah > 0) {
-                this->inventory.removeValue(i, j);
+    for (int i = 1; i <= getInventoryPointer().getRows(); i++) {
+        for (char j = 'A'; j < getInventoryPointer().getCols(); j++) {
+            if (getInventoryPointer().getValue(i, j)->getName() == namaBahan) {
+                cout << getInventoryPointer().getValue(i, j)->getName() << endl;
+                getInventoryPointer().getData().erase({i, j});
                 jumlah -= 1;
             }
         }
     }
 }
 
-void Walikota::removeBahan(string namaBahan, int jumlah, Inventory* inven) {
-    for (int i = 1; i <= inven->getRows(); i++) {
-        for (char j = 'A'; j < inven->getCols(); j++) {
-            if (inven->getValue(i, j)->getName() == namaBahan && jumlah > 0) {
-                inven->removeValue(i, j);
+void Walikota::removeBahan(string namaBahan, int jumlah, Inventory inven) {
+    for (int i = 1; i <= inven.getRows(); i++) {
+        for (char j = 'A'; j < inven.getCols(); j++) {
+            if (inven.getValue(i, j)->getName() == namaBahan && jumlah > 0) {
+                inven.removeValue(i, j);
                 jumlah -= 1;
             }
         }
@@ -42,7 +44,7 @@ void Walikota::removeBahan(string namaBahan, int jumlah, Inventory* inven) {
 }
 
 void Walikota::buatBangunan(vector<Recipe> resep) {
-    if (this->inventory.isFull()) {
+    if (getInventoryPointer().isFull()) {
         cout << "Bangunan sudah penuh!" << endl;
         return;
     } else {
@@ -66,7 +68,7 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
         if (adaResep) {
             int p = resep.at(idx).getNamaMaterialWhole().size();
             for (int j = 0; j < p; j++) {
-                if (this->inventory.getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
+                if (getInventoryPointer().getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
                     adaBahan = false;
                 }
             }
@@ -87,7 +89,7 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
                 cin >> a;
             } else if (!adaBahan){
                 cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
-                resep.at(idx).selisihBahan(a, inventory);
+                resep.at(idx).selisihBahan(a, getInventoryPointer());
                 cout << endl << endl;
                 adaResep = false;
                 adaBahan = true;
@@ -105,33 +107,35 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
             if (adaResep) {
                 int p = resep.at(idx).getNamaMaterialWhole().size();
                 for (int j = 0; j < p; j++) {
-                    if (this->inventory.getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
+                    if (getInventoryPointer().getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
                         adaBahan = false;
                     }
                 }
             }
         }
 
-        int p = resep.at(idx).getNamaMaterialWhole().size();
-        for (int j = 0; j < p; j++) {
-            removeBahan(resep.at(idx).getNamaMaterial(j), resep.at(idx).getJumlahMaterialNeeded(j));
+        for (int j = 0; j < resep.at(idx).getNamaMaterialWhole().size(); j++) {
+            this->removeBahan(resep.at(idx).getNamaMaterial(j), resep.at(idx).getJumlahMaterialNeeded(j));
+            cout << "removed bahan " << j+1 << endl;
         }
 
         Bangunan bangun(resep.at(idx).getID(), resep.at(idx).getCode(), resep.at(idx).getName(), resep.at(idx).getPrice());
-        for (int i = 1; i <= this->inventory.getRows(); i++) {
-            for (char j = 'A'; j < this->inventory.getCols(); j++) {
-                if (!this->inventory.isExist(i, j)) {
-                    this->inventory.setValue(i, j, &bangun);
+        
+        for (int i = 1; i <= getInventoryPointer().getRows(); i++) {
+            for (char j = 'A'; j < getInventoryPointer().getCols(); j++) {
+                if (!getInventoryPointer().isExist(i, j)) {
+                    getInventoryPointer().setValue(i, j, &bangun);
                 }
             }
         }
+        
         cout << a << " berhasil dibangun dan telah menjadi hak milik walikota!" << endl;
         
     }
 }
 
-void Walikota::buatBangunan(vector<Recipe> resep, Inventory* invent) {
-    if (invent->isFull()) {
+void Walikota::buatBangunan(vector<Recipe> resep, Inventory invent) {
+    if (invent.isFull()) {
         cout << "Bangunan sudah penuh!" << endl;
         return;
     } else {
@@ -155,7 +159,7 @@ void Walikota::buatBangunan(vector<Recipe> resep, Inventory* invent) {
         if (adaResep) {
             int p = resep.at(idx).getNamaMaterialWhole().size();
             for (int j = 0; j < p; j++) {
-                if (invent->getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
+                if (invent.getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
                     adaBahan = false;
                 }
             }
@@ -176,7 +180,7 @@ void Walikota::buatBangunan(vector<Recipe> resep, Inventory* invent) {
                 cin >> a;
             } else if (!adaBahan){
                 cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
-                resep.at(idx).selisihBahan(a, *invent);
+                resep.at(idx).selisihBahan(a, invent);
                 cout << endl << endl;
                 adaResep = false;
                 adaBahan = true;
@@ -194,7 +198,7 @@ void Walikota::buatBangunan(vector<Recipe> resep, Inventory* invent) {
             if (adaResep) {
                 int p = resep.at(idx).getNamaMaterialWhole().size();
                 for (int j = 0; j < p; j++) {
-                    if (invent->getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
+                    if (invent.getJenisTiapItemNama(resep.at(idx).getNamaMaterial(j)) < resep.at(idx).getJumlahMaterialNeeded(j)) {
                         adaBahan = false;
                     }
                 }
@@ -207,10 +211,10 @@ void Walikota::buatBangunan(vector<Recipe> resep, Inventory* invent) {
         }
 
         Bangunan bangun(resep.at(idx).getID(), resep.at(idx).getCode(), resep.at(idx).getName(), resep.at(idx).getPrice());
-        for (int i = 1; i <= invent->getRows(); i++) {
-            for (char j = 'A'; j < invent->getCols(); j++) {
-                if (!invent->isExist(i, j)) {
-                    invent->setValue(i, j, &bangun);
+        for (int i = 1; i <= invent.getRows(); i++) {
+            for (char j = 'A'; j < invent.getCols(); j++) {
+                if (!invent.isExist(i, j)) {
+                    invent.setValue(i, j, &bangun);
                 }
             }
         }

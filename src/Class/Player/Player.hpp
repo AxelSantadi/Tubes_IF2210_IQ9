@@ -96,9 +96,9 @@ public:
 
     // Method Walkot
     virtual void removeBahan(string namaBahan, int jumlah);
-    virtual void removeBahan(string namaBahan, int jumlah, Inventory* inven);
+    virtual void removeBahan(string namaBahan, int jumlah, Inventory inven);
     virtual void buatBangunan(vector<Recipe> resep);
-    virtual void buatBangunan(vector<Recipe> resep, Inventory* inven);
+    virtual void buatBangunan(vector<Recipe> resep, Inventory inven);
     virtual void dapatPajak(vector<Recipe> resep);
     virtual void tambahPemain(Misc misc);
 };

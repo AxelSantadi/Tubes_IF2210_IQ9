@@ -89,14 +89,14 @@ int main()
     // Call the buatBangunan method
     walikota->buatBangunan(resep);
 
-    walikota->getInventory().printInventory();
+    walikota->getInventoryPointer().printInventory();
 
-    // Call the tambahPemain method (assuming Misc is a class you have defined)
-    Misc misc = config.getMisc();
-    walikota->tambahPemain(misc);
+    // // Call the tambahPemain method (assuming Misc is a class you have defined)
+    // Misc misc = config.getMisc();
+    // walikota->tambahPemain(misc);
     
-    // Call the dapatPajak method
-    walikota->dapatPajak(resep);
+    // // Call the dapatPajak method
+    // walikota->dapatPajak(resep);
 
 
     return 0;

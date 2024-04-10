@@ -21,9 +21,9 @@ public:
     string getRole() const override;
     void saveStatePlayer(ofstream &file) const override;
     void removeBahan(string namaBahan, int jumlah) override;
-    void removeBahan(string namaBahan, int jumlah, Inventory* inven) override;
+    void removeBahan(string namaBahan, int jumlah, Inventory inven) override;
     void buatBangunan(vector<Recipe> resep) override;
-    void buatBangunan(vector<Recipe> resep, Inventory* inven) override ;
+    void buatBangunan(vector<Recipe> resep, Inventory inven) override ;
     int getPajak(vector<Recipe> resep) override;
     void dapatPajak(vector<Recipe> resep) override ;
     

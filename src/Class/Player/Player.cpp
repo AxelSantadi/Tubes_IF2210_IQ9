@@ -342,8 +342,8 @@ void Player::jualTernak() {}
 
 // Walkot
 void Player::removeBahan(string namaBahan, int jumlah) {}
-void Player::removeBahan(string namaBahan, int jumlah, Inventory* inven) {}
+void Player::removeBahan(string namaBahan, int jumlah, Inventory inven) {}
 void Player::buatBangunan(vector<Recipe> resep) {}
-void Player::buatBangunan(vector<Recipe> resep, Inventory* inven) {}
+void Player::buatBangunan(vector<Recipe> resep, Inventory inven) {}
 void Player::dapatPajak(vector<Recipe> resep) {}
 void Player::tambahPemain(Misc misc) {}
