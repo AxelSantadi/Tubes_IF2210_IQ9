@@ -21,11 +21,12 @@ void Walikota::saveStatePlayer(ofstream &file) const
 
 // nih keknya errornya disini
 void Walikota::removeBahan(string namaBahan, int jumlah) {
-    for (int i = 1; i <= getInventoryPointer().getRows(); i++) {
-        for (char j = 'A'; j < getInventoryPointer().getCols(); j++) {
-            if (getInventoryPointer().getValue(i, j)->getName() == namaBahan) {
-                cout << getInventoryPointer().getValue(i, j)->getName() << endl;
-                getInventoryPointer().getData().erase({i, j});
+    for (char j = 'A'; j <= getInventory().getCols(); j++) {
+        for (int i = 1; i <= getInventory().getRows(); i++) {
+            if (!getInventory().isExist(i,j)) {
+                continue;
+            } else if (getInventory().getValue(i, j)->getName() == namaBahan && getInventory().isExist(i,j)) {
+                removeItem(i, j);
                 jumlah -= 1;
             }
         }
@@ -115,22 +116,13 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
         }
 
         for (int j = 0; j < resep.at(idx).getNamaMaterialWhole().size(); j++) {
-            this->removeBahan(resep.at(idx).getNamaMaterial(j), resep.at(idx).getJumlahMaterialNeeded(j));
-            cout << "removed bahan " << j+1 << endl;
+            removeBahan(resep.at(idx).getNamaMaterial(j), resep.at(idx).getJumlahMaterialNeeded(j));
         }
 
-        Bangunan bangun(resep.at(idx).getID(), resep.at(idx).getCode(), resep.at(idx).getName(), resep.at(idx).getPrice());
-        
-        for (int i = 1; i <= getInventoryPointer().getRows(); i++) {
-            for (char j = 'A'; j < getInventoryPointer().getCols(); j++) {
-                if (!getInventoryPointer().isExist(i, j)) {
-                    getInventoryPointer().setValue(i, j, &bangun);
-                }
-            }
-        }
+        Bangunan * bangun = new Bangunan(resep.at(idx).getID(), resep.at(idx).getCode(), resep.at(idx).getName(), resep.at(idx).getPrice());
+        inventory.setRandomValue(bangun);
         
         cout << a << " berhasil dibangun dan telah menjadi hak milik walikota!" << endl;
-        
     }
 }
 
