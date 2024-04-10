@@ -16,7 +16,7 @@ class Walikota : public Player
 {
 public:
     Walikota(string nama,int n, char m);
-    Walikota(string nama,int n, char m,int money, int weight);
+    Walikota(string nama,int n, char m,int weight, int money);
     ~Walikota();
     string getRole() const override;
     void saveStatePlayer(ofstream &file) const override;

@@ -62,7 +62,7 @@ using namespace std;
 int main()
 {
     // Create a Walikota
-    Player *walikota = new Walikota("John Doe", 5, 'M', 5000, 50);
+    Player *walikota = new Walikota("John Doe", 5, 'M', 5000, 100);
 
     // Print the role of the Walikota
     std::cout << "Role: " << walikota->getRole() << std::endl;
@@ -78,9 +78,9 @@ int main()
     Item *product1 = new Product(1, "TAW", "TEAK_WOOD", "PRODUCT_MATERIAL_PLANT", "TEAK_TREE", 0, 9);
     Item *product2 = new Product(2, "SAW", "SANDALWOOD_WOOD", "PRODUCT_MATERIAL_PLANT", "SANDALWOOD_TREE", 0, 8);
 
-    walikota->getInventoryPointer().setValue(1, 'A', product1);
-    walikota->getInventoryPointer().setValue(2, 'A', product2);
-    walikota->getInventoryPointer().printInventory();
+    walikota->addItem(product1,1, 'A');
+    walikota->addItem(product2,2, 'A');
+    walikota->getInventory().printInventory();
     cout << endl;
 
     cout << "Uang: " << walikota->getMoney() << endl;
@@ -91,7 +91,7 @@ int main()
     // Call the buatBangunan method
     walikota->buatBangunan(resep);
 
-    walikota->getInventoryPointer().printInventory();
+    walikota->getInventory().printInventory();
 
     // Call the tambahPemain method (assuming Misc is a class you have defined)
     walikota->addMoney(50);
@@ -99,6 +99,13 @@ int main()
     walikota->tambahPemain(misc);
     walikota->tambahPemain(misc);
     
+    // Buat player baru
+    Player *petani = new Petani("John Diss", 5, 'C', 30, 550,3,'A');
+    
+    Item* productbaru = new Bangunan(6,"KON","Rumah Mantap",250);
+    petani->addItem(productbaru,1,'A');
+
+
     // Call the dapatPajak method
     walikota->dapatPajak(resep);
 

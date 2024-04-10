@@ -3,7 +3,7 @@
 Peternak::Peternak(string nama,int n, char m,int panjang,char lebar) : Player(nama,n,m), kandang(panjang,lebar)
 {}
 
-Peternak::Peternak(string nama,int n, char m,int money,int weight,int panjang,char lebar) : Player(nama,n,m,money,weight), kandang(panjang,lebar)
+Peternak::Peternak(string nama,int n, char m,int weight,int money,int panjang,char lebar) : Player(nama,n,m,weight,money), kandang(panjang,lebar)
 {}
 
 Peternak::~Peternak(){}

@@ -14,7 +14,7 @@ private:
     Ladang ladang;
 public:
     Petani(string nama,int n, char m,int panjang,char lebar);
-    Petani(string nama,int n, char m,int money,int weight,int panjang,char lebar);
+    Petani(string nama,int n, char m,int weight,int money,int panjang,char lebar);
     
     ~Petani();
 

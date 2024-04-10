@@ -6,7 +6,7 @@
 
 Walikota::Walikota(string nama, int n, char m) : Player(nama, n, m) {}
 
-Walikota::Walikota(string nama, int n, char m, int money, int weight) : Player(nama, n, m, money, weight) {}
+Walikota::Walikota(string nama, int n, char m, int weight, int money) : Player(nama, n, m, weight, money) {}
 
 Walikota::~Walikota() {}
 

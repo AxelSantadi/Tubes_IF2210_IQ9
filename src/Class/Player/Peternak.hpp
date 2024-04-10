@@ -17,7 +17,7 @@ private:
 public:
 
     Peternak(string nama,int n, char m,int panjang,char lebar);
-    Peternak(string nama,int n, char m,int money,int weight,int panjang,char lebar);    
+    Peternak(string nama,int n, char m,int weight,int money,int panjang,char lebar);    
     ~Peternak();
 
     string getRole() const override;

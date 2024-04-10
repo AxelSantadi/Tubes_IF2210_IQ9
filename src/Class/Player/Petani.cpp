@@ -5,7 +5,7 @@ using namespace std;
 Petani::Petani(string nama,int n , char m, int panjang , char lebar): Player(nama, n, m), ladang(panjang,lebar)
 {}
 
-Petani::Petani(string nama,int n , char m, int money, int weight, int panjang , char lebar): Player(nama, n, m, money, weight), ladang(panjang,lebar)
+Petani::Petani(string nama,int n , char m, int weight, int money, int panjang , char lebar): Player(nama, n, m, weight, money), ladang(panjang,lebar)
 {}
 
 Petani::~Petani(){
