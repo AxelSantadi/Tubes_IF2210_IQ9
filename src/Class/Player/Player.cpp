@@ -3,32 +3,28 @@
 vector<Player *> Player::players;
 int Player::idxCurrentPlayer = 0;
 
-
-bool Player::comparePlayers(const Player* a, const Player* b) {
+bool Player::comparePlayers(const Player *a, const Player *b)
+{
     return a->name < b->name;
 }
 
 Player::Player(string name, int n, char m) : name(name), weight(DEFAULT_WEIGHT), money(DEFAULT_MONEY), inventory(n, m)
 {
     players.push_back(this);
-    sort(players.begin(), players.end(), [](const Player* a, const Player* b) 
-    {
-        return a->name < b->name;
-    });
+    sort(players.begin(), players.end(), [](const Player *a, const Player *b)
+         { return a->name < b->name; });
 }
 
 Player::Player(string name, int n, char m, int weight, int money) : name(name), weight(weight), money(money), inventory(n, m)
 {
     players.push_back(this);
-    sort(players.begin(), players.end(), [](const Player* a, const Player* b) 
-    {
-        return a->name < b->name;
-    });
+    sort(players.begin(), players.end(), [](const Player *a, const Player *b)
+         { return a->name < b->name; });
 }
 
 Player::~Player()
 {
-    //cout << "Player " << name << " has been deleted" << endl;
+    // cout << "Player " << name << " has been deleted" << endl;
 }
 
 vector<Player *> Player::getPlayers()
@@ -119,19 +115,14 @@ Inventory Player::getInventory() const
     return inventory;
 }
 
-Inventory& Player::getInventoryPointer() {
+Inventory &Player::getInventoryPointer()
+{
     return inventory;
 }
-
 
 Item *Player::getItem(int i, char j) const
 {
     return inventory.getValue(i, j);
-}
-
-string Player::getRole() const
-{
-    return "Player";
 }
 
 void Player::setName(string name)
@@ -278,24 +269,42 @@ void Player::buyItem(Toko &toko)
     if (money >= price)
     {
         Item *item = toko.getItemToko(itemName);
+
+        if (getRole() == "Walikota" && item->getJenis() == "Bangunan")
+        {
+            cout << "Walikota tidak dapat membeli bangunan." << endl;
+            return;
+        }
+
         for (int i = 0; i < quantity; ++i)
         {
             this->money -= price;
             toko.removeItemToko(itemName);
         }
+        
         std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl
                   << endl;
         std::cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << std::endl;
         this->inventory.printInventory();
         std ::cout << endl;
 
-        string slot;
-        for (int i = 0; i < quantity; ++i)
+        string slots;
+        cout << "Petak : ";
+        cin.ignore(); // Ignore the newline character in the input buffer
+        std::getline(std::cin, slots);
+
+        std::istringstream ss(slots);
+        std::string slot;
+        while (std::getline(ss, slot, ',') && quantity > 0)
         {
-            std::cout << "Petak Slot: ";
-            std::cin >> slot;
+            // Remove leading and trailing spaces
+            slot.erase(0, slot.find_first_not_of(' ')); // leading
+            slot.erase(slot.find_last_not_of(' ') + 1); // trailing
+
             this->inventory.storeItemInSlot(item, slot);
+            --quantity;
         }
+        std::cout << item->getName() << " berhasil disimpan dalam penyimpanan!" << std::endl;
     }
 
     else

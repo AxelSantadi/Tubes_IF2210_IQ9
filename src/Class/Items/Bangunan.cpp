@@ -46,3 +46,7 @@ int Bangunan::getAddedWeight() const{
 bool Bangunan::isMakanan() const{
     return false;
 }
+
+string Bangunan::getJenis() const{
+    return "Bangunan";
+}

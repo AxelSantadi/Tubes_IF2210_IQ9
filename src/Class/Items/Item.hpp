@@ -51,6 +51,9 @@ public:
     virtual bool isMakanan() const = 0;
     virtual int getAddedWeight() const = 0;
 
+    // Determine what kind of item
+    virtual string getJenis() const = 0;
+
 protected:
     static int numOfItem;
     int id;

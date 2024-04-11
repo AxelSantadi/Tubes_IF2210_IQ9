@@ -49,6 +49,8 @@ public:
     bool isMakanan() const override;
     int getAddedWeight() const override;
 
+    // Method buat jenis
+    string getJenis() const override;
 private:
     static int numOfAnimal;
 

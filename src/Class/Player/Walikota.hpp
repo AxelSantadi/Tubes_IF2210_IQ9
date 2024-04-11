@@ -15,17 +15,23 @@ using namespace std;
 class Walikota : public Player
 {
 public:
+    // Constructor and destructor
     Walikota(string nama,int n, char m);
     Walikota(string nama,int n, char m,int weight, int money);
     ~Walikota();
+
+    // getter
     string getRole() const override;
-    void saveStatePlayer(ofstream &file) const override;
+    int getPajak(vector<Recipe> resep) override;
+
+    // Methods
     void removeBahan(string namaBahan, int jumlah) override;
     void buatBangunan(vector<Recipe> resep) override;
-    int getPajak(vector<Recipe> resep) override;
-    void dapatPajak(vector<Recipe> resep) override ;
-    
+    void dapatPajak(vector<Recipe> resep) override ;    
     void tambahPemain(Misc misc) override;
+
+    // Saving
+    void saveStatePlayer(ofstream &file) const override;
 };
 
 #endif

@@ -55,7 +55,7 @@ public:
     Inventory& getInventoryPointer();
 
     Item* getItem(int i, char j) const;
-    virtual string getRole() const; // nanti dibuat pure virtual
+    virtual string getRole() const = 0; 
 
     // Setters
     void setName(string name);

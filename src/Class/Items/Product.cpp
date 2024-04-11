@@ -124,3 +124,8 @@ bool Product::isMakanan() const
 {
     return (added_weight > 0);
 }
+
+string Product::getJenis() const
+{
+    return "Product";
+}

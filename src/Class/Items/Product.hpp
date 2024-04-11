@@ -44,6 +44,8 @@ public:
 
     bool isMakanan() const override;
 
+    string getJenis() const override;
+
 protected:
     static int numOfProduct;
 

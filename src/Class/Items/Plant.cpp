@@ -10,11 +10,11 @@ Plant::Plant() : Item()
     Plant::numOfPlant++;
 }
 
-Plant::Plant (int id, string code, string name, string type, int harvest_duration, int price) : Item(id, code, name, price)
+Plant::Plant(int id, string code, string name, string type, int harvest_duration, int price) : Item(id, code, name, price)
 {
     this->type = type;
     this->harvest_duration = harvest_duration;
-    this->umur = 0; 
+    this->umur = 0;
 
     Plant::numOfPlant++;
 }
@@ -53,7 +53,7 @@ void Plant::setHarvestDuration(int h)
     harvest_duration = h;
 }
 
-int Plant::getUmur() const 
+int Plant::getUmur() const
 {
     return umur;
 }
@@ -123,7 +123,7 @@ void Plant::output(ostream &os)
     os << "Harvest Duration: " << harvest_duration << endl;
 }
 
-ostream& operator<<(ostream &os, const Plant &p)
+ostream &operator<<(ostream &os, const Plant &p)
 {
     os << p.getCode();
     return os;
@@ -134,12 +134,14 @@ string Plant::operator*() const
     return code;
 }
 
-bool Plant::isUnlimited() const { return true;}
+bool Plant::isUnlimited() const { return true; }
 
-bool Plant::isMakanan() const { return false;}
+string Plant::getJenis() const { return "Plant"; }
+
+bool Plant::isMakanan() const { return false; }
 
 // Material Plant
-MaterialPlant::MaterialPlant(int id, const std::string &code, const std::string &name, string type, int harvest_duration, int price,int umur) : Plant(id, code, name, type, harvest_duration, price)
+MaterialPlant::MaterialPlant(int id, const std::string &code, const std::string &name, string type, int harvest_duration, int price, int umur) : Plant(id, code, name, type, harvest_duration, price)
 {
     type = "Material_plant";
 }

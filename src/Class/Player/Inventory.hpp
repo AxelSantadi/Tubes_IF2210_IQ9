@@ -10,7 +10,7 @@
 #include "../Data/Exception.hpp"
 
 using namespace std;
-class Inventory : public MatrixMap<Item*>
+class Inventory : public MatrixMap<Item *>
 {
 public:
     // Constructors
@@ -18,20 +18,19 @@ public:
 
     // Getters and Setters
     int getJenisTiapItem(string c) const;
-    void setValue(int x, char c, Item* value) override;
+    void setValue(int x, char c, Item *value) override;
     void removeValue(int x, char c) override;
 
     // Methods
-    void setRandomValue(Item* item);
+    void setRandomValue(Item *item);
 
     void printInventory() const;
-
 
     bool noFood() const;
 
     int getJenisTiapItemNama(string c) const;
 
-    void storeItemInSlot(Item* item, const std::string &slot);
+    void storeItemInSlot(Item *item, const std::string &slot);
 };
 
 #endif

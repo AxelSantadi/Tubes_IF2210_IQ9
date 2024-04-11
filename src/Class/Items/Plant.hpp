@@ -49,6 +49,9 @@ public:
     // Determine if item is makanan
     bool isMakanan() const override;
 
+    // Determine what kind of item
+    string getJenis() const override;
+
 protected:
     static int numOfPlant;
     string type;

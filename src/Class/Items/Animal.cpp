@@ -131,6 +131,8 @@ void Animal::display()
     cout << "Weight to Harvest: " << this->weightToHarvest << endl;
 }
 
+string Animal::getJenis() const { return "Animal"; }
+
 bool Animal::isUnlimited() const { return true; }
 
 bool Animal::isMakanan() const { return false; }

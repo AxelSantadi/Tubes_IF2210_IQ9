@@ -26,6 +26,9 @@ public:
     int getAddedWeight() const;
     bool isMakanan() const;
 
+    // Method buat jenis
+    string getJenis() const;
+
 protected:
     static int numOfBangunan;
 };
