@@ -36,10 +36,10 @@ public:
     void setSatuJumlahMaterialNeeded(int jumlahMaterialNeeded);
 
     // Getter
-    int getID();
-    string getCode();
-    string getName();
-    int getPrice();
+    int getID() const;
+    string getCode() const;
+    string getName() const;
+    int getPrice() const;
 
     vector<string> getNamaMaterialWhole();
     string getNamaMaterial(int idx);

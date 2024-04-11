@@ -65,19 +65,19 @@ void Recipe::setSatuJumlahMaterialNeeded(int jumlahMaterialNeeded) {
     this->jumlahMaterialNeeded.push_back(jumlahMaterialNeeded);
 }
 
-int Recipe::getID() {
+int Recipe::getID() const{
     return id;
 }
 
-string Recipe::getCode() {
+string Recipe::getCode() const{
     return code;
 }
 
-string Recipe::getName() {
+string Recipe::getName() const {
     return name;
 }
 
-int Recipe::getPrice() {
+int Recipe::getPrice() const {
     return price;
 }
 

@@ -1,3 +1,7 @@
+#include "Walikota.hpp"
+#include "Walikota.cpp"
+
+// Item
 #include "../Items/Item.hpp"
 #include "../Items/Item.cpp"
 
@@ -10,21 +14,48 @@
 #include "../Items/Product.hpp"
 #include "../Items/Product.cpp"
 
+#include "../Items/Bangunan.hpp"
+#include "../Items/Bangunan.cpp"
 
+// Player
+#include "Player.hpp"
+#include "Player.cpp"
+
+#include "Petani.hpp"
+#include "Petani.cpp"
+
+#include "Peternak.hpp"
+#include "Peternak.cpp"
+
+// Config
 #include "../Data/Exception.hpp"
 #include "../Data/Exception.cpp"
 
+#include "../Data/ReadConfig.hpp"
+#include "../Data/ReadConfig.cpp"
+
+#include "../Data/Misc.hpp"
+#include "../Data/Misc.cpp"
+
+#include "../Data/Recipe.hpp"
+#include "../Data/Recipe.cpp"
+
+// Per map an
+#include "MatrixMap.hpp"
 #include "MatrixMap.cpp"
-#include "ladang.cpp"
+
+#include "Inventory.hpp"
 #include "Inventory.cpp"
 
-#include "../Data/Recipe.cpp"
-#include "../Data/ReadConfig.cpp"
-#include "../Data/Misc.cpp"
+#include "Kandang.hpp"
+#include "Kandang.cpp"
+
+#include "ladang.hpp"
+#include "ladang.cpp"
+
+// Toko
+#include "Toko.hpp"
 #include "Toko.cpp"
-#include "Player.cpp"
-#include "Petani.cpp"
-#include "Petani.hpp"
 
 
 int main (){

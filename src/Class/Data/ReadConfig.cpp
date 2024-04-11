@@ -171,12 +171,12 @@ Item *ReadConfig::createItem(string itemName) const
 
     // Iterate over recipes
 
-    /*for (const auto& r : recipe) {
+    for (const auto& r : recipe) {
         if (r.getName() == itemName) {
             // Replace with the correct constructor for Recipe
-            return new Recipe( parameters);
+            return new Bangunan(r.getID(), r.getCode(), r.getName(), r.getPrice());
         }
-    } */
+    } 
 
     // If no match found, return null
     return nullptr;
@@ -194,6 +194,20 @@ Plant ReadConfig::createItemPlant(string itemName) const
 
     // If no match found, return a default Plant object
     return Plant();
+}
+
+Animal ReadConfig::createItemAnimal(string itemName) const
+{
+    for (const auto &a : animal)
+    {
+        if (a.getName() == itemName)
+        {
+            return Animal(a.getId(), a.getCode(), a.getName(), a.getType(), a.getWeightToHarvest(), a.getPrice());
+        }
+    }
+
+    // If no match found, return a default Plant object
+    return Animal();
 }
 
 // Toko Related

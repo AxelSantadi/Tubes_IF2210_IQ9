@@ -11,6 +11,7 @@
 #include "../Items/Animal.hpp"
 #include "../Items/Plant.hpp"
 #include "../Items/Product.hpp"
+#include "../Items/Bangunan.hpp"
 
 using namespace std;
 
@@ -39,6 +40,8 @@ public:
     vector<Product> getProduct() const;
     Item *createItem(string itemName) const;
     Plant createItemPlant(string itemName) const;
+    Animal createItemAnimal(string itemName) const;
+    Product createItemProduct(string itemName) const;
 
     vector<Item *> getPlantPointer() const;
     vector<Item *> getAnimalPointer() const;

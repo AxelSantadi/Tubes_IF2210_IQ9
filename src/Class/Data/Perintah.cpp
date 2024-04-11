@@ -1,7 +1,5 @@
 #include "Perintah.hpp"
 
-
-
 Perintah::Perintah()
 {
     // Deklarasi
@@ -17,6 +15,7 @@ Perintah::Perintah()
 
     // Alur 2
     muatState();
+    toko = new Toko(config);
 
     // Alur 3
     cout << "Urutan giliran permainan berdasarkan urutan leksikografis dari username pemain." << endl;
@@ -98,6 +97,11 @@ Perintah::Perintah()
             cout << "Perintah Tidak Valid Masukan lagi yang benar." << endl;
         }
     }
+}
+
+Perintah::~Perintah()
+{
+    delete toko; // Delete toko to avoid memory leaks
 }
 
 void Perintah::initilization()
@@ -184,18 +188,24 @@ void Perintah::muatState()
     int n_peternakan = sizePeternakan.first;
     char m_peternakan = sizePeternakan.second;
 
+    // Pilihan Permainan
     string pilihan;
     cout << "Selamat datang di permainan ini!" << endl;
     cout << "Apakah Anda ingin memuat state? (y/n) ";
     cin >> pilihan;
+
+    // Loop sampe dapet yang valid
     while (pilihan != "y" && pilihan != "n" && pilihan != "Y" && pilihan != "N")
     {
         cout << endl
              << "Pilihan tidak valid, silahkan masukkan yang benar (y/n): ";
         cin >> pilihan;
     }
+
     cout << endl
          << endl;
+
+    // Mulai game tanpa muat state / muat game baru
     if (pilihan == "n" || pilihan == "N")
     {
         cout << "Anda memilih untuk memulai permainan baru." << endl;
@@ -211,9 +221,10 @@ void Perintah::muatState()
         Player *Walikota1 = new Walikota("Walikota1", n_inventory, m_inventory);
     }
 
+    // Muat game dari state.txt
     else
     {
-        ifstream stateFile("state.txt");
+        ifstream stateFile("../../../data/state.txt");
         if (!stateFile)
         {
             cerr << "File tidak bisa dibuka.";
@@ -221,12 +232,19 @@ void Perintah::muatState()
         }
 
         // Ambil jumlah pemain
+        // N
+        // <STATE PEMAIN 1> <STATE PEMAIN 2> … <STATE PEMAIN N>
+
         int numPlayers;
         stateFile >> numPlayers;
 
         // Looping untuk setiap pemain
         for (int i = 0; i < numPlayers; i++)
         {
+            //<USERNAME> Petani <BERAT_BADAN> <UANG>
+            // <USERNAME> Peternak <BERAT_BADAN> <UANG>
+            // <USERNAME> Walikota <BERAT_BADAN> <UANG>
+
             // Baca data pemain
             string line;
             getline(stateFile, line);
@@ -235,7 +253,7 @@ void Perintah::muatState()
 
             // Atribut pemain
             string username, role;
-            double weight;
+            int weight;
             int money;
 
             ss >> username >> role >> weight >> money;
@@ -247,25 +265,32 @@ void Perintah::muatState()
             }
             else if (role == "Peternak")
             {
-                // Player *player = new Peternak(username, weight, money, n_peternakan, m_peternakan);
+                Player *player = new Peternak(username, n_inventory, m_inventory, n_peternakan, m_peternakan);
             }
             else if (role == "Walikota")
             {
-                player = new Walikota(username, n_inventory, m_inventory, weight, money);
+                player = new Walikota(username, n_inventory, m_inventory);
             }
 
             // Baca banyak inventory
+            // <JUMLAH_ITEM_INVENTORY_(M)>
             int numItems;
             stateFile >> numItems;
 
             // Looping untuk setiap item terus set ke inventory nya si player
             for (int j = 0; j < numItems; j++)
             {
+                //<INVENTORY M>
                 string itemName;
                 stateFile >> itemName;
                 Item *item = config.createItem(itemName);
                 player->getInventory().setRandomValue(item);
             }
+
+            // Spesial item untuk setiap orang
+            // <JUMLAH_TANAMAN_DI_LADANG_(K)>
+            // <JUMLAH_HEWAN_DI_PETERNAKAN_(K)>
+            // Walikota gaada tambahan
 
             int numSpecializedItems;
             stateFile >> numSpecializedItems;
@@ -274,6 +299,7 @@ void Perintah::muatState()
             {
                 for (int k = 0; k < numSpecializedItems; k++)
                 {
+                    // <LOKASI_TANAMAN_K> <NAMA_TANAMAN_K> <UMUR_TANAMAN_K>
                     string line2;
                     getline(stateFile, line2);
 
@@ -297,6 +323,71 @@ void Perintah::muatState()
                     }
                 }
             }
+
+            else if (role == "Peternak")
+            {
+                for (int k = 0; k < numSpecializedItems; k++)
+                {
+                    // <LOKASI_HEWAN_K> <NAMA_HEWAN_K> <BERAT_HEWAN_K>
+                    string line2;
+                    getline(stateFile, line2);
+
+                    stringstream iss(line2);
+
+                    string slot, animalName;
+                    int beratAnimal;
+
+                    iss >> slot >> animalName >> beratAnimal;
+
+                    Animal animal = config.createItemAnimal(animalName);
+                    animal.setBerat(beratAnimal);
+
+                    int row = slot[1] - '0';
+                    char col = slot[0];
+
+                    Peternak *peternak = dynamic_cast<Peternak *>(player);
+                    if (peternak)
+                    {
+                        peternak->addTernak(animal, row, col);
+                    }
+                }
+            }
+
+            else if (role == "Walikota")
+            {
+                // Do nothing
+            }
+        }
+        int numItemToko;
+        stateFile >> numItemToko;
+
+        // <ITEM_1> <JUMLAH_ITEM_1>
+        // <ITEM_2> <JUMLAH_ITEM_2>
+
+        for (int k = 0; k < numItemToko; k++)
+        {
+            string line3;
+            getline(stateFile, line3);
+
+            stringstream iss(line3);
+
+            string itemName;
+            int jumlahItem;
+
+            iss >> itemName >> jumlahItem;
+
+            // Add the item to toko
+            for (int j = 0; j < jumlahItem; j++)
+            {
+                // Create an Item object
+                Item *item = config.createItem(itemName); // Use createItem to create the Item object
+
+                // Add the item to toko
+                if (item != nullptr)
+                {
+                    toko->addItemToko(item);
+                }
+            }
         }
     }
 }
@@ -304,7 +395,7 @@ void Perintah::muatState()
 void Perintah::NEXT()
 {
     if (Player::getWinner(config.getMisc()) == NULL)
-    {   
+    {
         if (Player::getCurrentPlayer()->getRole() == "Petani")
         {
             Player::getCurrentPlayer()->nextDay();
@@ -331,7 +422,9 @@ void Perintah::PUNGUT_PAJAK()
         if (Player::getCurrentPlayer()->getRole() != "Walikota")
         {
             throw BukanWalikotaExeption();
-        } else {
+        }
+        else
+        {
             Player::getCurrentPlayer()->dapatPajak(config.getRecipe());
         }
         cout << endl;
@@ -357,7 +450,7 @@ void Perintah::CETAK_PETERNAKAN()
 {
     try
     {
-    
+
         if (Player::getCurrentPlayer()->getRole() != "Peternak")
         {
             throw BukanPeternakExeption();
@@ -394,7 +487,7 @@ void Perintah::TERNAK()
 {
     try
     {
-    
+
         if (Player::getCurrentPlayer()->getRole() != "Peternak")
         {
             throw BukanPeternakExeption();
@@ -411,12 +504,12 @@ void Perintah::BANGUN()
 {
     try
     {
-    
+
         if (Player::getCurrentPlayer()->getRole() != "Walikota")
         {
             throw BukanWalikotaExeption();
         }
-        Player::getCurrentPlayer()->buatBangunan(config.getRecipe());   
+        Player::getCurrentPlayer()->buatBangunan(config.getRecipe());
         cout << endl;
     }
     catch (BukanWalikotaExeption &e)
@@ -445,7 +538,7 @@ void Perintah::KASIH_MAKAN()
 {
     try
     {
-    
+
         if (Player::getCurrentPlayer()->getRole() != "Peternak")
         {
             throw BukanPeternakExeption();
@@ -460,15 +553,21 @@ void Perintah::KASIH_MAKAN()
 }
 void Perintah::BELI()
 {
+    // Call Player::buyItem with the Toko object
+    Player::getCurrentPlayer()->buyItem(*toko); 
 }
+
 void Perintah::JUAL()
 {
+    // Call Player::sellItem with the Toko object
+    Player::getCurrentPlayer()->sellItem(*toko);
 }
+
 void Perintah::PANEN()
 {
     try
     {
-    
+
         if (Player::getCurrentPlayer()->getRole() != "Petani")
         {
             throw bukanPetaniExeption();
@@ -480,7 +579,6 @@ void Perintah::PANEN()
     {
         std::cerr << e.what() << '\n';
     }
-    
 }
 void Perintah::SIMPAN()
 {
@@ -500,11 +598,13 @@ void Perintah::TAMBAH_PEMAIN()
 {
     try
     {
-    
+
         if (Player::getCurrentPlayer()->getRole() != "Walikota")
         {
             throw BukanWalikotaExeption();
-        } else {
+        }
+        else
+        {
             Player::getCurrentPlayer()->tambahPemain(config.getMisc());
         }
         cout << endl;

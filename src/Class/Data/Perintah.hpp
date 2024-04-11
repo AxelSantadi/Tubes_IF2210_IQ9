@@ -13,11 +13,13 @@ using namespace std;
 #include "../Items/Product.hpp"
 #include "../Items/Animal.hpp"
 #include "../Items/Plant.hpp"
+#include "../Player/Toko.hpp"
 
 class Perintah
 {
     public:
         Perintah();
+        ~Perintah();
         void initilization();
         void readConfig();
         void muatState();
@@ -40,6 +42,7 @@ class Perintah
     private:
         ReadConfig config;
         bool endGame;
+        Toko* toko;
 };
 
 #endif
