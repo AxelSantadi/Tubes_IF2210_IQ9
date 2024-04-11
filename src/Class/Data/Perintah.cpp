@@ -251,7 +251,7 @@ void Perintah::muatState()
             }
             else if (role == "Walikota")
             {
-                // Player *player = new Walikota(username, n_lahan, m_lahan, weight, money);
+                player = new Walikota(username, n_inventory, m_inventory, weight, money);
             }
 
             // Baca banyak inventory
