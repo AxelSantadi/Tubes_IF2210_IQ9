@@ -166,6 +166,6 @@ void Walikota::tambahPemain(Misc misc) {
         for (int i = 0; i < players.size(); i++) {
             cout << players.at(i)->getName() << endl;
         }
-        cout << "Pemain baru ditambahkan!" << endl << "Selamat datang " << '"' << nama_pemain << '"' << " di kota ini!" << endl << endl;
+        cout << "Pemain baru ditambahkan!" << endl << "Selamat datang " << '"' << nama_pemain << '"' << " di kota ini!" << endl;
     }
 }

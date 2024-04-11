@@ -328,12 +328,12 @@ void Perintah::PUNGUT_PAJAK()
 {
     try
     {
-    
         if (Player::getCurrentPlayer()->getRole() != "Walikota")
         {
             throw BukanWalikotaExeption();
+        } else {
+            Player::getCurrentPlayer()->dapatPajak(config.getRecipe());
         }
-        // FUNGSINYA BELUM ADA
         cout << endl;
     }
     catch (BukanWalikotaExeption &e)
@@ -504,8 +504,9 @@ void Perintah::TAMBAH_PEMAIN()
         if (Player::getCurrentPlayer()->getRole() != "Walikota")
         {
             throw BukanWalikotaExeption();
+        } else {
+            Player::getCurrentPlayer()->tambahPemain(config.getMisc());
         }
-        // FUNGSINYA BELUM ADA
         cout << endl;
     }
     catch (BukanWalikotaExeption &e)
