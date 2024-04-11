@@ -281,7 +281,6 @@ void Player::buyItem(Toko &toko)
             this->money -= price;
             toko.removeItemToko(itemName);
         }
-        
         std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl
                   << endl;
         std::cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << std::endl;
@@ -315,25 +314,47 @@ void Player::buyItem(Toko &toko)
 
 void Player::sellItem(Toko &toko)
 {
+    int tempMoney = 0;
     cout << "Berikut merupakan penyimpanan Anda" << endl;
     this->inventory.printInventory();
     cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
-    string slot;
+    
+    string slots;
     cout << "Petak : ";
-    cin >> slot;
+    std::getline(std::cin, slots);
 
-    Item *item = this->inventory.getValue(std::stoi(slot.substr(1)), slot[0]);
+    std::istringstream ss(slots);
+    std::string slot;
+    while (std::getline(ss, slot, ','))
+    {
+        // Remove leading and trailing spaces
+        slot.erase(0, slot.find_first_not_of(' ')); // leading
+        slot.erase(slot.find_last_not_of(' ') + 1); // trailing
 
-    // Remove the item from the inventory
-    this->inventory.removeValue(std::stoi(slot.substr(1)), slot[0]);
+        int row = std::stoi(slot.substr(1));
+        char col = slot[0];
 
-    // Add the item to the store's inventory
-    toko.addItemToko(item); // Pass the pointer to the item
+        Item *item = this->inventory.getValue(row, col);
 
-    // Give the player money for the item
-    this->money += item->getPrice();
+        if ((getRole() == "Petani" || getRole() == "Peternak") && item->getJenis() == "Bangunan")
+        {
+            cout << "Petani dan Peternak tidak dapat menjual bangunan." << endl;
+            continue; // Skip this iteration and move to the next item
+        }
 
-    cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << item->getPrice() << " gulden!" << endl;
+        int itemPrice = item->getPrice();
+
+        // Remove the item from the inventory
+        this->inventory.removeValue(row, col);
+
+        // Add the item to the store's inventory
+        toko.addItemToko(item); // Pass the pointer to the item
+
+        // Give the player money for the item
+        tempMoney += itemPrice;
+    }
+    this->money += tempMoney;
+    cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << tempMoney << " gulden!" << endl;
 }
 
 // Petani
