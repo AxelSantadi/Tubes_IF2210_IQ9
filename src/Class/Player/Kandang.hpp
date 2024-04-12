@@ -19,6 +19,6 @@ class Kandang : public MatrixMap<Animal>{
         unordered_map<string,int> countPanen();
         void cetakJenisHewan();
         Animal getAnimal(int x, char a) const;
-        vector<string> ambilPanen(string code, int n);
+        vector<string> ambilPanenhewan(string code, int n);
 };
 #endif

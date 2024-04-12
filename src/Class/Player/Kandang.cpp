@@ -113,7 +113,7 @@ void Kandang::cetakJenisHewan(){
 }
 
 
-vector<string> Kandang::ambilPanen(string code, int n){
+vector<string> Kandang::ambilPanenhewan(string code, int n){
     vector <string> result;
     int i = 0;
 

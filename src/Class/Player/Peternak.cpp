@@ -288,7 +288,7 @@ void Peternak::panen(vector<Product> product){
         }
         
         vector<string> petak;
-        petak = kandang.ambilPanen(code,b);
+        petak = kandang.ambilPanenhewan(code,b);
 
         int idx;
         if(code == "COM"){

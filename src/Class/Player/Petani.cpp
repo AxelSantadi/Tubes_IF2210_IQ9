@@ -168,7 +168,7 @@ void Petani::panen(vector<Product> product)
         }
         
         vector<string> petak;
-        petak = ladang.ambilPanen(code,b);
+        petak = ladang.ambilPanenTumbuhan(code,b);
 
         // Merubah tanaman yang dipanen menjadi product
         int idx;

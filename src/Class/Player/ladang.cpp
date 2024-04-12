@@ -113,7 +113,7 @@ void Ladang::cetakJenisTanaman(){
     }
 }
 
-vector<string> Ladang::ambilPanen(string code, int n){
+vector<string> Ladang::ambilPanenTumbuhan(string code, int n){
     vector <string> result;
     int i = 0;
 
