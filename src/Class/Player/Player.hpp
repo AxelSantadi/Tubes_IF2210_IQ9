@@ -12,8 +12,6 @@
 #include "../Data/Misc.hpp"
 #include "Toko.hpp"
 
-using namespace std;
-
 #define DEFAULT_MONEY 50
 #define DEFAULT_WEIGHT 40
 

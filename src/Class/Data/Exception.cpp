@@ -102,6 +102,7 @@ string BukanPeternakExeption::what()
     return "Kamu bukan Peternak, kamu tidak bisa menggunakan perintah ini.";
 }
 
+// Exception Buat Item
 string NegativePriceException::what()
 {
     return "Harga tidak boleh negatif.";
@@ -129,4 +130,15 @@ string NegativeBeratException ::what()
 string NegativeAddedWeightException::what()
 {
     return "Berat tambahan tidak boleh negatif.";
+}
+
+// Exception buat Toko
+string ItemNotFoundException::what()
+{
+    return "Item tidak ditemukan.";
+}
+
+string NumberOutOfRangeException::what()
+{
+    return "Nomor barang yang diingini tidak valid.";
 }

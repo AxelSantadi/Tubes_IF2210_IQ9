@@ -1,6 +1,6 @@
 #include "Toko.hpp"
 
-Toko::Toko(const ReadConfig& config)
+Toko::Toko(const ReadConfig &config)
 {
     for (const auto &animal : config.getAnimalPointer())
     {
@@ -21,7 +21,7 @@ void Toko::saveStatetoko(ofstream &file)
     }
 }
 
-void Toko::addItemToko(Item* item)
+void Toko::addItemToko(Item *item)
 {
     auto it = items.find(item->getName());
     if (it == items.end())
@@ -51,19 +51,21 @@ void Toko::removeItemToko(const string &itemName)
             }
         }
     }
+
+    else
+    {
+        throw ItemNotFoundException();
+    }
 }
 
 int Toko::getItemPrice(const std::string &itemName) const
 {
     auto it = items.find(itemName);
-    if (it != items.end())
+    if (it == items.end())
     {
-        return it->second.first->getPrice();
+        throw ItemNotFoundException();
     }
-    else
-    {
-        return -1;
-    }
+    return it->second.first->getPrice();
 }
 
 int Toko::getItemQuantity(const std::string &itemName) const
@@ -75,11 +77,11 @@ int Toko::getItemQuantity(const std::string &itemName) const
     }
     else
     {
-        return -1;
+        throw ItemNotFoundException();
     }
 }
 
-Item* Toko::getItemToko(const std::string &itemName) const
+Item *Toko::getItemToko(const std::string &itemName) const
 {
     auto it = items.find(itemName);
     if (it != items.end())
@@ -88,13 +90,19 @@ Item* Toko::getItemToko(const std::string &itemName) const
     }
     else
     {
-        return nullptr;
+        throw ItemNotFoundException();
     }
 }
 
 string Toko::getItemNameByNumber(int number) const
 {
     int counter = 1;
+
+    if (number < 1 || number > items.size())
+    {
+        throw NumberOutOfRangeException();
+    }
+
     for (const auto &pair : items)
     {
         if (counter == number)

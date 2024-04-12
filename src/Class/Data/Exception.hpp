@@ -128,6 +128,7 @@ public:
     string what() override;
 };
 
+// Item Related
 class NegativePriceException : public Exception
 {
 public:
@@ -159,6 +160,19 @@ public:
 };
 
 class NegativeAddedWeightException : public Exception
+{
+public:
+    string what() override;
+};
+
+// Toko Related
+class ItemNotFoundException : public Exception
+{
+public:
+    string what() override;
+};
+
+class NumberOutOfRangeException : public Exception
 {
 public:
     string what() override;

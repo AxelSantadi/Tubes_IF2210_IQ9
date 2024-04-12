@@ -6,6 +6,7 @@
 #include "../Items/Animal.hpp"
 #include "../Items/Plant.hpp"
 #include "../Data/ReadConfig.hpp"
+#include "../Data/Exception.hpp"
 #include <map>
 #include <string>
 #include <vector>

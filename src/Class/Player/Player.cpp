@@ -189,17 +189,17 @@ void Player::makan()
     }
     else
     {
-        cout << "Pilih makanan dari peyimpanan" << endl;
+        std::cout << "Pilih makanan dari peyimpanan" << endl;
         inventory.print();
         while (!success)
         {
             try
             {
-                cout << "Slot: ";
-                cin >> slot;
+                std::cout << "Slot: ";
+                std::cin >> slot;
                 char col = slot[0];
                 int row = stoi(slot.substr(1));
-                cout << inventory.getRows() << " " << row << " " << inventory.getCols() << " " << col << endl;
+                std::cout << inventory.getRows() << " " << row << " " << inventory.getCols() << " " << col << endl;
                 if (inventory.isExist(row, col))
                 {
                     Item *p = inventory.getValue(row, col);
@@ -207,9 +207,9 @@ void Player::makan()
                     {
                         addWeight(p->getAddedWeight());
                         removeItem(row, col);
-                        cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
-                        cout << "Alhasil, berat badan kamu naik menjadi " << getWeight() << endl
-                             << endl;
+                        std::cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
+                        std::cout << "Alhasil, berat badan kamu naik menjadi " << getWeight() << endl
+                                  << endl;
                         success = true;
                     }
                     else
@@ -228,18 +228,18 @@ void Player::makan()
             }
             catch (BukanMakananException &e)
             {
-                cerr << e.what() << endl
-                     << "Silahkan masukan slot yang berisi makanan.\n\n";
+                std::cerr << e.what() << endl
+                          << "Silahkan masukan slot yang berisi makanan.\n\n";
             }
             catch (outOfBoundException &e)
             {
-                cerr << e.what() << endl
-                     << "Silahkan masukan slot yang benar.\n\n";
+                std::cerr << e.what() << endl
+                          << "Silahkan masukan slot yang benar.\n\n";
             }
             catch (SlotKosongException &e)
             {
-                cerr << e.what() << endl
-                     << "Silahkan masukan slot yang berisi makanan.\n\n";
+                std::cerr << e.what() << endl
+                          << "Silahkan masukan slot yang berisi makanan.\n\n";
             }
         }
     }
@@ -251,83 +251,129 @@ void Player::buyItem(Toko &toko)
     int quantity;
 
     toko.displayToko();
-    cout << endl;
+    std::cout << endl;
     std::cout << "Uang Anda: " << money << std::endl;
     std::cout << "Slot penyimpanan yang tersedia: " << inventory.countEmpty() << endl
               << endl;
 
     std::cout << "Nomor barang yang ingin dibeli : ";
     std::cin >> itemNumber;
-    cout << endl;
+    std::cout << endl;
 
     std::cout << "Kuantitas : ";
     std::cin >> quantity;
-    cout << endl;
+    std::cout << endl;
 
-    string itemName = toko.getItemNameByNumber(itemNumber);
-    int price = toko.getItemPrice(itemName) * quantity;
-    if (money >= price)
+    string itemName;
+    try
     {
-        Item *item = toko.getItemToko(itemName);
+        itemName = toko.getItemNameByNumber(itemNumber);
+    }
+    catch (NumberOutOfRangeException &e)
+    {
+        std::cerr << e.what() << endl
+                  << "Silahkan masukkan nomor barang yang benar." << endl;
+        return;
+    }
 
-        if (getRole() == "Walikota" && item->getJenis() == "Bangunan")
-        {
-            cout << "Walikota tidak dapat membeli bangunan." << endl;
-            return;
-        }
+    int price;
+    try
+    {
+        price = toko.getItemPrice(itemName) * quantity;
+    }
+    catch (ItemNotFoundException &e)
+    {
+        std::cerr << e.what() << endl
+                  << "Silahkan masukkan nomor barang yang ada di toko." << endl;
+        return;
+    }
 
-        for (int i = 0; i < quantity; ++i)
+    if (money < price)
+    {
+        std::cout << "Uang tidak cukup." << std::endl;
+        return;
+    }
+
+    if (inventory.countEmpty() < quantity)
+    {
+        std::cout << "Penyimpanan inventory tidak cukup." << std::endl;
+        return;
+    }
+
+    Item *item;
+
+    try
+    {
+        item = toko.getItemToko(itemName);
+    }
+    catch (ItemNotFoundException &e)
+    {
+        std::cerr << e.what() << endl
+                  << "Silahkan masukkan nomor barang yang benar." << endl;
+        return;
+    }
+
+    if (getRole() == "Walikota" && item->getJenis() == "Bangunan")
+    {
+        std::cout << "Walikota tidak dapat membeli bangunan." << endl;
+        return;
+    }
+
+    for (int i = 0; i < quantity; ++i)
+    {
+        try
         {
-            this->money -= price;
             toko.removeItemToko(itemName);
         }
-        std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl
-                  << endl;
-        std::cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << std::endl;
-        this->inventory.printInventory();
-        std ::cout << endl;
-
-        string slots;
-        cout << "Petak : ";
-        cin.ignore(); // Ignore the newline character in the input buffer
-        std::getline(std::cin, slots);
-
-        std::istringstream ss(slots);
-        std::string slot;
-        while (std::getline(ss, slot, ',') && quantity > 0)
+        catch (ItemNotFoundException &e)
         {
-            // Remove leading and trailing spaces
-            slot.erase(0, slot.find_first_not_of(' ')); // leading
-            slot.erase(slot.find_last_not_of(' ') + 1); // trailing
-
-            this->inventory.storeItemInSlot(item, slot);
-            --quantity;
+            std::cerr << e.what() << endl
+                      << "Barang yang ingin dibeli sudah habis dari toko / Kuantitas barang yang ingin dibeli melebihi supply yang di toko." << endl;
+            return;
         }
-        std::cout << item->getName() << " berhasil disimpan dalam penyimpanan!" << std::endl;
+        this->money -= price;
     }
 
-    else
+    std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl
+              << endl;
+    std::cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << std::endl;
+    this->inventory.printInventory();
+    std ::cout << endl;
+
+    string slots;
+    std::cout << "Petak : ";
+    std::cin.ignore(); // Ignore the newline character in the input buffer
+    std::getline(std::cin, slots);
+
+    std::istringstream ss(slots);
+    std::string slot;
+    while (std::getline(ss, slot, ',') && quantity > 0)
     {
-        std::cout << "Uang tidak cukup" << std::endl;
+        // Remove leading and trailing spaces
+        slot.erase(0, slot.find_first_not_of(' ')); // leading
+        slot.erase(slot.find_last_not_of(' ') + 1); // trailing
+
+        this->inventory.storeItemInSlot(item, slot);
+        --quantity;
     }
+    std::cout << item->getName() << " berhasil disimpan dalam penyimpanan!" << std::endl;
 }
 
 void Player::sellItem(Toko &toko)
 {
     int tempMoney = 0;
-    cout << "Berikut merupakan penyimpanan Anda" << endl;
+    std::cout << "Berikut merupakan penyimpanan Anda" << endl;
     this->inventory.printInventory();
-    cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
-    
+    std::cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
+
     string slots;
-    cout << "Petak : ";
+    std::cout << "Petak : ";
     std::getline(std::cin, slots);
 
     std::istringstream ss(slots);
     std::string slot;
     while (std::getline(ss, slot, ','))
     {
-        // Remove leading and trailing spaces
         slot.erase(0, slot.find_first_not_of(' ')); // leading
         slot.erase(slot.find_last_not_of(' ') + 1); // trailing
 
@@ -338,8 +384,8 @@ void Player::sellItem(Toko &toko)
 
         if ((getRole() == "Petani" || getRole() == "Peternak") && item->getJenis() == "Bangunan")
         {
-            cout << "Petani dan Peternak tidak dapat menjual bangunan." << endl;
-            continue; // Skip this iteration and move to the next item
+            std::cout << "Petani dan Peternak tidak dapat menjual bangunan." << endl;
+            continue;
         }
 
         int itemPrice = item->getPrice();
@@ -354,7 +400,7 @@ void Player::sellItem(Toko &toko)
         tempMoney += itemPrice;
     }
     this->money += tempMoney;
-    cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << tempMoney << " gulden!" << endl;
+    std::cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << tempMoney << " gulden!" << endl;
 }
 
 // Petani
