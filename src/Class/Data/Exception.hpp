@@ -178,14 +178,10 @@ public:
     string what() override;
 };
 
-// class FileNotOpen : public exception {
-// private:
-//     std::string filename;
-// public:
-//     FileNotOpen(const std::string& filename) : filename(filename) {}
-//     const char* what() const throw() {
-//         return ("FileNotOpen: " + filename).c_str();
-//     }
-// };
+class bukanPetanidanPeternakExeption : public Exception
+{   
+public:
+    string what() override;
+};
 
 #endif
