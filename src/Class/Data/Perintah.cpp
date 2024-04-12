@@ -455,7 +455,7 @@ void Perintah::CETAK_PETERNAKAN()
         {
             throw BukanPeternakExeption();
         }
-        // FUNGSINYA BELUM ADA
+        dynamic_cast<Petani *>(Player::getCurrentPlayer())->getLadang().cetakLadang();
         cout << endl;
     }
     catch (BukanPeternakExeption &e)
@@ -492,10 +492,14 @@ void Perintah::TERNAK()
         {
             throw BukanPeternakExeption();
         }
-        // FUNGSINYA BELUM ADA
+        Player::getCurrentPlayer()->ternak();
         cout << endl;
     }
     catch (BukanPeternakExeption &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    catch (BukanHewanException &e)
     {
         std::cerr << e.what() << '\n';
     }
@@ -543,7 +547,7 @@ void Perintah::KASIH_MAKAN()
         {
             throw BukanPeternakExeption();
         }
-        // FUNGSINYA BELUM ADA
+        Player::getCurrentPlayer()->feedTernak();
         cout << endl;
     }
     catch (BukanPeternakExeption &e)
