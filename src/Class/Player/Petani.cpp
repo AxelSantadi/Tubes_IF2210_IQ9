@@ -172,24 +172,26 @@ void Petani::panen(vector<Product> product)
 
         // Merubah tanaman yang dipanen menjadi product
         int idx;
-        if(code == "TAW"){
+        if(code == "TEK"){
             idx = 0;
-        }else if(code == "SAW"){
+        }else if(code == "SDT"){
             idx = 1;
-        }else if(code == "ALW"){
+        }else if(code == "ALT"){
             idx = 2;
-        }else if(code == "IRW"){
+        }else if(code == "IRN"){
             idx = 3;
-        }else if(code == "APP"){
+        }else if(code == "APL"){
             idx = 4;
-        }else if(code == "ORP"){
+        }else if(code == "ORG"){
             idx = 5;
-        }else if(code == "BNP"){
+        }else if(code == "BNT"){
             idx = 6;
-        }else if(code == "GAP"){
+        }else if(code == "GAV"){
             idx = 7;
         }
+        
         Item * p = new Product(product[idx]);
+        
 
         // menyimpan hasil panen ke inventory
         int n = b;
