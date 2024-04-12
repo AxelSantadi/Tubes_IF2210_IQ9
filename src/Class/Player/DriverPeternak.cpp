@@ -91,8 +91,8 @@ int main(){
     Animal p1 = p->getKandang().getValue(1,'A');
     cout << "Berat : " << p1.getBerat() << endl;
     cout <<"Weight to harvest : " << p1.getWeightToHarvest() << endl;
-    peternak->ternak();
-    // peternak->feedTernak();
+    // peternak->ternak();
+    peternak->feedTernak();
     Animal p2 = p->getKandang().getValue(1,'A');
     cout << "Berat : " << p2.getBerat() << endl;
     peternak->panenTernak(iventory);

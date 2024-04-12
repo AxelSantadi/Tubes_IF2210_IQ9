@@ -168,7 +168,6 @@ void Ladang::nextUmur(){
                 Plant p = getValue(i,j);
                 p.tambahUmur();
                 removeValue(i,j);
-                Plant * plant = new Plant(p);
                 setValue(i,j,p);
             }
         }
