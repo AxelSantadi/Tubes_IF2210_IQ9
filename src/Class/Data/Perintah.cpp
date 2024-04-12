@@ -593,6 +593,7 @@ void Perintah::SIMPAN()
         cout << "Masukkan Masukkan lokasi berkas state : ";
         cin >> path;
         Player::saveState(path,toko);
+        cout << "State berhasil disimpan." << endl;
     }
     catch (FileNotFound &e)
     {

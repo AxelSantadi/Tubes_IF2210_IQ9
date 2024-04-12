@@ -14,10 +14,13 @@ Toko::Toko(const ReadConfig &config)
 
 void Toko::saveStatetoko(ofstream &file)
 {
-    file << items.size() << endl;
+    file << countItemNotInfinity() << endl;
     for (const auto &pair : items)
     {
-        file << pair.first << " " << pair.second.second << endl;
+        if (pair.second.second != -1)
+        {
+            file << pair.first << " " << pair.second.second << endl;
+        }
     }
 }
 
@@ -112,6 +115,19 @@ string Toko::getItemNameByNumber(int number) const
         counter++;
     }
     return "";
+}
+
+int Toko::countItemNotInfinity() const
+{
+    int counter = 0;
+    for (const auto &pair : items)
+    {
+        if (pair.second.second != -1)
+        {
+            counter++;
+        }
+    }
+    return counter;
 }
 
 void Toko::displayToko() const

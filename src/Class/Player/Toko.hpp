@@ -34,6 +34,7 @@ public:
     int getItemQuantity(const std::string &itemName) const;
     Item* getItemToko(const std::string &itemName) const;
     string getItemNameByNumber(int number) const;
+    int countItemNotInfinity() const;
 
     // Display Toko
     void displayToko() const;
