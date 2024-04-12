@@ -6,6 +6,7 @@ Plant::Plant() : Item()
 {
     type = "";
     harvest_duration = 0;
+    umur = 0;
 
     Plant::numOfPlant++;
 }

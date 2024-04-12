@@ -6,6 +6,7 @@ Animal::Animal() : Item()
 {
     this->type = "";
     this->weightToHarvest = 0;
+    this->berat = 0;
 
     Animal::numOfAnimal++;
 }
@@ -77,6 +78,7 @@ Animal &Animal::operator=(const Animal &a)
     Item::operator=(a);
     this->type = a.type;
     this->weightToHarvest = a.weightToHarvest;
+    this->berat = a.berat;
     return *this;
 }
 
