@@ -23,7 +23,7 @@ Animal::Animal(const Animal &a) : Item(a.id, a.code, a.name, a.price)
 {
     this->type = a.type;
     this->weightToHarvest = a.weightToHarvest;
-
+    this->berat = a.berat;
     Animal::numOfAnimal++;
 }
 

@@ -76,7 +76,7 @@ Animal Kandang::getAnimal(int x, char a) const{
 unordered_map<string, int> Kandang::countPanen() {
     unordered_map<string, int> result;
     
-    for (int i = 0; i < getRows(); i++)
+    for (int i = 1; i < getRows(); i++)
     {
         for(char j= 'A' ; j < getCols(); j++)
         {
@@ -96,7 +96,7 @@ unordered_map<string, int> Kandang::countPanen() {
 void Kandang::cetakJenisHewan(){
     map<string,string> result;
     
-    for(int i = 0; i < getRows(); i++)
+    for(int i = 1; i < getRows(); i++)
     {
         for (char j = 'A'; j< getCols(); j++ )
         {
@@ -121,15 +121,17 @@ vector<string> Kandang::ambilPanen(string code, int n){
     {
         try
         {
-            cout << "petak ke-"<< i <<" :" << endl;
+            cout << "petak ke-"<< i+1 <<" :" << endl;
             string slot;
             cin >> slot;
             char a;
             int b;
             a = slot[0];
+            string rslot = slot;
             slot = slot.substr(1, slot.length()-1);
             b = stoi(slot);
-            if (isExist(b,a) && getValue(b,a).getCode() == code)
+            Animal p = getValue(b,a);
+            if (isExist(b,a) && p.getCode() == code)
             {
                 if (getValue(b,a).getBerat() < getValue(b,a).getWeightToHarvest())
                 {

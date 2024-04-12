@@ -21,11 +21,13 @@ public:
     string getType() const;
     void setType(string t);
 
+    int getWeightToHarvest() const;
+    void setWeightToHarvest(int w);
+
     int getBerat() const;
     void setBerat(int b);
 
-    int getWeightToHarvest() const;
-    void setWeightToHarvest(int w);
+    int getAddedWeight() const override;
 
     // Operator Overloading
     Animal &operator+=(int x);
@@ -47,7 +49,6 @@ public:
     // Method buat toko sama Makan
     bool isUnlimited() const override;
     bool isMakanan() const override;
-    int getAddedWeight() const override;
 
     // Method buat jenis
     string getJenis() const override;
@@ -55,9 +56,9 @@ public:
     bool isHerbivore() const;
     bool isCarnivore() const;
     bool isOmnivore() const;
+
 private:
     static int numOfAnimal;
-
     string type;
     int weightToHarvest;
     int berat;
@@ -69,19 +70,21 @@ class Herbivore : public Animal
 {
 public:
     Herbivore(int id, string code, string name, int weightToHarvest, int price);
-    
+    virtual void panen() = 0;
 };
 
 class Carnivore : public Animal
 {
 public:
     Carnivore(int id, string code, string name, int weightToHarvest, int price);
+    virtual void panen() = 0;
 };
 
 class Omnivore : public Animal
 {
 public:
     Omnivore(int id, string code, string name, int weightToHarvest, int price);
+    virtual void panen() = 0;
 };
 
 

@@ -8,6 +8,11 @@ Peternak::Peternak(string nama,int n, char m,int weight,int money,int panjang,ch
 
 Peternak::~Peternak(){}
 
+string Peternak::getRole() const
+{
+    return "Peternak";
+}
+
 void Peternak::addTernak(Animal animal, int i, char j)
 {
     kandang.setValue(i, j, animal);
@@ -16,6 +21,25 @@ void Peternak::addTernak(Animal animal, int i, char j)
 Kandang Peternak::getKandang() const
 {
     return kandang;
+}
+
+void Peternak::saveStatePlayer(ofstream &file) const
+{
+    Player::saveStatePlayer(file);
+    file << this->kandang.countNotEmpty() << endl;
+    for (auto it : this->kandang.getData())
+    {
+        file << it.first.second;
+        if (it.first.first >= 10)
+        {
+            file << it.first.first;
+        }
+        else
+        {
+            file << "0" << it.first.first;
+        }
+        file << " " << it.second.getName() << " " << it.second.getBerat() << endl;
+    }
 }
 
 void Peternak::ternak(){
@@ -34,19 +58,15 @@ void Peternak::ternak(){
         a = slot[0];
         slot = slot.substr(1, slot.length()-1);
         b = stoi(slot);
-        if (!dynamic_cast<Animal*>(inventory.getValue(b,a)))
-        {
+        if (!dynamic_cast<Animal*>(inventory.getValue(b,a))){
             throw BukanHewanException();
-        }
-        if (!inventory.isExist(b,a))
-        {
+        } else if (!inventory.isExist(b,a)){
             throw SlotKosongException();
-        } else if (inventory.getRows() < b || inventory.getCols() < a)
-        {
+        } else if (inventory.getRows() < b || inventory.getCols() < a){
             throw outOfBoundException();
         }
         Animal* animal = dynamic_cast<Animal*>(inventory.getValue(b,a));
-        inventory.removeValue(b,a);
+        
 
         cout << "Kamu memilih" << animal->getName() << endl;
         // pilih posisi tanam
@@ -72,12 +92,19 @@ void Peternak::ternak(){
                 if(kandang.isExist(y,x))
                 {
                     throw petakTerisiExeption();
+                } else if (y < 1 || y >= kandang.getRows() || x < 'A' || x >= kandang.getCols()){
+                    throw outOfBoundException();
                 }
 
+                inventory.removeValue(b,a);
                 addTernak(*animal,y,x);
                 success = true;
             }
             catch(petakTerisiExeption e)
+            {
+                cerr << e.what() << endl;
+            }
+            catch(outOfBoundException e)
             {
                 cerr << e.what() << endl;
             }
@@ -95,30 +122,6 @@ void Peternak::ternak(){
         cerr << e.what() << endl;
     }
         
-}
-
-string Peternak::getRole() const
-{
-    return "Peternak";
-}
-
-void Peternak::saveStatePlayer(ofstream &file) const
-{
-    Player::saveStatePlayer(file);
-    file << this->kandang.countNotEmpty() << endl;
-    for (auto it : this->kandang.getData())
-    {
-        file << it.first.second;
-        if (it.first.first >= 10)
-        {
-            file << it.first.first;
-        }
-        else
-        {
-            file << "0" << it.first.first;
-        }
-        file << " " << it.second.getName() << " " << it.second.getBerat() << endl;
-    }
 }
 
 void Peternak::feedTernak(){
@@ -140,6 +143,7 @@ void Peternak::feedTernak(){
         {
             throw SlotKosongException();
         }
+
         Animal* animal = new Animal(kandang.getValue(y,x));
         cout << "Kamu memilih " << animal->getName() << " untuk diberi makan." << endl;
         cout << "Pilih pangan yang akan diberikan:" << endl;
@@ -168,11 +172,16 @@ void Peternak::feedTernak(){
                             } else  {
                                 cout << "Kamu memilih " << item->getName() << endl;
                                 //menambahkan berat badan hewan yang dipilih menggunakan item;
-                                animal->setBerat(animal->getBerat() + item->getAddedWeight());
-                                kandang.setValue(y,x,*animal);
-                                inventory.removeValue(b,a);
+                                cout << "Berat badan " << animal->getName() << " sebelumnya adalah " << animal->getBerat() << endl;
+                                // animal->setBerat(animal->getBerat() + item->getAddedWeight());
+                                
                                 cout << "Dengan lahapnya, " << animal->getName() << " memakan hidangan itu" << endl;
                                 cout << "Alhasil, berat badan " << animal->getName() << " naik menjadi " << animal->getBerat() << endl;
+                                addTernak(*animal,y,x);
+                                Animal* masuk = new Animal(kandang.getValue(y,x));
+                                cout << "Berat badan " << masuk->getName() << " sekarang adalah " << masuk->getBerat() << endl;
+                                inventory.removeValue(b,a);
+                                
                                 success = true;
                             }
                         } else if (animal->isCarnivore()){
@@ -252,7 +261,7 @@ void Peternak::panenTernak(vector<Product> product){
 
     try{
         int a; // input pilihan
-        cout<< "Nomor tanaman yang ingin dipanen: ";  
+        cout<< "Nomor hewan yang ingin dipanen: ";  
         cin >> a;
         // validasi apakah terdapat inputan a
 

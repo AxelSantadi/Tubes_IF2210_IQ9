@@ -61,8 +61,8 @@ int main(){
     ReadConfig readConfig("config1");
 
     vector<Product> iventory =  readConfig.getProduct();
-    Item * animal1 = new Animal(1, "COW", "Cow", "HERBIVORE", 100, 1000);
-    Item * animal2 = new Animal(2, "COW", "Cow", "HERBIVORE", 100, 1000);
+    Item * animal1 = new Animal(1, "COW", "Cow", "HERBIVORE", 100000000000, 1000);
+    Item * animal2 = new Animal(2, "COW", "Cow", "HERBIVORE", 100000000000, 1000);
     Item * animal3 = new Animal(3, "COW", "Cow", "HERBIVORE", 100, 3000);
     Item * animal4 = new Animal(4, "CHK", "Chicken", "OMNIVORE", 100, 500);
     Item * animal5 = new Animal(5, "SHP", "Sheep", "OMNIVORE", 10, 750);
@@ -73,35 +73,31 @@ int main(){
 
 
 
-    Player * player1 = new Peternak("Jokowi", 5, 'F',5,'F');
+    Player * peternak = new Peternak("Jokowi", 5, 'F',5,'F');
 
-    player1->addItem(animal1, 1, 'A');
-    player1->addItem(animal2, 1, 'B');
-    player1->addItem(animal3, 1, 'C');
-    player1->addItem(animal4, 2, 'A');
-    player1->addItem(animal5, 2, 'B');
-    player1->addItem(product1, 4, 'A');
-    player1->addItem(product2, 4, 'B');
-    player1->addItem(product3, 4, 'C');
-    player1->addItem(product4, 4, 'D');
+    peternak->addItem(animal1, 1, 'A');
+    peternak->addItem(animal2, 1, 'B');
+    peternak->addItem(animal3, 1, 'C');
+    peternak->addItem(animal4, 2, 'A');
+    peternak->addItem(animal5, 2, 'B');
+    peternak->addItem(product1, 4, 'A');
+    peternak->addItem(product2, 4, 'B');
+    peternak->addItem(product3, 4, 'C');
+    peternak->addItem(product4, 4, 'D');
 
 
-    player1->ternak();
-    Peternak * player2 = dynamic_cast<Peternak*>(player1);
-    Animal p = player2->getKandang().getValue(1,'A');
-    Animal p2 = player2->getKandang().getValue(1,'B');
-    cout << p.getBerat() << endl;
-    cout << p2.getBerat() << endl;
-    cout << p.getWeightToHarvest() << endl;
-    player1->ternak();
-    // player1->feedTernak();
-    Animal p1 = player2->getKandang().getValue(1,'A');
-    Animal p3 = player2->getKandang().getValue(1,'B');
-    cout << p1.getBerat() << endl;
-    cout << p3.getBerat() << endl;
-    player1->panenTernak(iventory);
-    player1->getInventory().printInventory();
-    player2->getKandang().cetakKandang();
+    peternak->ternak();
+    Peternak * p = dynamic_cast<Peternak*>(peternak);
+    Animal p1 = p->getKandang().getValue(1,'A');
+    cout << "Berat : " << p1.getBerat() << endl;
+    cout <<"Weight to harvest : " << p1.getWeightToHarvest() << endl;
+    peternak->ternak();
+    // peternak->feedTernak();
+    Animal p2 = p->getKandang().getValue(1,'A');
+    cout << "Berat : " << p2.getBerat() << endl;
+    peternak->panenTernak(iventory);
+    peternak->getInventory().printInventory();
+    p->getKandang().cetakKandang();
 }
 
 
