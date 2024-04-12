@@ -1,61 +1,61 @@
-#include "../Walikota.hpp"
-#include "../Walikota.cpp"
+#include "Walikota.hpp"
+#include "Walikota.cpp"
 
 // Item
-#include "../../Items/Item.hpp"
-#include "../../Items/Item.cpp"
+#include "../Items/Item.hpp"
+#include "../Items/Item.cpp"
 
-#include "../../Items/Plant.hpp"
-#include "../../Items/Plant.cpp"
+#include "../Items/Plant.hpp"
+#include "../Items/Plant.cpp"
 
-#include "../../Items/Animal.hpp"
-#include "../../Items/Animal.cpp"
+#include "../Items/Animal.hpp"
+#include "../Items/Animal.cpp"
 
-#include "../../Items/Product.hpp"
-#include "../../Items/Product.cpp"
+#include "../Items/Product.hpp"
+#include "../Items/Product.cpp"
 
-#include "../../Items/Bangunan.hpp"
-#include "../../Items/Bangunan.cpp"
+#include "../Items/Bangunan.hpp"
+#include "../Items/Bangunan.cpp"
 
 // Player
-#include "../Player.hpp"
-#include "../Player.cpp"
+#include "Player.hpp"
+#include "Player.cpp"
 
-#include "../Petani.hpp"
-#include "../Petani.cpp"
+#include "Petani.hpp"
+#include "Petani.cpp"
 
-#include "../Peternak.hpp"
-#include "../Peternak.cpp"
+#include "Peternak.hpp"
+#include "Peternak.cpp"
 
 // Config
-#include "../../Data/Exception.hpp"
-#include "../../Data/Exception.cpp"
+#include "../Data/Exception.hpp"
+#include "../Data/Exception.cpp"
 
-#include "../../Data/ReadConfig.hpp"
-#include "../../Data/ReadConfig.cpp"
+#include "../Data/ReadConfig.hpp"
+#include "../Data/ReadConfig.cpp"
 
-#include "../../Data/Misc.hpp"
-#include "../../Data/Misc.cpp"
+#include "../Data/Misc.hpp"
+#include "../Data/Misc.cpp"
 
-#include "../../Data/Recipe.hpp"
-#include "../../Data/Recipe.cpp"
+#include "../Data/Recipe.hpp"
+#include "../Data/Recipe.cpp"
 
 // Per map an
-#include "../MatrixMap.hpp"
-#include "../MatrixMap.cpp"
+#include "MatrixMap.hpp"
+#include "MatrixMap.cpp"
 
-#include "../Inventory.hpp"
-#include "../Inventory.cpp"
+#include "Inventory.hpp"
+#include "Inventory.cpp"
 
-#include "../Kandang.hpp"
-#include "../Kandang.cpp"
+#include "Kandang.hpp"
+#include "Kandang.cpp"
 
-#include "../ladang.hpp"
-#include "../ladang.cpp"
+#include "ladang.hpp"
+#include "ladang.cpp"
 
 // Toko
-#include "../Toko.hpp"
-#include "../Toko.cpp"
+#include "Toko.hpp"
+#include "Toko.cpp"
 
 using namespace std;
 

@@ -232,20 +232,15 @@ void Perintah::muatState()
             exit(1);
         }
 
-        // Ambil jumlah pemain
-        // N
-        // <STATE PEMAIN 1> <STATE PEMAIN 2> … <STATE PEMAIN N>
-
         int numPlayers;
+        string dummy;
         stateFile >> numPlayers;
+        // cout << "Jumlah pemain: " << numPlayers << endl;
+        getline(stateFile, dummy);
 
         // Looping untuk setiap pemain
         for (int i = 0; i < numPlayers; i++)
         {
-            //<USERNAME> Petani <BERAT_BADAN> <UANG>
-            // <USERNAME> Peternak <BERAT_BADAN> <UANG>
-            // <USERNAME> Walikota <BERAT_BADAN> <UANG>
-
             // Baca data pemain
             string line;
             getline(stateFile, line);
@@ -258,6 +253,7 @@ void Perintah::muatState()
             int money;
 
             ss >> username >> role >> weight >> money;
+            cout << "Username: " << username << " Role: " << role << " Weight: " << weight << " Money: " << money << endl;
 
             Player *player;
             if (role == "Petani")
@@ -266,17 +262,21 @@ void Perintah::muatState()
             }
             else if (role == "Peternak")
             {
-                Player *player = new Peternak(username, n_inventory, m_inventory, n_peternakan, m_peternakan);
+                player = new Peternak(username, n_inventory, m_inventory, n_peternakan, m_peternakan);
             }
             else if (role == "Walikota")
             {
                 player = new Walikota(username, n_inventory, m_inventory);
             }
 
-            // Baca banyak inventory
-            // <JUMLAH_ITEM_INVENTORY_(M)>
+            cout << "Pemain " << username << " berhasil dimuat." << endl;
+            // cout << "Inventory space for " << username << ": "
+            //      << player->getInventory().getRows() << " rows, "
+            //      << player->getInventory().getCols() << " columns" << endl;
+
             int numItems;
             stateFile >> numItems;
+            cout << "Jumlah item biasa: " << numItems << endl;
 
             // Looping untuk setiap item terus set ke inventory nya si player
             for (int j = 0; j < numItems; j++)
@@ -285,22 +285,19 @@ void Perintah::muatState()
                 string itemName;
                 stateFile >> itemName;
                 Item *item = config.createItem(itemName);
-                player->getInventory().setRandomValue(item);
+                player->getInventoryPointer().setRandomValue(item);
+                // aman sejauh ini
             }
-
-            // Spesial item untuk setiap orang
-            // <JUMLAH_TANAMAN_DI_LADANG_(K)>
-            // <JUMLAH_HEWAN_DI_PETERNAKAN_(K)>
-            // Walikota gaada tambahan
 
             int numSpecializedItems;
             stateFile >> numSpecializedItems;
+            getline(stateFile, dummy);
+            cout << "Jumlah item spesial: " << numSpecializedItems << endl;
 
-            if (role == "Petani")
+            if (player->getRole() == "Petani")
             {
                 for (int k = 0; k < numSpecializedItems; k++)
                 {
-                    // <LOKASI_TANAMAN_K> <NAMA_TANAMAN_K> <UMUR_TANAMAN_K>
                     string line2;
                     getline(stateFile, line2);
 
@@ -310,11 +307,13 @@ void Perintah::muatState()
                     int agePlant;
 
                     iss >> slot >> plantName >> agePlant;
+                    //cout << "Slot: " << slot << " Plant Name: " << plantName << " Age Plant: " << agePlant << endl;
 
                     Plant plant = config.createItemPlant(plantName);
                     plant.setUmur(agePlant);
 
-                    int row = slot[1] - '0';
+                    string rowStr = slot.substr(1); 
+                    int row = stoi(rowStr);
                     char col = slot[0];
 
                     Petani *petani = dynamic_cast<Petani *>(player);
@@ -325,7 +324,7 @@ void Perintah::muatState()
                 }
             }
 
-            else if (role == "Peternak")
+            else if (player->getRole() == "Peternak")
             {
                 for (int k = 0; k < numSpecializedItems; k++)
                 {
@@ -339,13 +338,16 @@ void Perintah::muatState()
                     int beratAnimal;
 
                     iss >> slot >> animalName >> beratAnimal;
+                    //cout << "Slot: " << slot << " Animal Name: " << animalName << " Berat Animal: " << beratAnimal << endl;
 
                     Animal animal = config.createItemAnimal(animalName);
                     animal.setBerat(beratAnimal);
 
-                    int row = slot[1] - '0';
+                    string rowStr = slot.substr(1); 
+                    int row = stoi(rowStr);
                     char col = slot[0];
 
+                    //cout << "Row: " << row << " Col: " << col << endl;
                     Peternak *peternak = dynamic_cast<Peternak *>(player);
                     if (peternak)
                     {
@@ -354,7 +356,7 @@ void Perintah::muatState()
                 }
             }
 
-            else if (role == "Walikota")
+            else if (player->getRole() == "Walikota")
             {
                 // Do nothing
             }
@@ -559,7 +561,7 @@ void Perintah::KASIH_MAKAN()
 void Perintah::BELI()
 {
     // Call Player::buyItem with the Toko object
-    Player::getCurrentPlayer()->buyItem(*toko); 
+    Player::getCurrentPlayer()->buyItem(*toko);
 }
 
 void Perintah::JUAL()
@@ -577,7 +579,7 @@ void Perintah::PANEN()
         {
             throw bukanPetanidanPeternakExeption();
         }
-        Player::getCurrentPlayer()->panen(config.getProduct());            
+        Player::getCurrentPlayer()->panen(config.getProduct());
         cout << endl;
     }
     catch (bukanPetaniExeption &e)

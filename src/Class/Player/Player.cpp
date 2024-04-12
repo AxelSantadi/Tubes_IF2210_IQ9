@@ -332,8 +332,8 @@ void Player::buyItem(Toko &toko)
                       << "Barang yang ingin dibeli sudah habis dari toko / Kuantitas barang yang ingin dibeli melebihi supply yang di toko." << endl;
             return;
         }
-        this->money -= price;
     }
+    this->money -= price;
 
     std::cout << "Selamat Anda berhasil membeli " << quantity << " " << itemName << ". Uang Anda tersisa " << this->money << " gulden." << std::endl
               << endl;
