@@ -63,6 +63,9 @@ int Product::getAddedWeight() const
 
 void Product::setAddedWeight(int a)
 {
+    if (a < 0){
+        throw NegativeAddedWeightException();
+    }
     this->added_weight = a;
 }
 

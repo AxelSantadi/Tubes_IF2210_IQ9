@@ -50,6 +50,10 @@ int Plant::getHarvestDuration() const
 
 void Plant::setHarvestDuration(int h)
 {
+    if (h < 0)
+    {
+        throw NegativeHarvestDurationException();
+    }
     harvest_duration = h;
 }
 
@@ -58,9 +62,13 @@ int Plant::getUmur() const
     return umur;
 }
 
-void Plant::setUmur(int h)
+void Plant::setUmur(int u)
 {
-    umur = h;
+    if (u < 0)
+    {
+        throw NegativeUmurException();
+    }
+    umur = u;
 }
 
 void Plant::tambahUmur()

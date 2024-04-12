@@ -91,3 +91,32 @@ string BukanPeternakExeption::what()
 {
     return "Kamu bukan Peternak, kamu tidak bisa menggunakan perintah ini.";
 }
+
+string NegativePriceException::what()
+{
+    return "Harga tidak boleh negatif.";
+}
+
+string NegativeHarvestDurationException ::what()
+{
+    return "Durasi panen tidak boleh negatif.";
+}
+
+string NegativeUmurException::what(){
+    return "Umur tidak boleh negatif.";
+}
+
+string NegativeWeightToHarvestException::what()
+{
+    return "Berat panen tidak boleh negatif.";
+}
+
+string NegativeBeratException ::what()
+{
+    return "Berat tidak boleh negatif.";
+}
+
+string NegativeAddedWeightException::what()
+{
+    return "Berat tambahan tidak boleh negatif.";
+}

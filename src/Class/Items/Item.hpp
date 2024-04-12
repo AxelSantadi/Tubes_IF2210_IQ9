@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include "../Data/Exception.hpp"
 using namespace std;
 
 class Item

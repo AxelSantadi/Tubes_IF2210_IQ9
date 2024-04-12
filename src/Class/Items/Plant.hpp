@@ -24,7 +24,7 @@ public:
     void setHarvestDuration(int h);
 
     int getUmur() const;
-    void setUmur(int h);
+    void setUmur(int u);
     void tambahUmur();  
 
     int getAddedWeight() const override;

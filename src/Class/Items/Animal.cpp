@@ -49,6 +49,10 @@ int Animal::getWeightToHarvest() const
 
 void Animal::setWeightToHarvest(int w)
 {
+    if (w < 0)
+    {
+        throw NegativeWeightToHarvestException();
+    }
     weightToHarvest = w;
 }
 
@@ -59,9 +63,12 @@ int Animal::getBerat() const
 
 void Animal::setBerat(int b)
 {
+    if (b < 0)
+    {
+        throw NegativeBeratException();
+    }
     berat = b;
 }
-
 
 int Animal::getAddedWeight() const { return 0; }
 
@@ -113,7 +120,7 @@ void Animal::output(ostream &os)
     os << "Weight to Harvest: " << weightToHarvest << endl;
 }
 
-ostream& operator<<(ostream &os, const Animal &p)
+ostream &operator<<(ostream &os, const Animal &p)
 {
     os << p.getCode();
     return os;
