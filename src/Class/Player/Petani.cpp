@@ -197,7 +197,6 @@ void Petani::panen(vector<Product> product)
         int n = b;
         while (n > 0)
         {
-            cout << n << endl;
             inventory.setRandomValue(p);
             n--;
         } 

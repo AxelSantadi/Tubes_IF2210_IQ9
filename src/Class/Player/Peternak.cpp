@@ -287,9 +287,6 @@ void Peternak::panen(vector<Product> product){
             throw penyimpananPenuhExeption();
         }
         
-        vector<string> petak;
-        petak = kandang.ambilPanenhewan(code,b);
-
         int idx;
         if(code == "COW"){
             idx = 8;
@@ -303,9 +300,17 @@ void Peternak::panen(vector<Product> product){
             idx = 12;
         } else if(code == "CHK"){
             idx = 13;
+            if (inventory.countEmpty() < b*2){
+                throw penyimpananPenuhExeption();
+            }
         } else if(code == "DCK"){
             idx = 14;
+            if (inventory.countEmpty() < b*2){
+                throw penyimpananPenuhExeption();
+            }
         }
+        vector<string> petak;
+        petak = kandang.ambilPanenhewan(code,b);
         
         if (idx == 13){
             Item * p = new Product(product[idx]);
@@ -313,7 +318,6 @@ void Peternak::panen(vector<Product> product){
             int n = b;
             while (n > 0)
             {
-                cout << n << endl;
                 inventory.setRandomValue(p);
                 inventory.setRandomValue(p2);
                 n--;
@@ -325,7 +329,6 @@ void Peternak::panen(vector<Product> product){
             int n = b;
             while (n > 0)
             {
-                cout << n << endl;
                 inventory.setRandomValue(p);
                 inventory.setRandomValue(p2);
                 n--;
@@ -335,7 +338,6 @@ void Peternak::panen(vector<Product> product){
             int n = b;
             while (n > 0)
             {
-                cout << n << endl;
                 inventory.setRandomValue(p);
                 n--;
             } 
