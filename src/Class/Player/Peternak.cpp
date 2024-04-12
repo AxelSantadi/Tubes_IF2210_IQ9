@@ -287,38 +287,65 @@ void Peternak::panen(vector<Product> product){
             throw penyimpananPenuhExeption();
         }
         
+        int idx;
+        if(code == "COW"){
+            idx = 8;
+        } else if(code == "SHP"){
+            idx = 9;
+        } else if(code == "HRS"){
+            idx = 10;
+        } else if(code == "RBT"){
+            idx = 11;
+        } else if(code == "SNK"){
+            idx = 12;
+        } else if(code == "CHK"){
+            idx = 13;
+            if (inventory.countEmpty() < b*2){
+                throw penyimpananPenuhExeption();
+            }
+        } else if(code == "DCK"){
+            idx = 14;
+            if (inventory.countEmpty() < b*2){
+                throw penyimpananPenuhExeption();
+            }
+        }
         vector<string> petak;
         petak = kandang.ambilPanenhewan(code,b);
-
-        int idx;
-        if(code == "COM"){
-            idx = 0;
-        } else if(code == "SHM"){
-            idx = 1;
-        } else if(code == "HRM"){
-            idx = 2;
-        } else if(code == "RBM"){
-            idx = 3;
-        } else if(code == "SNM"){
-            idx = 4;
-        } else if(code == "CHM"){
-            idx = 5;
-        } else if(code == "DCM"){
-            idx = 6;
-        } else if(code == "CHE"){
-            idx = 7;
-        } else if(code == "DCE"){
-            idx = 8;
-        }
-        Item * p = new Product(product[idx]);
-        // menyimpan hasil panen ke inventory
-        int n = b;
-        while (n > 0)
-        {
-            cout << n << endl;
-            inventory.setRandomValue(p);
-            n--;
+        
+        if (idx == 13){
+            Item * p = new Product(product[idx]);
+            Item * p2 = new Product(product[idx+2]);
+            int n = b;
+            while (n > 0)
+            {
+                inventory.setRandomValue(p);
+                inventory.setRandomValue(p2);
+                n--;
+            } 
         } 
+        else if (idx == 14){
+            Item * p = new Product(product[idx]);
+            Item * p2 = new Product(product[idx+2]);
+            int n = b;
+            while (n > 0)
+            {
+                inventory.setRandomValue(p);
+                inventory.setRandomValue(p2);
+                n--;
+            } 
+        }else {
+            Item * p = new Product(product[idx]);
+            int n = b;
+            while (n > 0)
+            {
+                inventory.setRandomValue(p);
+                n--;
+            } 
+        }
+
+        
+        // menyimpan hasil panen ke inventory
+       
 
         
         cout << b << " petak tanaman "<< code << " pada petak ";
