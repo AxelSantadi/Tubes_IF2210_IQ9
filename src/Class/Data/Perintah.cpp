@@ -12,10 +12,11 @@ Perintah::Perintah()
 
     // Alur 1
     readConfig();
+    toko = new Toko(config);
 
     // Alur 2
     muatState();
-    toko = new Toko(config);
+    
 
     // Alur 3
     cout << "Urutan giliran permainan berdasarkan urutan leksikografis dari username pemain." << endl;
@@ -235,7 +236,7 @@ void Perintah::muatState()
         int numPlayers;
         string dummy;
         stateFile >> numPlayers;
-        // cout << "Jumlah pemain: " << numPlayers << endl;
+
         getline(stateFile, dummy);
 
         // Looping untuk setiap pemain
@@ -253,7 +254,6 @@ void Perintah::muatState()
             int money;
 
             ss >> username >> role >> weight >> money;
-            cout << "Username: " << username << " Role: " << role << " Weight: " << weight << " Money: " << money << endl;
 
             Player *player;
             if (role == "Petani")
@@ -269,103 +269,88 @@ void Perintah::muatState()
                 player = new Walikota(username, n_inventory, m_inventory);
             }
 
-            cout << "Pemain " << username << " berhasil dimuat." << endl;
-            // cout << "Inventory space for " << username << ": "
-            //      << player->getInventory().getRows() << " rows, "
-            //      << player->getInventory().getCols() << " columns" << endl;
-
             int numItems;
             stateFile >> numItems;
-            cout << "Jumlah item biasa: " << numItems << endl;
 
             // Looping untuk setiap item terus set ke inventory nya si player
             for (int j = 0; j < numItems; j++)
             {
-                //<INVENTORY M>
                 string itemName;
                 stateFile >> itemName;
                 Item *item = config.createItem(itemName);
                 player->getInventoryPointer().setRandomValue(item);
-                // aman sejauh ini
             }
 
-            int numSpecializedItems;
-            stateFile >> numSpecializedItems;
-            getline(stateFile, dummy);
-            cout << "Jumlah item spesial: " << numSpecializedItems << endl;
-
-            if (player->getRole() == "Petani")
+            if (player->getRole() == "Petani" || player->getRole() == "Peternak")
             {
-                for (int k = 0; k < numSpecializedItems; k++)
+                int numSpecializedItems;
+                stateFile >> numSpecializedItems;
+                getline(stateFile, dummy);
+
+                if (player->getRole() == "Petani")
                 {
-                    string line2;
-                    getline(stateFile, line2);
-
-                    stringstream iss(line2);
-
-                    string slot, plantName;
-                    int agePlant;
-
-                    iss >> slot >> plantName >> agePlant;
-                    //cout << "Slot: " << slot << " Plant Name: " << plantName << " Age Plant: " << agePlant << endl;
-
-                    Plant plant = config.createItemPlant(plantName);
-                    plant.setUmur(agePlant);
-
-                    string rowStr = slot.substr(1); 
-                    int row = stoi(rowStr);
-                    char col = slot[0];
-
-                    Petani *petani = dynamic_cast<Petani *>(player);
-                    if (petani)
+                    for (int k = 0; k < numSpecializedItems; k++)
                     {
-                        petani->addTanaman(plant, row, col);
+                        string line2;
+                        getline(stateFile, line2);
+
+                        stringstream iss(line2);
+
+                        string slot, plantName;
+                        int agePlant;
+
+                        iss >> slot >> plantName >> agePlant;
+
+                        Plant plant = config.createItemPlant(plantName);
+                        plant.setUmur(agePlant);
+
+                        string rowStr = slot.substr(1);
+                        int row = stoi(rowStr);
+                        char col = slot[0];
+
+                        Petani *petani = dynamic_cast<Petani *>(player);
+                        if (petani)
+                        {
+                            petani->addTanaman(plant, row, col);
+                        }
                     }
                 }
-            }
-
-            else if (player->getRole() == "Peternak")
-            {
-                for (int k = 0; k < numSpecializedItems; k++)
+                else if (player->getRole() == "Peternak")
                 {
-                    // <LOKASI_HEWAN_K> <NAMA_HEWAN_K> <BERAT_HEWAN_K>
-                    string line2;
-                    getline(stateFile, line2);
-
-                    stringstream iss(line2);
-
-                    string slot, animalName;
-                    int beratAnimal;
-
-                    iss >> slot >> animalName >> beratAnimal;
-                    //cout << "Slot: " << slot << " Animal Name: " << animalName << " Berat Animal: " << beratAnimal << endl;
-
-                    Animal animal = config.createItemAnimal(animalName);
-                    animal.setBerat(beratAnimal);
-
-                    string rowStr = slot.substr(1); 
-                    int row = stoi(rowStr);
-                    char col = slot[0];
-
-                    //cout << "Row: " << row << " Col: " << col << endl;
-                    Peternak *peternak = dynamic_cast<Peternak *>(player);
-                    if (peternak)
+                    for (int k = 0; k < numSpecializedItems; k++)
                     {
-                        peternak->addTernak(animal, row, col);
+                        string line2;
+                        getline(stateFile, line2);
+
+                        stringstream iss(line2);
+
+                        string slot, animalName;
+                        int beratAnimal;
+
+                        iss >> slot >> animalName >> beratAnimal;
+
+                        Animal animal = config.createItemAnimal(animalName);
+                        animal.setBerat(beratAnimal);
+
+                        string rowStr = slot.substr(1);
+                        int row = stoi(rowStr);
+                        char col = slot[0];
+
+                        Peternak *peternak = dynamic_cast<Peternak *>(player);
+                        if (peternak)
+                        {
+                            peternak->addTernak(animal, row, col);
+                        }
                     }
                 }
-            }
-
-            else if (player->getRole() == "Walikota")
-            {
-                // Do nothing
             }
         }
+        string line;
+        getline(stateFile, line);
+
         int numItemToko;
         stateFile >> numItemToko;
-
-        // <ITEM_1> <JUMLAH_ITEM_1>
-        // <ITEM_2> <JUMLAH_ITEM_2>
+        getline(stateFile, dummy);
 
         for (int k = 0; k < numItemToko; k++)
         {
@@ -389,6 +374,12 @@ void Perintah::muatState()
                 if (item != nullptr)
                 {
                     toko->addItemToko(item);
+                }
+
+                else
+                {
+                    cout << "Item " << itemName << "tidak ditemukan pada config :(" << endl;
+                    return;
                 }
             }
         }
@@ -594,7 +585,7 @@ void Perintah::SIMPAN()
         string path;
         cout << "Masukkan Masukkan lokasi berkas state : ";
         cin >> path;
-        Player::saveState(path,toko);
+        Player::saveState(path, toko);
         cout << "State berhasil disimpan." << endl;
     }
     catch (FileNotFound &e)
