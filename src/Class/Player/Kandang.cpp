@@ -9,6 +9,70 @@ void Kandang::cetakKandang(){
     cout << endl << endl;
 }
 
+void Kandang::cetakKandangPanen(){
+    cout << endl;
+    cout << "================[ Kandang ]=================" << endl;
+    cout << "     ";
+    for (char i = 'A'; i <= getCols(); i++)
+    {
+        cout << "  "<< i <<"   ";
+    }
+    cout << endl << "    ";
+    for (char i = 'A'; i <= getCols(); i++)
+    {
+        cout << "+-----";
+    }
+    cout << "+" <<endl;
+    for (int i = 1; i <= getRows(); i++)
+    {
+        if (i < 10)
+        {
+            cout << " 0"<<i<<" |";
+        }
+        else
+        {
+            cout << " "<<i<<" |";
+        }
+        
+        for (char j = 'A'; j <= getCols(); j++)
+        {
+            if (isExist(i, j))
+            {
+                if (getValue(i, j).getBerat() >= getValue(i, j).getWeightToHarvest())
+                {
+                    Animal p = getValue(i,j);
+                    string text = p.getCode();
+                    string coloredText = "\x1b[32m"+ text + "\x1b[0m";
+                    cout << " " << coloredText<< " |";
+                }
+                else
+                {
+                    Animal p = getValue(i,j);
+                    string text = p.getCode();
+                    string coloredText = "\x1b[31m"+ text + "\x1b[0m";
+                    cout << " " << coloredText << " |";
+                }
+            }
+            else
+            {
+                cout << "     |";
+            }
+        }
+        cout << endl << "    ";
+        for (char i = 'A'; i <= getCols(); i++)
+        {
+            cout << "+-----";
+        }
+        cout << "+" <<endl;
+    }
+
+    cout << endl << endl;
+}
+
+Animal Kandang::getAnimal(int x, char a) const{
+    return getValue(x,a);
+}
+
 unordered_map<string, int> Kandang::countPanen() {
     unordered_map<string, int> result;
     
@@ -27,6 +91,7 @@ unordered_map<string, int> Kandang::countPanen() {
     }
     return result;
 }
+
 
 void Kandang::cetakJenisHewan(){
     map<string,string> result;

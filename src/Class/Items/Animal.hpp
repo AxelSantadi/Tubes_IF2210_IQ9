@@ -51,6 +51,10 @@ public:
 
     // Method buat jenis
     string getJenis() const override;
+
+    bool isHerbivore() const;
+    bool isCarnivore() const;
+    bool isOmnivore() const;
 private:
     static int numOfAnimal;
 
@@ -58,6 +62,8 @@ private:
     int weightToHarvest;
     int berat;
 };
+
+
 
 class Herbivore : public Animal
 {

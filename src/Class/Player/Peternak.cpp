@@ -13,15 +13,20 @@ void Peternak::addTernak(Animal animal, int i, char j)
     kandang.setValue(i, j, animal);
 }
 
+Kandang Peternak::getKandang() const
+{
+    return kandang;
+}
+
 void Peternak::ternak(){
     // cetak inventory
-    cout << "Pilih tanaman dari penyimpanan :" << endl;
+    cout << "Pilih hewan dari penyimpanan :" << endl;
 
     inventory.printInventory();
     cout << endl;
     try
     {
-        cout << "Slot :" << endl;
+        cout << "Slot :";
         string slot;
         cin >> slot;
         char a;
@@ -29,9 +34,16 @@ void Peternak::ternak(){
         a = slot[0];
         slot = slot.substr(1, slot.length()-1);
         b = stoi(slot);
-        if (!inventory.isExist(b,a) || !dynamic_cast<Animal*>(inventory.getValue(b,a)))
+        if (!dynamic_cast<Animal*>(inventory.getValue(b,a)))
         {
             throw BukanHewanException();
+        }
+        if (!inventory.isExist(b,a))
+        {
+            throw SlotKosongException();
+        } else if (inventory.getRows() < b || inventory.getCols() < a)
+        {
+            throw outOfBoundException();
         }
         Animal* animal = dynamic_cast<Animal*>(inventory.getValue(b,a));
         inventory.removeValue(b,a);
@@ -40,13 +52,13 @@ void Peternak::ternak(){
         // pilih posisi tanam
         cout << "Pilih petak tanah yang akan ditanami ";
         kandang.cetakKandang();
-        // cetak ladang
+        // cetak kandang
         bool success = false; 
         while(!success)
         {
             try
             {
-                // pilih posisi tanam
+                // pilih posisi hewan
                 string posisi;
                 cout << "Petak tanah : ";
                 cin >> posisi;
@@ -77,6 +89,10 @@ void Peternak::ternak(){
 
     }catch(BukanHewanException e){
         cerr << e.what() << endl;
+    }catch(SlotKosongException e){
+        cerr << e.what() << endl;
+    }catch(outOfBoundException e){
+        cerr << e.what() << endl;
     }
         
 }
@@ -105,110 +121,142 @@ void Peternak::saveStatePlayer(ofstream &file) const
     }
 }
 
-// void Peternak::feedTernak(){
-//     cout << "Pilih petak kandang yang akan diberi makan" << endl;
-//     kandang.cetakKandang();
-//     string choice;
-//     Animal *animal = nullptr;
-//     Item *item = nullptr;
-//     Product *produk = (Product *)item;
-//     try
-//     {
-//         while (true)
-//         {
-//             cout << "Petak kandang: ";
-//             cin >> choice;
-//             char a;
-//             int b;
-//             a = choice[0];
-//             choice = choice.substr(1, choice.length()-1);
-//             b = stoi(choice);
-//             try
-//             {
-//                 animal = kandang.getValue(b, a);
-//             }
-//             catch (out_of_range &e)
-//             {
-//                 cout << "Kamu memilih kandang kosong." << endl;
-//                 cout << "Silahkan masukkan kandang yang berisi ternak." << endl;
-//             }
-//         }
-//         Animal *hewan = dynamic_cast<Animal *>(animal);
-//         cout << "Kamu memilih " << hewan->getName() << " untuk diberi makan." << endl;
-//         cout << "Pilih pangan yang akan diberikan:" << endl;
-//         inventory.printInventory();
-//         while (true)
-//         {
-//             cout << "Slot: ";
-//             cin >> choice;
-//             char a;
-//             int b;
-//             a = choice[0];
-//             choice = choice.substr(1, choice.length()-1);
-//             b = stoi(choice);
-//             try
-//             {
-//                 item = inventory.getValue(b, a);
-//             }
-//             catch (out_of_range &e)
-//             {
-//                 cout << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
-//                 cout << "Silahkan masukkan slot yang berisi makanan." << endl;
-//             }
-//             if (item->isBuilding())
-//             {
-//                 cout << "Apa yang kamu lakukan?\?!! Kamu mencoba untuk memberi makan itu?!!" << endl;
-//                 cout << "Silahkan masukkan slot yang berisi makanan." << endl;
-//             }
-//             if (!produk->isEdibleAnimal() && !produk->isEdiblePlant())
-//             {
-//                 cout << "Itu produk yang tidak bisa dimakan sobat." << endl;
-//                 cout << "Silahkan masukkan slot yang berisi makanan." << endl;
-//             }
-//             else
-//             {
-//                 map<string, Animal *> ladang = barn.getAllItems();
-//                 for (const auto &pair : ladang)
-//                 {
-//                     if (pair.first == choice)
-//                     {
-//                         cout << "Kamu memilih " << pair.second->getName() << RESET << endl;
-//                     }
-//                 }
-//             }
-//         }
-//         animal->feed(produk);
-//         inventory.DeleteItemAt(choice);
-//         cout << "Dengan lahapnya, kamu memakan hidangan itu" << endl;
-//         cout << BOLD GREEN << "Alhasil, berat badan kamu naik menjadi " << this->weight << endl;
-//     }
-//     catch (wrongFoodException e)
-//     {
-//         cout << e.what() << '\n';
-//     }
-// }
+void Peternak::feedTernak(){
+    cout << "Pilih hewan yang ingin diberi makan" << endl;
+    kandang.cetakKandang();
+    cout << endl;
+    bool success = false;
+    try {
+        cout << "Petak kandang: ";
+        string posisi;
+        cin >> posisi;
+        cout << endl;
+        char x;
+        int y;
+        x = posisi[0];
+        posisi = posisi.substr(1, posisi.length()-1);
+        y = stoi(posisi);
+        if (!kandang.isExist(y,x))
+        {
+            throw SlotKosongException();
+        }
+        Animal* animal = new Animal(kandang.getValue(y,x));
+        cout << "Kamu memilih " << animal->getName() << " untuk diberi makan." << endl;
+        cout << "Pilih pangan yang akan diberikan:" << endl;
+        inventory.printInventory();
+        while (!success)
+        {
+            try{
+            cout << "Slot: ";
+            string slot;
+            cin >> slot;
+            cout << endl;
+            char a;
+            int b;
+            a = slot[0];
+            slot = slot.substr(1, slot.length()-1);
+            b = stoi(slot);
+            if (inventory.isExist(b, a))
+                {
+                    Item* item = inventory.getValue(b,a);
+                    if (item->isMakanan())
+                    {
+                        if (animal->isHerbivore()){
+                            if (item->getCode() == "SHM" || item->getCode() == "HRM" || item->getCode() == "RBM" || item->getCode() == "SNM" || item->getCode() == "CHM" || item->getCode() == "DCM" || item->getCode() == "CHE" || item->getCode() == "DCE")
+                            {
+                                throw BukanMakananHerbivore();
+                            } else  {
+                                cout << "Kamu memilih " << item->getName() << endl;
+                                //menambahkan berat badan hewan yang dipilih menggunakan item;
+                                animal->setBerat(animal->getBerat() + item->getAddedWeight());
+                                kandang.setValue(y,x,*animal);
+                                inventory.removeValue(b,a);
+                                cout << "Dengan lahapnya, " << animal->getName() << " memakan hidangan itu" << endl;
+                                cout << "Alhasil, berat badan " << animal->getName() << " naik menjadi " << animal->getBerat() << endl;
+                                success = true;
+                            }
+                        } else if (animal->isCarnivore()){
+                            if (item->getCode() == "TAW"||item->getCode() == "SAW"||item->getCode() == "ALW"||item->getCode() == "IRW"||item->getCode() == "APP"||item->getCode() == "ORP"||item->getCode() == "BNP"||item->getCode() == "GAP")
+                            {
+                                throw BukanMakananCarnivore();
+                            } else {
+                                cout << "Kamu memilih " << item->getName() << endl;
+                                //menambahkan berat badan hewan yang dipilih menggunakan item;
+                                animal->setBerat(animal->getBerat() + item->getAddedWeight());
+                                kandang.setValue(y,x,*animal);
+                                inventory.removeValue(b,a);
+                                cout << "Dengan lahapnya, " << animal->getName() << " memakan hidangan itu" << endl;
+                                cout << "Alhasil, berat badan " << animal->getName() << " naik menjadi " << animal->getBerat() << endl;
+                                success = true;
+                            }
+                        } else if (animal->isOmnivore()){
+                            cout << "Kamu memilih " << item->getName() << endl;
+                            //menambahkan berat badan hewan yang dipilih menggunakan item;
+                            animal->setBerat(animal->getBerat() + item->getAddedWeight());
+                            kandang.setValue(y,x,*animal);
+                            inventory.removeValue(b,a);
+                            cout << "Dengan lahapnya, " << animal->getName() << " memakan hidangan itu" << endl;
+                            cout << "Alhasil, berat badan " << animal->getName() << " naik menjadi " << animal->getBerat() << endl;
+                            success = true;
+                        }
+                        
+                    } else
+                    {
+                        throw BukanMakananException();
+                    }
+                }
+                else if (inventory.getRows() < b || 1 < b || inventory.getCols() < a || 'A' < a)
+                {
+                    throw outOfBoundException();
+                }
+                else
+                {
+                    throw SlotKosongException();
+                }
+            
+            }catch(outOfBoundException e){
+                cerr << e.what() << endl;
+            }catch(SlotKosongException e){
+                cerr << e.what() << endl;
+            }catch(BukanMakananException e){
+                cerr << e.what() << endl;
+            }catch(BukanMakananHerbivore e){
+                cerr << e.what() << endl;
+            }catch(BukanMakananCarnivore e){
+                cerr << e.what() << endl;
+            }
+        }
+
+    } catch(SlotKosongException e){
+        cerr << e.what() << endl;
+    }
+}
+
 
 void Peternak::panenTernak(vector<Product> product){
-    kandang.cetakKandang();
+    kandang.cetakKandangPanen();
     cout << endl;
     kandang.cetakJenisHewan();
     cout << endl;
-    cout << "Pilih hewan siap panen yang kamu miliki" << endl;
-    int i =1;
+
+    cout << "Pilih hewan yang ingin dipanen" << endl;
+    int i = 1;
     map<int,pair<string,int>> pilihan;
-    for (auto it = kandang.countPanen().begin(); it != kandang.countPanen().end(); it++)
-    {
-        cout << i << "." << it->first << " ( " << it->second <<" petak siap panen)" << endl;
+    unordered_map<string,int> hasilCount = kandang.countPanen();
+    for (const std::pair<std::string, int>& entry : hasilCount) {
+        cout << i << "." << entry.first << " ( " << entry.second <<" petak siap panen)" << endl;
+        pilihan[i] = {entry.first,entry.second};
         i++;
-        pilihan[i] = {it->first,it->second};
-    }
+    } 
+    cout<<endl;
+
     try{
         int a; // input pilihan
-        cout<< "Nomor tanaman yang ingin dipanen:";  
+        cout<< "Nomor tanaman yang ingin dipanen: ";  
         cin >> a;
         // validasi apakah terdapat inputan a
 
-        if (a > i || a < 0){
+        if (a >= i || a < 0){
             throw salahPanenExeption();
         }
 
@@ -219,8 +267,9 @@ void Peternak::panenTernak(vector<Product> product){
         
         // input jumlah tanaman yang ingin dipanen
         int b;
-        cout << "Berapa petak yang ingin dipanen: ";
+        cout << "Berapa petak yang ingin dipanen  : ";
         cin >> b;
+
         // validasi apakah b cukup
         if (b > jumlah){
             throw jumlahPanenExeption();
@@ -232,9 +281,7 @@ void Peternak::panenTernak(vector<Product> product){
         vector<string> petak;
         petak = kandang.ambilPanen(code,b);
 
-        // Merubah tanaman yang dipanen menjadi product
         int idx;
-
         if(code == "COM"){
             idx = 0;
         } else if(code == "SHM"){
@@ -255,39 +302,15 @@ void Peternak::panenTernak(vector<Product> product){
             idx = 8;
         }
         Item * p = new Product(product[idx]);
-
-        for (int i = 0 ; i < petak.size(); i++ )
+        // menyimpan hasil panen ke inventory
+        int n = b;
+        while (n > 0)
         {
-            string koordinat;
-            koordinat = petak[i];
-            char a;
-            int b;
-            a = koordinat[0];
-            koordinat = koordinat.substr(1, koordinat.length()-1);
-            b = stoi(koordinat);
-            int n = 0;
-            while(n < b){
-                for (int i = 1; i < inventory.getRows(); i++)
-                {
-                    for (char j = 'A'; j <= inventory.getCols(); j++)
-                    {
-                        if(n == b){
-                            break;
-                        }
-                        if (!inventory.isExist(i,j))
-                        {
-                            addItem(p,i,j);
-                            n++;
-                            break;
-                        }
-                    }
-                    if(n == b){
-                        break;
-                    }
-                }
-            }
-            
-        }
+            cout << n << endl;
+            inventory.setRandomValue(p);
+            n--;
+        } 
+
         
         cout << b << " petak tanaman "<< code << " pada petak ";
         for (int i = 0; i < petak.size(); i++)
@@ -306,7 +329,6 @@ void Peternak::panenTernak(vector<Product> product){
     }catch(penyimpananPenuhExeption e){
         cerr << e.what() << endl;
     }  
-        
 }   
 
 int Peternak::getPajak(vector<Recipe> resep){

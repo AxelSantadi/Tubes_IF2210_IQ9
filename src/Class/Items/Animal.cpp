@@ -138,6 +138,10 @@ void Animal::display()
     cout << "Weight to Harvest: " << this->weightToHarvest << endl;
 }
 
+bool Animal::isHerbivore() const { return type == "HERBIVORE"; }
+bool Animal::isCarnivore() const { return type == "CARNIVORE"; }
+bool Animal::isOmnivore() const { return type == "OMNIVORE"; }
+
 string Animal::getJenis() const { return "Animal"; }
 
 bool Animal::isUnlimited() const { return true; }

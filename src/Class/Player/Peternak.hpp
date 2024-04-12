@@ -24,11 +24,13 @@ public:
     void saveStatePlayer(ofstream &file) const override;
 
     void addTernak(Animal animal , int i, char j) override;
+
+    Kandang getKandang() const;
     
     void ternak()override;
-    //void feedTernak()override;
+    void feedTernak()override;
+
     void panenTernak(vector<Product> product)override;
-    //void jualTernak()override;  dikomenin dlu biar bisa debugging
 
     int getPajak(vector<Recipe> resep) override;
 
