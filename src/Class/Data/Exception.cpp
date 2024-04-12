@@ -102,6 +102,11 @@ string BukanPeternakExeption::what()
     return "Kamu bukan Peternak, kamu tidak bisa menggunakan perintah ini.";
 }
 
+string bukanPetanidanPeternakExeption::what()
+{
+    return "Kamu bukan Petani atau Peternak, kamu tidak bisa menggunakan perintah ini.";
+}
+
 // Exception Buat Item
 string NegativePriceException::what()
 {

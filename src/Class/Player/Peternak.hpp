@@ -30,7 +30,7 @@ public:
     void ternak()override;
     void feedTernak()override;
 
-    void panenTernak(vector<Product> product)override;
+    void panen(vector<Product> product)override;
 
     int getPajak(vector<Recipe> resep) override;
 

@@ -63,7 +63,7 @@ Player *Player::getWinner(Misc m)
     return NULL;
 }
 
-void Player::saveState(string path)
+void Player::saveState(string path, Toko* toko)
 {
     ofstream file;
     file.open(path);
@@ -74,6 +74,7 @@ void Player::saveState(string path)
         {
             players[i]->saveStatePlayer(file);
         }
+        toko->saveStatetoko(file);
         file.close();
     }
     else
@@ -413,7 +414,6 @@ void Player::nextDay() {}
 void Player::addTernak(Animal animal, int i, char j) {}
 void Player::ternak() {}
 void Player::feedTernak() {}
-void Player::panenTernak(vector<Product> product) {}
 void Player::jualTernak() {}
 
 // Walkot

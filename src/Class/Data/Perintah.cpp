@@ -97,6 +97,7 @@ Perintah::Perintah()
             cout << "Perintah Tidak Valid Masukan lagi yang benar." << endl;
         }
     }
+    Player::dealocatePlayer();
 }
 
 Perintah::~Perintah()
@@ -571,12 +572,12 @@ void Perintah::PANEN()
 {
     try
     {
-
-        if (Player::getCurrentPlayer()->getRole() != "Petani")
+        // 1
+        if (Player::getCurrentPlayer()->getRole() != "Petani" && Player::getCurrentPlayer()->getRole() != "Peternak")
         {
-            throw bukanPetaniExeption();
+            throw bukanPetanidanPeternakExeption();
         }
-        Player::getCurrentPlayer()->panen(config.getProduct());
+        Player::getCurrentPlayer()->panen(config.getProduct());            
         cout << endl;
     }
     catch (bukanPetaniExeption &e)
@@ -591,7 +592,7 @@ void Perintah::SIMPAN()
         string path;
         cout << "Masukkan Masukkan lokasi berkas state : ";
         cin >> path;
-        Player::saveState(path);
+        Player::saveState(path,toko);
     }
     catch (FileNotFound &e)
     {

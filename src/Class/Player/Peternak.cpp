@@ -242,7 +242,7 @@ void Peternak::feedTernak(){
 }
 
 
-void Peternak::panenTernak(vector<Product> product){
+void Peternak::panen(vector<Product> product){
     kandang.cetakKandangPanen();
     cout << endl;
     kandang.cetakJenisHewan();
