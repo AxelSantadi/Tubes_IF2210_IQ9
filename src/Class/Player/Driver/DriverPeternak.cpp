@@ -42,7 +42,6 @@
 
 // Per map an
 #include "MatrixMap.hpp"
-#include "MatrixMap.cpp"
 
 #include "Inventory.hpp"
 #include "Inventory.cpp"

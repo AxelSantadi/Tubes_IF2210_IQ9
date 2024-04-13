@@ -63,7 +63,7 @@ Player *Player::getWinner(Misc m)
     return NULL;
 }
 
-void Player::saveState(string path, Toko* toko)
+void Player::saveState(string path, Toko *toko)
 {
     ofstream file;
     file.open(path);
@@ -259,7 +259,6 @@ void Player::buyItem(Toko &toko)
 
     std::cout << "Nomor barang yang ingin dibeli : ";
     std::cin >> itemNumber;
-    std::cout << endl;
 
     std::cout << "Kuantitas : ";
     std::cin >> quantity;
@@ -320,18 +319,15 @@ void Player::buyItem(Toko &toko)
         return;
     }
 
+    if (quantity > toko.getItemQuantity(itemName) && toko.getItemQuantity(itemName) != -1)
+    {
+        std::cout << "Barang yang di toko tidak cukup untuk memenuhi pesanan." << std::endl;
+        return;
+    }
+
     for (int i = 0; i < quantity; ++i)
     {
-        try
-        {
-            toko.removeItemToko(itemName);
-        }
-        catch (ItemNotFoundException &e)
-        {
-            std::cerr << e.what() << endl
-                      << "Barang yang ingin dibeli sudah habis dari toko / Kuantitas barang yang ingin dibeli melebihi supply yang di toko." << endl;
-            return;
-        }
+        toko.removeItemToko(itemName);
     }
     this->money -= price;
 
@@ -343,21 +339,45 @@ void Player::buyItem(Toko &toko)
 
     string slots;
     std::cout << "Petak : ";
-    std::cin.ignore(); // Ignore the newline character in the input buffer
+    std::cin.ignore();
     std::getline(std::cin, slots);
 
     std::istringstream ss(slots);
     std::string slot;
-    while (std::getline(ss, slot, ',') && quantity > 0)
+    int slotCount = 0;
+    int originalQuantity = quantity;
+
+    while (std::getline(ss, slot, ','))
     {
         // Remove leading and trailing spaces
         slot.erase(0, slot.find_first_not_of(' ')); // leading
         slot.erase(slot.find_last_not_of(' ') + 1); // trailing
 
-        this->inventory.storeItemInSlot(item, slot);
-        --quantity;
+        if (quantity > 0)
+        {
+            this->inventory.storeItemInSlot(item, slot);
+            quantity--;
+        }
+        slotCount++;
     }
-    std::cout << item->getName() << " berhasil disimpan dalam penyimpanan!" << std::endl;
+
+    if (slotCount < originalQuantity)
+    {
+        std::cout << "Menarik sekali anda belinya " << originalQuantity << " tapi yang ditaro di invetory cuman " << slotCount << std::endl;
+        std::cout << "Sayangnya, toko ga tanggung jawab atas barang yang udah dibeli tapi ga dimuat di inventory" << std::endl;
+        std::cout << "hehe jangan diulangin lagi ya :)" << std::endl
+                  << std::endl;
+    }
+
+    else if (slotCount > originalQuantity)
+    {
+        std::cout << "Deck deck, kalo belinya cuman " << originalQuantity << ", ya masukin ke inventorynya cuman segitu, malah masukin " << slotCount << " slot" << std::endl;
+        std::cout << "Jangan diulang ya, nanti om sedih :(" << std::endl
+                  << std::endl;
+    }
+
+    std::cout << item->getName() << " berhasil disimpan dalam penyimpanan!" << std::endl
+              << std::endl;
 }
 
 void Player::sellItem(Toko &toko)
@@ -375,8 +395,8 @@ void Player::sellItem(Toko &toko)
     std::string slot;
     while (std::getline(ss, slot, ','))
     {
-        slot.erase(0, slot.find_first_not_of(' ')); // leading
-        slot.erase(slot.find_last_not_of(' ') + 1); // trailing
+        slot.erase(0, slot.find_first_not_of(' ')); 
+        slot.erase(slot.find_last_not_of(' ') + 1); 
 
         int row = std::stoi(slot.substr(1));
         char col = slot[0];

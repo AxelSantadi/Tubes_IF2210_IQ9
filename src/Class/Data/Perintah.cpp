@@ -551,12 +551,22 @@ void Perintah::KASIH_MAKAN()
 }
 void Perintah::BELI()
 {
+    if (Player::getCurrentPlayer()->getInventoryPointer().isFull()) {
+        std::cout << "Penyimpanan sudah penuh, pembelian tidak dapat dilakukan." << std::endl;
+        return;
+    }
+
     // Call Player::buyItem with the Toko object
     Player::getCurrentPlayer()->buyItem(*toko);
 }
 
 void Perintah::JUAL()
 {
+    if (Player::getCurrentPlayer()->getInventoryPointer().isEmpty()) {
+        std::cout << "Penyimpanan kosong, penjualan tidak dapat dilakukan." << std::endl;
+        return;
+    }
+
     // Call Player::sellItem with the Toko object
     Player::getCurrentPlayer()->sellItem(*toko);
 }

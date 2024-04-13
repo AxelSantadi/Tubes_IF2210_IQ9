@@ -16,7 +16,6 @@
 #include "../../Items/Bangunan.cpp"
 
 #include "../../Player/MatrixMap.hpp"
-#include "../../Player/MatrixMap.cpp"
 
 #include "../ReadConfig.hpp"
 #include "../ReadConfig.cpp"

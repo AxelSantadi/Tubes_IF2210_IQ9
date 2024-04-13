@@ -42,7 +42,6 @@
 
 // Per map an
 #include "../../Player/MatrixMap.hpp"
-#include "../../Player/MatrixMap.cpp" 
 
 #include "../../Player/Inventory.hpp"
 #include "../../Player/Inventory.cpp"

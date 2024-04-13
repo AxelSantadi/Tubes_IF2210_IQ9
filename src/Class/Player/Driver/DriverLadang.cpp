@@ -9,7 +9,6 @@
 #include "../Data/Exception.hpp"
 #include "../Data/Exception.cpp"
 
-#include "MatrixMap.cpp"
 
 int main()
 {

@@ -42,7 +42,6 @@
 
 // Per map an
 #include "MatrixMap.hpp"
-#include "MatrixMap.cpp"
 
 #include "Inventory.hpp"
 #include "Inventory.cpp"
@@ -80,7 +79,7 @@ int main()
 
     // Membuat player sama inventory
     Inventory inventory(3, 'A');
-    Player *petani = new Walikota("John Doe", 5, 'M', 5000, 1000);
+    Player *petani = new Petani("John Doe", 5, 'M', 5000, 1000, 5, 'A');
     petani->setInventory(inventory);
 
     // Pengen beli dong

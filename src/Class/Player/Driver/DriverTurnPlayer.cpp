@@ -20,7 +20,6 @@
 #include "../Items/Product.cpp"
 
 #include "MatrixMap.hpp"
-#include "MatrixMap.cpp"
 
 #include "../Data/Exception.cpp"
 int main()
