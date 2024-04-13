@@ -67,7 +67,7 @@ void Petani::tanam(){
             throw BukanTanamanExeption();
         }
         Plant* plant = dynamic_cast<Plant*>(inventory.getValue(b,a));
-        cout << "Kamu memilih" << plant->getName() << endl;
+        cout << "Kamu memilih " << plant->getName() << endl;
         // pilih posisi tanam
         cout << "Pilih petak tanah yang akan ditanami ";
         ladang.cetakLadang();

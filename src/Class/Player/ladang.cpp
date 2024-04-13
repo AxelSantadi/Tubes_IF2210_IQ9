@@ -1,4 +1,5 @@
 #include "ladang.hpp"
+#include "../Data/pcolor.h"
 
 Ladang::Ladang(int panjang, char lebar) : MatrixMap<Plant>(panjang,lebar){}
 
@@ -43,15 +44,21 @@ void Ladang::cetakLadangPanen(){
                 {
                     Plant p = getValue(i,j);
                     string text = p.getCode();
-                    string coloredText = "\x1b[32m"+ text + "\x1b[0m";
-                    cout << " " << coloredText<< " |";
+                    cout << " ";
+                    for (char kara : text) {
+                        print_green(kara);
+                    }
+                    cout << " |";
                 }
                 else
                 {
                     Plant p = getValue(i,j);
                     string text = p.getCode();
-                    string coloredText = "\x1b[31m"+ text + "\x1b[0m";
-                    cout << " " << coloredText << " |";
+                    cout << " ";
+                    for (char kara : text) {
+                        print_red(kara);
+                    }
+                    cout << " |";
                 }
             }
             else

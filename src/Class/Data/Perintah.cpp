@@ -144,7 +144,7 @@ void Perintah::initilization()
     cout << "              ... +%#***###*....  .....................:::::--=====--::::::...........................+++++*#%%....               " << endl;
     cout << "              ....+%*****##*..........................................................................******#%%....               " << endl;
     cout << "              ....=%%%%%%%%+..                                                                    ....+#%%%%%%%...                " << endl;
-    
+
 }
 
 void Perintah::readConfig()
@@ -448,7 +448,7 @@ void Perintah::CETAK_LADANG()
 {
     try
     {
-        dynamic_cast<Petani *>(Player::getCurrentPlayer())->getLadang().cetakLadang();
+        dynamic_cast<Petani *>(Player::getCurrentPlayer())->getLadang().cetakLadangPanen();
     }
     catch (bukanPetaniExeption &e)
     {
@@ -465,7 +465,7 @@ void Perintah::CETAK_PETERNAKAN()
         {
             throw BukanPeternakExeption();
         }
-        dynamic_cast<Petani *>(Player::getCurrentPlayer())->getLadang().cetakLadang();
+        dynamic_cast<Peternak *>(Player::getCurrentPlayer())->getKandang().cetakKandangPanen();
         cout << endl;
     }
     catch (BukanPeternakExeption &e)
