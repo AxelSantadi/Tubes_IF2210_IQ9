@@ -39,6 +39,11 @@ Bangunan &Bangunan::operator-=(const Bangunan &b)
     return *this;
 }
 
+bool Bangunan::operator==(const Bangunan &b) const
+{
+    return Item::operator==(b);
+}
+
 int Bangunan::getAddedWeight() const{
     return 0;
 }

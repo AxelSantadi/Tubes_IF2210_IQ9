@@ -112,6 +112,11 @@ Item &Item::operator-=(const Item &i)
     return *this;
 }
 
+bool Item::operator==(const Item &i) const
+{
+    return (id == i.id && code == i.code && name == i.name && price == i.price);
+}
+
 void Item::input(istream &is)
 {
     is >> id;

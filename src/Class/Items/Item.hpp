@@ -36,6 +36,8 @@ public:
     Item &operator+=(const Item &i);
     Item &operator-=(const Item &i);
 
+    bool operator==(const Item &i) const;
+
     // Input and Output
     virtual void input(istream &is);
     virtual void output(ostream &os);

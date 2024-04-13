@@ -22,6 +22,8 @@ public:
     Bangunan &operator+=(const Bangunan &b);
     Bangunan &operator-=(const Bangunan &b);
 
+    bool operator==(const Bangunan &b) const;
+
     // Method buat makan
     int getAddedWeight() const;
     bool isMakanan() const;
