@@ -200,7 +200,6 @@ void Player::makan()
                 std::cin >> slot;
                 char col = slot[0];
                 int row = stoi(slot.substr(1));
-                std::cout << inventory.getRows() << " " << row << " " << inventory.getCols() << " " << col << endl;
                 if (inventory.isExist(row, col))
                 {
                     Item *p = inventory.getValue(row, col);

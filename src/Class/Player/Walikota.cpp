@@ -138,7 +138,7 @@ void Walikota::dapatPajak(vector<Recipe> resep) {
 
 void Walikota::tambahPemain(Misc misc) {
     string jenis_pemain;
-    string nama_pemain;
+    string nama_pemain = "";
     for (int i = 0; i < players.size(); i++) {
         cout << players.at(i)->getName() << endl;
     }
@@ -152,8 +152,9 @@ void Walikota::tambahPemain(Misc misc) {
             cout << "Jenis pemain tidak valid. Masukkan jenis pemain: ";
             cin >> jenis_pemain;
         }
+        cin.ignore();
         cout << "Masukkan nama pemain: ";
-        cin >> nama_pemain;
+        getline(cin, nama_pemain);
 
         if (jenis_pemain == "peternak" || jenis_pemain == "Peternak") {
             Peternak *ar = new Peternak(nama_pemain, 40, 50, misc.getFarmSize().first, misc.getFarmSize().second);
