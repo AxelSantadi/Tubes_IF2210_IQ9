@@ -2,7 +2,6 @@
 #define PERINTAH_HPP
 
 #include <iostream>
-#include <windows.h>
 #include <fstream>
 using namespace std;
 

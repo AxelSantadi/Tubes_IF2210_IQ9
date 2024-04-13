@@ -1,32 +1,44 @@
-# Makefile
+# Compiler
+CXX = g++
+# Compiler flags
+CXXFLAGS = -std=c++11 -Wall
 
-# Compiler and flags
-CXX := g++
-CXXFLAGS := -Wall -std=c++11
+# Source directory
+SRCDIR = src
 
-# Directories
-SRC_DIR := src
-OBJ_DIR := obj
-INC_DIRS := $(wildcard $(SRC_DIR)/Class/*/)
+# Main source file (outside src directory)
+MAIN = main.cpp
 
-# Source files
-SRCS := $(wildcard $(SRC_DIR)/Class/*/*.cpp)
+# Main executable name
+EXECUTABLE = project
 
-# Object files
-OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
+# Find all .cpp files in subdirectories of Class (Data, Items, Player)
+SRCS := $(wildcard $(SRCDIR)/Class/Data/*.cpp) \
+        $(wildcard $(SRCDIR)/Class/Items/*.cpp) \
+        $(wildcard $(SRCDIR)/Class/Player/*.cpp)
 
-# Create object directory if it doesn't exist
-$(shell mkdir -p $(OBJ_DIR))
+# Exclude files in folderDriver directories
+SRCS := $(filter-out %/Driver/%, $(SRCS))
 
-# Rule to compile source files into object files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(addprefix -I,$(INC_DIRS)) -c $< -o $@
-
-# Main target
-all: $(OBJS)
-
-clean:
-	rm -rf $(OBJ_DIR)
+# Object files derived from source files
+OBJS := $(SRCS:.cpp=.o)
 
 .PHONY: all clean
+
+# Default target
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
+
+# Compile each .cpp file into .o object files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Run the main executable
+run: $(EXECUTABLE)
+	./$(EXECUTABLE)
+
+# Clean up
+clean:
+	rm -f $(OBJS) $(EXECUTABLE)
