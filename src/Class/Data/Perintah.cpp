@@ -29,6 +29,7 @@ Perintah::Perintah()
     {
         cout << "Masukkan perintah: ";
         cin >> perintah;
+        cin.ignore();
         if (perintah == "NEXT")
         {
             NEXT();

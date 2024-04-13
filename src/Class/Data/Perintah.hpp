@@ -7,7 +7,7 @@ using namespace std;
 
 #include "ReadConfig.hpp"
 #include "../Player/Petani.hpp"
-// #include "../Player/Peternak.hpp"
+#include "../Player/Peternak.hpp"
 #include "../Player/walikota.hpp"
 #include "../Items/Product.hpp"
 #include "../Items/Animal.hpp"
