@@ -99,11 +99,11 @@ Perintah::Perintah()
             cout << "Perintah Tidak Valid Masukan lagi yang benar." << endl;
         }
     }
-    Player::dealocatePlayer();
 }
 
 Perintah::~Perintah()
 {
+    Player::dealocatePlayer();
     delete toko; // Delete toko to avoid memory leaks
 }
 
@@ -227,161 +227,175 @@ void Perintah::muatState()
     // Muat game dari state.txt
     else
     {
-        ifstream stateFile("../../../data/state.txt");
-        if (!stateFile)
+        string path;
+        bool valid = false;
+        ifstream stateFile;
+        while (!valid)
         {
-            cerr << "File tidak bisa dibuka.";
-            exit(1);
-        }
-
-        int numPlayers;
-        string dummy;
-        stateFile >> numPlayers;
-
-        getline(stateFile, dummy);
-
-        // Looping untuk setiap pemain
-        for (int i = 0; i < numPlayers; i++)
-        {
-            // Baca data pemain
-            string line;
-            getline(stateFile, line);
-
-            stringstream ss(line);
-
-            // Atribut pemain
-            string username, role;
-            int weight;
-            int money;
-
-            ss >> username >> role >> weight >> money;
-
-            Player *player;
-            if (role == "Petani")
+            try
             {
-                player = new Petani(username, n_inventory, m_inventory, n_lahan, m_lahan);
-            }
-            else if (role == "Peternak")
-            {
-                player = new Peternak(username, n_inventory, m_inventory, n_peternakan, m_peternakan);
-            }
-            else if (role == "Walikota")
-            {
-                player = new Walikota(username, n_inventory, m_inventory);
-            }
+                cout << "Masukkan lokasi berkas state : ";
+                cin >> path;
+                ifstream stateFile(path);
+                if (!stateFile)
+                {
+                    throw FileNotFound();
+                }
+                int numPlayers;
+                string dummy;
+                stateFile >> numPlayers;
 
-            int numItems;
-            stateFile >> numItems;
-
-            // Looping untuk setiap item terus set ke inventory nya si player
-            for (int j = 0; j < numItems; j++)
-            {
-                string itemName;
-                stateFile >> itemName;
-                Item *item = config.createItem(itemName);
-                player->getInventoryPointer().setRandomValue(item);
-            }
-
-            if (player->getRole() == "Petani" || player->getRole() == "Peternak")
-            {
-                int numSpecializedItems;
-                stateFile >> numSpecializedItems;
                 getline(stateFile, dummy);
 
-                if (player->getRole() == "Petani")
+                // Looping untuk setiap pemain
+                for (int i = 0; i < numPlayers; i++)
                 {
-                    for (int k = 0; k < numSpecializedItems; k++)
+                    // Baca data pemain
+                    string line;
+                    getline(stateFile, line);
+
+                    stringstream ss(line);
+
+                    // Atribut pemain
+                    string username, role;
+                    int weight;
+                    int money;
+
+                    ss >> username >> role >> weight >> money;
+
+                    Player *player;
+                    if (role == "Petani")
                     {
-                        string line2;
-                        getline(stateFile, line2);
+                        player = new Petani(username, n_inventory, m_inventory, n_lahan, m_lahan);
+                    }
+                    else if (role == "Peternak")
+                    {
+                        player = new Peternak(username, n_inventory, m_inventory, n_peternakan, m_peternakan);
+                    }
+                    else if (role == "Walikota")
+                    {
+                        player = new Walikota(username, n_inventory, m_inventory);
+                    }
 
-                        stringstream iss(line2);
+                    int numItems;
+                    stateFile >> numItems;
 
-                        string slot, plantName;
-                        int agePlant;
+                    // Looping untuk setiap item terus set ke inventory nya si player
+                    for (int j = 0; j < numItems; j++)
+                    {
+                        string itemName;
+                        stateFile >> itemName;
+                        Item *item = config.createItem(itemName);
+                        player->getInventoryPointer().setRandomValue(item);
+                    }
 
-                        iss >> slot >> plantName >> agePlant;
+                    if (player->getRole() == "Petani" || player->getRole() == "Peternak")
+                    {
+                        int numSpecializedItems;
+                        stateFile >> numSpecializedItems;
+                        getline(stateFile, dummy);
 
-                        Plant plant = config.createItemPlant(plantName);
-                        plant.setUmur(agePlant);
-
-                        string rowStr = slot.substr(1);
-                        int row = stoi(rowStr);
-                        char col = slot[0];
-
-                        Petani *petani = dynamic_cast<Petani *>(player);
-                        if (petani)
+                        if (player->getRole() == "Petani")
                         {
-                            petani->addTanaman(plant, row, col);
+                            for (int k = 0; k < numSpecializedItems; k++)
+                            {
+                                string line2;
+                                getline(stateFile, line2);
+
+                                stringstream iss(line2);
+
+                                string slot, plantName;
+                                int agePlant;
+
+                                iss >> slot >> plantName >> agePlant;
+
+                                Plant plant = config.createItemPlant(plantName);
+                                plant.setUmur(agePlant);
+
+                                string rowStr = slot.substr(1);
+                                int row = stoi(rowStr);
+                                char col = slot[0];
+
+                                Petani *petani = dynamic_cast<Petani *>(player);
+                                if (petani)
+                                {
+                                    petani->addTanaman(plant, row, col);
+                                }
+                            }
+                        }
+                        else if (player->getRole() == "Peternak")
+                        {
+                            for (int k = 0; k < numSpecializedItems; k++)
+                            {
+                                string line2;
+                                getline(stateFile, line2);
+
+                                stringstream iss(line2);
+
+                                string slot, animalName;
+                                int beratAnimal;
+
+                                iss >> slot >> animalName >> beratAnimal;
+
+                                Animal animal = config.createItemAnimal(animalName);
+                                animal.setBerat(beratAnimal);
+
+                                string rowStr = slot.substr(1);
+                                int row = stoi(rowStr);
+                                char col = slot[0];
+
+                                Peternak *peternak = dynamic_cast<Peternak *>(player);
+                                if (peternak)
+                                {
+                                    peternak->addTernak(animal, row, col);
+                                }
+                            }
                         }
                     }
                 }
-                else if (player->getRole() == "Peternak")
+                string line;
+                getline(stateFile, line);
+
+                int numItemToko;
+                stateFile >> numItemToko;
+                getline(stateFile, dummy);
+
+                for (int k = 0; k < numItemToko; k++)
                 {
-                    for (int k = 0; k < numSpecializedItems; k++)
+                    string line3;
+                    getline(stateFile, line3);
+
+                    stringstream iss(line3);
+
+                    string itemName;
+                    int jumlahItem;
+
+                    iss >> itemName >> jumlahItem;
+
+                    // Add the item to toko
+                    for (int j = 0; j < jumlahItem; j++)
                     {
-                        string line2;
-                        getline(stateFile, line2);
+                        // Create an Item object
+                        Item *item = config.createItem(itemName); // Use createItem to create the Item object
 
-                        stringstream iss(line2);
-
-                        string slot, animalName;
-                        int beratAnimal;
-
-                        iss >> slot >> animalName >> beratAnimal;
-
-                        Animal animal = config.createItemAnimal(animalName);
-                        animal.setBerat(beratAnimal);
-
-                        string rowStr = slot.substr(1);
-                        int row = stoi(rowStr);
-                        char col = slot[0];
-
-                        Peternak *peternak = dynamic_cast<Peternak *>(player);
-                        if (peternak)
+                        // Add the item to toko
+                        if (item != nullptr)
                         {
-                            peternak->addTernak(animal, row, col);
+                            toko->addItemToko(item);
+                        }
+
+                        else
+                        {
+                            cout << "Item " << itemName << "tidak ditemukan pada config :(" << endl;
+                            return;
                         }
                     }
                 }
+                valid = true;
             }
-        }
-        string line;
-        getline(stateFile, line);
-
-        int numItemToko;
-        stateFile >> numItemToko;
-        getline(stateFile, dummy);
-
-        for (int k = 0; k < numItemToko; k++)
-        {
-            string line3;
-            getline(stateFile, line3);
-
-            stringstream iss(line3);
-
-            string itemName;
-            int jumlahItem;
-
-            iss >> itemName >> jumlahItem;
-
-            // Add the item to toko
-            for (int j = 0; j < jumlahItem; j++)
+            catch (FileNotFound &e)
             {
-                // Create an Item object
-                Item *item = config.createItem(itemName); // Use createItem to create the Item object
-
-                // Add the item to toko
-                if (item != nullptr)
-                {
-                    toko->addItemToko(item);
-                }
-
-                else
-                {
-                    cout << "Item " << itemName << "tidak ditemukan pada config :(" << endl;
-                    return;
-                }
+                cerr << e.what() << '\n';
             }
         }
     }
