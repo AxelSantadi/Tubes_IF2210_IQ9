@@ -184,4 +184,10 @@ public:
     string what() override;
 };
 
+class takAdaResep : public Exception
+{
+public:
+    string what() override;
+};
+
 #endif

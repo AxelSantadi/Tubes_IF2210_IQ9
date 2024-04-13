@@ -147,3 +147,8 @@ string NumberOutOfRangeException::what()
 {
     return "Nomor barang yang diingini tidak valid.";
 }
+
+string takAdaResep::what()
+{
+    return "Kamu tidak punya resep bangunan tersebut!";
+}

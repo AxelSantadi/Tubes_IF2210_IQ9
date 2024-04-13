@@ -35,7 +35,7 @@ void Walikota::removeBahan(string namaBahan, int jumlah) {
 
 void Walikota::buatBangunan(vector<Recipe> resep) {
     if (getInventoryPointer().isFull()) {
-        cout << "Bangunan sudah penuh!" << endl;
+        throw penyimpananPenuhExeption();
         return;
     } else {
         cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
@@ -69,7 +69,7 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
                 cout << "Pembangunan dibatalkan!" << endl;
                 return;
             } else if (!adaResep) {
-                cout << "Kamu tidak punya resep bangunan tersebut!" << endl;
+                throw takAdaResep();
                 adaResep = false;
                 adaBahan = true;
                 for (int i = 0; i < resepSize; i++) {
