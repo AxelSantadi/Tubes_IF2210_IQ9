@@ -15,7 +15,8 @@ EXECUTABLE = project
 # Find all .cpp files in subdirectories of Class (Data, Items, Player)
 SRCS := $(wildcard $(SRCDIR)/Class/Data/*.cpp) \
         $(wildcard $(SRCDIR)/Class/Items/*.cpp) \
-        $(wildcard $(SRCDIR)/Class/Player/*.cpp)
+        $(wildcard $(SRCDIR)/Class/Player/*.cpp) \
+		$(wildcard main.cpp) 
 
 # Exclude files in folderDriver directories
 SRCS := $(filter-out %/Driver/%, $(SRCS))
