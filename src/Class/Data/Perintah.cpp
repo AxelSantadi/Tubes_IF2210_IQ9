@@ -267,15 +267,15 @@ void Perintah::muatState()
                     Player *player;
                     if (role == "Petani")
                     {
-                        player = new Petani(username, n_inventory, m_inventory, n_lahan, m_lahan);
+                        player = new Petani(username, n_inventory, m_inventory, weight, money, n_lahan, m_lahan);
                     }
                     else if (role == "Peternak")
                     {
-                        player = new Peternak(username, n_inventory, m_inventory, n_peternakan, m_peternakan);
+                        player = new Peternak(username, n_inventory, m_inventory, weight,money, n_peternakan, m_peternakan);
                     }
                     else if (role == "Walikota")
                     {
-                        player = new Walikota(username, n_inventory, m_inventory);
+                        player = new Walikota(username, n_inventory, m_inventory, weight, money);
                     }
 
                     int numItems;
