@@ -4,7 +4,7 @@ ReadConfig::ReadConfig() {}
 
 ReadConfig::ReadConfig(string folderName)
 {
-    string folder = "../../../config/" + folderName;
+    string folder = "config/" + folderName;
     readMisc(folder + "/misc.txt");
     readAnimal(folder + "/animal.txt");
     readPlant(folder + "/plant.txt");
