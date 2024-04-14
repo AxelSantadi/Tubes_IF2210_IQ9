@@ -13,6 +13,12 @@
 #include "../Items/Product.hpp"
 #include "../Items/Bangunan.hpp"
 
+#include "../Exception/Exception.hpp"
+#include "../Exception/fileException.hpp"
+#include "../Exception/inventoryException.hpp"
+#include "../Exception/itemException.hpp"
+#include "../Exception/playerException.hpp"
+
 using namespace std;
 
 class ReadConfig

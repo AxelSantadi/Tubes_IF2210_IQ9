@@ -6,7 +6,11 @@
 #include "../Items/Animal.hpp"
 #include "../Items/Plant.hpp"
 #include "../Data/ReadConfig.hpp"
-#include "../Data/Exception.hpp"
+#include "../Exception/Exception.hpp"
+#include "../Exception/fileException.hpp"
+#include "../Exception/inventoryException.hpp"
+#include "../Exception/itemException.hpp"
+#include "../Exception/playerException.hpp"
 #include <map>
 #include <string>
 #include <vector>

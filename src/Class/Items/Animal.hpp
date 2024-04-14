@@ -87,7 +87,4 @@ public:
     virtual void panen() = 0;
 };
 
-
-
-
-#endif // ANIMAL_HPP
+#endif

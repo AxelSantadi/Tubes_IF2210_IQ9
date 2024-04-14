@@ -7,7 +7,11 @@
 #include <unordered_map>
 #include <vector>
 #include "../Items/Animal.hpp"
-#include "../Data/Exception.hpp"
+#include "../Exception/Exception.hpp"
+#include "../Exception/fileException.hpp"
+#include "../Exception/inventoryException.hpp"
+#include "../Exception/itemException.hpp"
+#include "../Exception/playerException.hpp"
 using namespace std;
 
 class Kandang : public MatrixMap<Animal>{

@@ -8,7 +8,11 @@
 #include <fstream>
 #include <algorithm>
 #include "Inventory.hpp"
-#include "../Data/Exception.hpp"
+#include "../Exception/Exception.hpp"
+#include "../Exception/fileException.hpp"
+#include "../Exception/inventoryException.hpp"
+#include "../Exception/itemException.hpp"
+#include "../Exception/playerException.hpp"
 #include "../Data/Misc.hpp"
 #include "Toko.hpp"
 
