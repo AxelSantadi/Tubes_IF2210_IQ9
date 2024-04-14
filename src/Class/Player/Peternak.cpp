@@ -71,7 +71,7 @@ void Peternak::ternak(){
         cout << "Kamu memilih " << animal->getName() << endl;
         // pilih posisi tanam
         cout << "Pilih petak tanah yang akan ditinggali";
-        kandang.cetakKandang();
+        kandang.cetakKandangPanen();
         // cetak kandang
         bool success = false; 
         while(!success)
@@ -250,7 +250,7 @@ void Peternak::panen(vector<Product> product){
     kandang.cetakJenisHewan();
     cout << endl;
 
-    cout << "Pilih hewan yang ingin dipanen" << endl;
+    cout << "Pilih hewan siap panen yang kamu miliki" << endl;
     int i = 1;
     map<int,pair<string,int>> pilihan;
     unordered_map<string,int> hasilCount = kandang.countPanen();
@@ -278,7 +278,7 @@ void Peternak::panen(vector<Product> product){
         
         // input jumlah tanaman yang ingin dipanen
         int b;
-        cout << "Berapa petak yang ingin dipanen  : ";
+        cout << "Berapa petak yang ingin dipanen: ";
         cin >> b;
 
         // validasi apakah b cukup

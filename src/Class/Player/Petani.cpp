@@ -70,7 +70,7 @@ void Petani::tanam(){
         cout << "Kamu memilih " << plant->getName() << endl;
         // pilih posisi tanam
         cout << "Pilih petak tanah yang akan ditanami ";
-        ladang.cetakLadang();
+        ladang.cetakLadangPanen();
         // cetak ladang
         bool success = false; 
         while(!success)
