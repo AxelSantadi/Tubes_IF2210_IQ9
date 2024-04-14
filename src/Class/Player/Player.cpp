@@ -217,7 +217,7 @@ void Player::makan()
                         throw BukanMakananException();
                     }
                 }
-                else if (inventory.getRows() < row || 1 < row || inventory.getCols() < col || 'A' < col)
+                else if (row > inventory.getRows()  || row < 1 || col > inventory.getCols()  || col < 'A')
                 {
                     throw outOfBoundException();
                 }
@@ -387,38 +387,66 @@ void Player::sellItem(Toko &toko)
     std::cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
 
     string slots;
-    std::cout << "Petak : ";
-    std::getline(std::cin, slots);
 
-    std::istringstream ss(slots);
-    std::string slot;
-    while (std::getline(ss, slot, ','))
+    try
     {
-        slot.erase(0, slot.find_first_not_of(' ')); 
-        slot.erase(slot.find_last_not_of(' ') + 1); 
+        std::cout << "Petak : ";
+        std::getline(std::cin, slots);
 
-        int row = std::stoi(slot.substr(1));
-        char col = slot[0];
-
-        Item *item = this->inventory.getValue(row, col);
-
-        if ((getRole() == "Petani" || getRole() == "Peternak") && item->getJenis() == "Bangunan")
+        std::istringstream ss(slots);
+        std::string slot;
+        while (std::getline(ss, slot, ','))
         {
-            std::cout << "Petani dan Peternak tidak dapat menjual bangunan." << endl;
-            continue;
+            slot.erase(0, slot.find_first_not_of(' '));
+            slot.erase(slot.find_last_not_of(' ') + 1);
+
+            int row = std::stoi(slot.substr(1));
+            char col = slot[0];
+
+            if (inventory.isExist(row, col))
+            {
+                Item *item = this->inventory.getValue(row, col);
+
+                if ((getRole() == "Petani" || getRole() == "Peternak") && item->getJenis() == "Bangunan")
+                {
+                    std::cout << "Petani dan Peternak tidak dapat menjual bangunan." << endl;
+                    continue;
+                }
+
+                int itemPrice = item->getPrice();
+
+                // Remove the item from the inventory
+                this->inventory.removeValue(row, col);
+
+                // Add the item to the store's inventory
+                toko.addItemToko(item); // Pass the pointer to the item
+
+                // Give the player money for the item
+                tempMoney += itemPrice;
+            }
+            else if (row > inventory.getRows()  || row < 1 || col > inventory.getCols()  || col < 'A' )
+            {
+                throw outOfBoundException();
+            }
+            else
+            {
+                throw SlotKosongException();
+            }
         }
-
-        int itemPrice = item->getPrice();
-
-        // Remove the item from the inventory
-        this->inventory.removeValue(row, col);
-
-        // Add the item to the store's inventory
-        toko.addItemToko(item); // Pass the pointer to the item
-
-        // Give the player money for the item
-        tempMoney += itemPrice;
     }
+    catch (outOfBoundException &e)
+    {
+        std::cerr << e.what() << endl
+                  << "Silahkan masukkan slot yang ga melebihi slot yang tersedia." << endl
+                  << endl;
+    }
+    catch (SlotKosongException &e)
+    {
+        std::cerr << e.what() << endl
+                  << "Silahkan masukkan slot yang berisi barang." << endl
+                  << endl;
+    }
+
     this->money += tempMoney;
     std::cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << tempMoney << " gulden!" << endl;
 }
