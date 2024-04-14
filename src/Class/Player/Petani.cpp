@@ -62,7 +62,11 @@ void Petani::tanam(){
         a = slot[0];
         slot = slot.substr(1, slot.length()-1);
         b = stoi(slot);
-        if (!inventory.isExist(b,a) || inventory.getValue(b,a)->getJenis() != "Plant")
+        if (!inventory.isExist(b,a))
+        {
+            throw SlotKosongException();    
+        }
+        else if (inventory.getValue(b,a)->getJenis() != "Plant")
         {
             throw BukanTanamanExeption();
         }
@@ -114,6 +118,8 @@ void Petani::tanam(){
         std::cout << endl;
 
     }catch(BukanTanamanExeption &e){
+        std::cerr << e.what() << endl;
+    }catch(SlotKosongException &e){
         std::cerr << e.what() << endl;
     }
         
