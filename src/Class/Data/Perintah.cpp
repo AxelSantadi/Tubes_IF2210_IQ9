@@ -15,7 +15,6 @@ Perintah::Perintah()
 
     // Alur 2
     muatState();
-    
 
     // Alur 3
     cout << "Urutan giliran permainan berdasarkan urutan leksikografis dari username pemain." << endl;
@@ -143,7 +142,6 @@ void Perintah::initilization()
     cout << "              ... +%#***###*....  .....................:::::--=====--::::::...........................+++++*#%%....               " << endl;
     cout << "              ....+%*****##*..........................................................................******#%%....               " << endl;
     cout << "              ....=%%%%%%%%+..                                                                    ....+#%%%%%%%...                " << endl;
-
 }
 
 void Perintah::readConfig()
@@ -270,7 +268,7 @@ void Perintah::muatState()
                     }
                     else if (role == "Peternak")
                     {
-                        player = new Peternak(username, n_inventory, m_inventory, weight,money, n_peternakan, m_peternakan);
+                        player = new Peternak(username, n_inventory, m_inventory, weight, money, n_peternakan, m_peternakan);
                     }
                     else if (role == "Walikota")
                     {
@@ -312,7 +310,14 @@ void Perintah::muatState()
                                 iss >> slot >> plantName >> agePlant;
 
                                 Plant plant = config.createItemPlant(plantName);
-                                plant.setUmur(agePlant);
+                                try
+                                {
+                                    plant.setUmur(agePlant);
+                                }
+                                catch (NegativeUmurException &e)
+                                {
+                                    cerr << e.what() << '\n';
+                                }
 
                                 string rowStr = slot.substr(1);
                                 int row = stoi(rowStr);
@@ -340,8 +345,15 @@ void Perintah::muatState()
                                 iss >> slot >> animalName >> beratAnimal;
 
                                 Animal animal = config.createItemAnimal(animalName);
-                                animal.setBerat(beratAnimal);
-
+                                try
+                                {
+                                    animal.setBerat(beratAnimal);
+                                }
+                                catch (NegativeBeratException &e)
+                                {
+                                    cerr << e.what() << '\n';
+                                }
+                                
                                 string rowStr = slot.substr(1);
                                 int row = stoi(rowStr);
                                 char col = slot[0];
@@ -505,7 +517,8 @@ void Perintah::TANAM()
     catch (FullLadangException &e)
     {
         std::cerr << e.what() << '\n';
-    }catch (TidakPunyaTanamanException &e)
+    }
+    catch (TidakPunyaTanamanException &e)
     {
         std::cerr << e.what() << '\n';
     }
@@ -537,7 +550,8 @@ void Perintah::TERNAK()
     catch (TidakPunyaHewanException &e)
     {
         std::cerr << e.what() << '\n';
-    }catch (FullKandgangException &e)
+    }
+    catch (FullKandgangException &e)
     {
         std::cerr << e.what() << '\n';
     }
@@ -595,7 +609,8 @@ void Perintah::KASIH_MAKAN()
 }
 void Perintah::BELI()
 {
-    if (Player::getCurrentPlayer()->getInventoryPointer().isFull()) {
+    if (Player::getCurrentPlayer()->getInventoryPointer().isFull())
+    {
         std::cout << "Penyimpanan sudah penuh, pembelian tidak dapat dilakukan." << std::endl;
         return;
     }
@@ -606,7 +621,8 @@ void Perintah::BELI()
 
 void Perintah::JUAL()
 {
-    if (Player::getCurrentPlayer()->getInventoryPointer().isEmpty()) {
+    if (Player::getCurrentPlayer()->getInventoryPointer().isEmpty())
+    {
         std::cout << "Penyimpanan kosong, penjualan tidak dapat dilakukan." << std::endl;
         return;
     }
