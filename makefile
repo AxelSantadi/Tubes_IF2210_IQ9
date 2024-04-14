@@ -16,6 +16,7 @@ EXECUTABLE = project
 SRCS := $(wildcard $(SRCDIR)/Class/Data/*.cpp) \
         $(wildcard $(SRCDIR)/Class/Items/*.cpp) \
         $(wildcard $(SRCDIR)/Class/Player/*.cpp) \
+		$(wildcard $(SRCDIR)/Class/Exception/*.cpp) \
 		$(wildcard main.cpp) 
 
 # Exclude files in folderDriver directories
