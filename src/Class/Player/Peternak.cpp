@@ -125,6 +125,12 @@ void Peternak::ternak(){
 }
 
 void Peternak::feedTernak(){
+    if (kandang.isEmpty())
+    {
+        cout << "Kandangmu kosong, tidak ada hewan yang bisa diberi makan." << endl;
+        return;
+    }
+    else{
     cout << "Pilih petak kandang yang akan dikasih makan" << endl;
     kandang.cetakKandangPanen();
     cout << endl;
@@ -148,6 +154,15 @@ void Peternak::feedTernak(){
 
         Animal* animal = new Animal(kandang.getValue(y,x));
         cout << "Kamu memilih " << animal->getName() << " untuk diberi makan." << endl;
+        if (animal->isHerbivore() && inventory.noFoodHerbivore())
+        {
+            cout << "Tidak ada makanan hewan ini di penyimpanan." << endl;
+
+        } else if (animal->isCarnivore() && inventory.noFoodCarnivore())
+        {
+            cout << "Tidak ada makanan hewan ini di penyimpanan." << endl;
+        } else 
+        {
         cout << "Pilih pangan yang akan diberikan:" << endl;
         inventory.printInventory();
         while (!success)
@@ -168,7 +183,15 @@ void Peternak::feedTernak(){
                     if (item->isMakanan())
                     {
                         if (animal->isHerbivore()){
-                            if (item->getCode()=="COM"||item->getCode() == "SHM" || item->getCode() == "HRM" || item->getCode() == "RBM" || item->getCode() == "SNM" || item->getCode() == "CHM" || item->getCode() == "DCM" || item->getCode() == "CHE" || item->getCode() == "DCE")
+                            if (item->getCode() == "COM" ||
+                                item->getCode() == "SHM" || 
+                                item->getCode() == "HRM" || 
+                                item->getCode() == "RBM" || 
+                                item->getCode() == "SNM" || 
+                                item->getCode() == "CHM" || 
+                                item->getCode() == "DCM" || 
+                                item->getCode() == "CHE" || 
+                                item->getCode() == "DCE")
                             {
                                 throw BukanMakananHerbivore();
                             } else  {
@@ -185,7 +208,14 @@ void Peternak::feedTernak(){
                                 success = true;
                             }
                         } else if (animal->isCarnivore()){
-                            if (item->getCode() == "TAW"||item->getCode() == "SAW"||item->getCode() == "ALW"||item->getCode() == "IRW"||item->getCode() == "APP"||item->getCode() == "ORP"||item->getCode() == "BNP"||item->getCode() == "GAP")
+                            if (item->getCode() == "TAW" ||
+                                item->getCode() == "SAW" ||
+                                item->getCode() == "ALW" ||
+                                item->getCode() == "IRW" ||
+                                item->getCode() == "APP" ||
+                                item->getCode() == "ORP" ||
+                                item->getCode() == "BNP" ||
+                                item->getCode() == "GAP")
                             {
                                 throw BukanMakananCarnivore();
                             } else {
@@ -235,9 +265,12 @@ void Peternak::feedTernak(){
                 cerr << e.what() << endl;
             }
         }
+        }
 
     } catch(SlotKosongException e){
         cerr << e.what() << endl;
+    }
+
     }
 }
 

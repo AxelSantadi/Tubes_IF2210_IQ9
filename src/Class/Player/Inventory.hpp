@@ -28,6 +28,9 @@ public:
 
     bool noFood() const;
 
+    bool noFoodHerbivore() const;
+    bool noFoodCarnivore() const;
+
     int getJenisTiapItemNama(string c) const;
 
     void storeItemInSlot(Item *item, const std::string &slot);

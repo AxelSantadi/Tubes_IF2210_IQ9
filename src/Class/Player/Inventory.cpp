@@ -142,6 +142,56 @@ bool Inventory::noFood() const
     return true;
 }
 
+bool Inventory::noFoodHerbivore() const
+{
+
+    for (int i = 1; i <= getRows(); i++)
+    {
+        for (char j = 'A'; j <= getCols(); j++)
+        {
+            if (isExist(i, j))
+            {
+                if (getValue(i,j)->getCode() == "TAW" || 
+                    getValue(i,j)->getCode() == "SAW" || 
+                    getValue(i,j)->getCode() == "ALW" || 
+                    getValue(i,j)->getCode() == "IRW" || 
+                    getValue(i,j)->getCode() == "APP" || 
+                    getValue(i,j)->getCode() == "ORP" || 
+                    getValue(i,j)->getCode() == "BNP" || 
+                    getValue(i,j)->getCode() == "GAP") {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool Inventory::noFoodCarnivore() const
+{
+    for (int i = 1; i <= getRows(); i++)
+    {
+        for (char j = 'A'; j <= getCols(); j++)
+        {
+            if (isExist(i, j))
+            {
+                if (getValue(i,j)->getCode() == "COM" || 
+                    getValue(i,j)->getCode() == "SHM" || 
+                    getValue(i,j)->getCode() == "HRM" || 
+                    getValue(i,j)->getCode() == "RBM" || 
+                    getValue(i,j)->getCode() == "SNM" || 
+                    getValue(i,j)->getCode() == "CHM" || 
+                    getValue(i,j)->getCode() == "DCM" || 
+                    getValue(i,j)->getCode() == "CHE" ||
+                    getValue(i,j)->getCode() == "DCE"){
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
 void Inventory::storeItemInSlot(Item* item, const std::string &slot)
 {
     // Convert the slot string to row and column
