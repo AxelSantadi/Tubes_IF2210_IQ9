@@ -97,12 +97,19 @@ void Kandang::cetakJenisHewan(){
     
     for(int i = 1; i < getRows(); i++)
     {
-        for (char j = 'A'; j< getCols(); j++ )
+        for (char j = 'A'; j <= getCols(); j++ )
         {
             if (isExist(i,j))
-            {
-                string code = getValue(i,j).getCode();
-                result[code] = getValue(i,j).getName();
+            {   
+                string position = "";
+                position += j;
+                if(i < 10)
+                {
+                    position += "0" + to_string(i);
+                } else {
+                    position += to_string(i);
+                }
+                result[position] = getValue(i,j).getCode();
             }
         }
     }
