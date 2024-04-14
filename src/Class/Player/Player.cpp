@@ -299,6 +299,11 @@ void Player::buyItem(Toko &toko)
         return;
     }
 
+    if (quantity < 0) {
+        std::cout << "Kuantitas tidak boleh negatif." << std::endl;
+        return;
+    }
+
     Item *item;
 
     try
