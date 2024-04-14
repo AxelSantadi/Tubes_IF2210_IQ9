@@ -31,7 +31,7 @@ public:
     Player(string name, int n, char m, int weight, int money);
 
     // Destructor
-    ~Player();
+    virtual ~Player();
 
     // Static Method
     static vector<Player*> getPlayers();

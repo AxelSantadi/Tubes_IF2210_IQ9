@@ -14,7 +14,7 @@ public:
     Item(int id, string code, string name, int price);
     Item(const Item &i);
     Item &operator=(const Item &i);
-    ~Item();
+    virtual ~Item();
 
     // Getter and Setter
     int getId() const;

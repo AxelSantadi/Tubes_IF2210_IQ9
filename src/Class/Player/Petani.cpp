@@ -132,7 +132,7 @@ void Petani::panen(vector<Product> product)
     int i = 1 ; // indeks pilihan
     map<int,pair<string,int>> pilihan;
     unordered_map<string,int> hasilCount = ladang.countPanen();
-    for (const std::pair<std::string, int>& entry : hasilCount) {
+    for (const std::pair<const std::string, int>& entry : hasilCount) {
         cout << i << "." << entry.first << " ( " << entry.second <<" petak siap panen)" << endl;
         pilihan[i] = {entry.first,entry.second};
         i++;
