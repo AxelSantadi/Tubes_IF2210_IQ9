@@ -4,7 +4,6 @@ Perintah::Perintah()
 {
     // Deklarasi
     string folderName, pilihan, perintah;
-    bool valid = false;
     endGame = false;
 
     // Inisialisasi
