@@ -22,6 +22,7 @@ Perintah::Perintah()
          << endl;
 
     // Alur 4
+    bool walkotSudahAmbilPajak = false;
     cout << "Sekarang adalah giliran " << Player::getCurrentPlayer()->getName() << endl;
     while (!endGame)
     {
@@ -31,14 +32,16 @@ Perintah::Perintah()
         if (perintah == "NEXT")
         {
             NEXT();
+            walkotSudahAmbilPajak = false;
         }
         else if (perintah == "CETAK_PENYIMPANAN")
         {
             CETAK_PENYIMPANAN();
         }
-        else if (perintah == "PUNGUT_PAJAK")
+        else if (perintah == "PUNGUT_PAJAK" && !walkotSudahAmbilPajak)
         {
             PUNGUT_PAJAK();
+            walkotSudahAmbilPajak = true;
         }
         else if (perintah == "CETAK_LADANG")
         {
@@ -91,6 +94,52 @@ Perintah::Perintah()
         else if (perintah == "EXIT")
         {
             endGame = true;
+        }
+        else if (perintah == "PUNGUT_PAJAK" && walkotSudahAmbilPajak)
+        {
+            cout<< "Cieeee, mau korupsi ya? :D. Karena kamu nakal, ini ada isi dari UU Nomor 20 Tahun 2001 Tindak Pidana Korupsi pasal demi pasal, begini isinya:" << endl
+                << "Pasal 2" << endl
+                << "    ayat 1"<<endl
+                << "        Setiap orang yang secara melawan hukum melakukan perbuatan memperkaya diri sendiri atau orang lain atau suatu korporasi yang dapat merugikan keuangan negara atau perekonornian negara, dipidana dengan pidana penjara seumur hidup atau pidana penjara paling singkat 4 tahun dan paling lama 20 (dua puluh) tahun dan denda paling sedikit Rp 200.000.000,00 (dua ratus juta rupiah) dan paling banyak Rp 1.000.000.000,00 (satu miliar rupiah)." << endl
+                << "    ayat 2" << endl
+                << "        Dalam hal tindak pidana korupsi sebagaimana dimaksud dalam ayat (1) dilakukan dalam keadaan tertentu, pidana mati dapat dijatuhkan." << endl
+                << "Pasal 3" << endl
+                << "    Setiap orang yang dengan tujuan menguntungkan diri sendiri atau orang lain atau suatu korporasi, menyalahgunakan kewenangan, kesempatan atau sarana yang ada padanya karena jabatan atau kedudukan yang dapat merugikan kouangan negara atau perekonomian negara, dipidana dengan pidana penjara seumur hidup atau pidana penjara paling singkat 1 tahun dan paling lama 20 tahun dan atau denda paling sedikit Rp 50.000.000,00 (lima puluh juta rupiah) dan paling banyak Rp 1.000.000.000,00 (satu miliar rupiah)." << endl
+                << "Pasal 5" << endl
+                << "    ayat 1"<<endl
+                << "        Dipidana dengan pidana penjara paling singkat 1 tahun dan paling lama 5 tahundan atau pidana denda paling sedikit Rp 50.000.000,00 (lima puluh juta rupiah) dan paling banyak Rp 250.000.000,00 (dua ratus lima puluh juta rupiah) setiap orang yang: memberi atau menjanjikan sesuatu kepada pegawai negeri atau penyelenggara negara dengan maksud supaya pegawai negeri atau penyelenggara negara tersebut berbuat atau tidak berbuat sesuatu dalam jabatannya, yang bertentangan dengan kewajibannya; atau memberi sesuatu kepada pegawai negeri atau penyelenggara negara karena atau berhubungan dengan sesuatu yang bertentangan dengan kewajiban, dilakukan atau tidak dilakukan dalam jabatannya." << endl
+                << "    ayat 2" << endl
+                << "        Bagi pegawai negeri atau penyelenggara negara yang menerima pemberian atau janji sebagaimana dimaksud dalam ayat (1) huruf a atau huruf b, dipidana dengan pidana yang sama sebagaimana dimaksud dalam ayat (1)."<<endl
+                << "Pasal 6" << endl
+                << "    ayat 1"<<endl
+                << "        Dipidana dengan pidana penjara paling singkat 3 tahun dan paling lama 15 tahundan pidana denda paling sedikit Rp 150.000.000,00 (seratus lima puluh juta rupiah) dan paling banyak Rp 750.000.000,00 (tujuh ratus lima puluh juta rupiah) setiap orang yang: memberi atau menjanjikan sesuatu kepada hakim dengan maksud untuk mempengaruhi putusan perkara yang diserahkan kepadanya untuk diadili; atau memberi atau menjanjikan sesuatu kepada seseorang yang menurut ketentuan peraturan perundang-undangan ditentukan menjadi advokat untuk menghadiri sidang pengadilan dengan maksud untuk mempengaruhi nasihat atau pendapat yang akan diberikan berhubung dengan perkara yang diserahkan kepada pengadilan untuk diadili." << endl
+                << "    ayat 2" << endl
+                << "        Bagi hakim yang menerima pemberian atau janji sebagaimana dimaksud dalam ayat (1) huruf a atau advokat yang menerima pemberian atau janji sebagaimana dimaksud dalam ayat (1) huruf b, dipidana dengan pidana yang sama sebagaimana dimaksud dalam ayat (1)." << endl
+                << "Pasal 7" << endl
+                << "    ayat 1"<<endl
+                << "        Dipidana dengan pidana penjara paling singkat 2 tahun dan paling lama 7 tahundan atau pidana denda paling sedikit Rp 100.000.000,00 (seratus juta rupiah) dan paling banyak Rp 350.000.000,00 (tiga ratus lima puluh juta rupiah): pemborong, ahli bangunan yang pada waktu membuat bangunan, atau penjual bahan bangunan yang pada waktu menyerahkan bahan bangunan, melakukan perbuatan curang yang dapat membahayakan keamanan orang atau barang, atau keselamatan negara dalam keadaan perang; setiap orang yang bertugas mengawasi pembangunan atau penyerahan bahan bangunan, sengaja membiarkan perbuatan curang sebagaimana dimaksud dalam huruf a setiap orang yang pada waktu menyerahkan barang keperluan Tentara Nasional Indonesia dan atau Kepolisian Negara Republik Indonesia melakukan perbuatan curang yang dapat membahayakan keselamatan negara dalam keadaan perang; atau setiap orang yang bertugas mengawasi penyerahan barang keperluan Tentara Nasional Indonesia dan atau Kepolisian Negara Republik Indonesia dengan sengaja membiarkan perbuatan curang sebagaimana dimaksud dalam huruf c." << endl
+                << "    ayat 2" << endl
+                << "        Bagi orang yang menerima penyerahan bahan bangunan atau orang yang menerima penyerahan barang keperluan Tentara Nasional Indonesia dan atau Kepolisian Negara Republik Indonesia dan membiarkan perbuatan curang sebagaimana dimaksud dalam ayat (1) huruf a atau huruf c, dipidana dengan pidana yang sama sebagaimana dimaksud dalam ayat (1)." << endl
+                << "Pasal 8" << endl
+                << "    Dipidana dengan pidana penjara paling singkat 3 tahun dan paling lama 15 tahun dan pidana denda paling sedikit Rp 150.000.000,00 (seratus lima puluh juta rupiah) dan paling banyak Rp 750.000.000,00 (tujuh ratus lima puluh juta rupiah), pegawai negeri atau orang selain pegawai negeri yang ditugaskan menjalankan suatu jabatan umum secara terus menerus atau untuk sementara waktu, dengan sengaja menggelapkan uang atau surat berharga yang disimpan karena jabatannya, atau membiarkan uang atau surat berharga tersebut diambil atau digelapkan oleh orang lain, atau membantu dalam melakukan perbuatan tersebut." << endl
+                << "Pasal 9" << endl
+                << "    Dipidana dengan pidana penjara paling singkat 1 tahun dan paling lama 5 tahun dan pidana denda paling sedikit Rp 50.000.000,00 (lima puluh juta rupiah) dan paling banyak Rp 250.000.000,00 (dua ratus lima puluh juta rupiah) pegawai negeri atau orang selain pegawai negeri yang diberi tugas menjalankan suatu jabatan umum secara terus menerus atau untuk sementara waktu, dengan sengaja memalsu buku-buku atau daftar-daftar yang khusus untuk pemeriksaan administrasi." << endl
+                << "Pasal 10" << endl
+                << "    Dipidana dengan pidana penjara paling singkat 2 tahun dan paling lama 7 tahundan pidana denda paling sedikit Rp 100.000.000,00 (seratus juta rupiah) dan paling banyak Rp 350.000.000,00 (tiga ratus lima puluh juta rupiah) pegawai negeri atau orang selain pegawai negeri yang diberi tugas menjalankan suatu jabatan umum secara terus menerus atau untuk sementara waktu, dengan sengaja: menggelapkan, menghancurkan, merusakkan, atau membuat tidak dapat dipakai barang, akta, surat, atau daftar yang digunakan untuk meyakinkan atau membuktikan di muka pejabat yang berwenang, yang dikuasai karena jabatannya; atau membiarkan orang lain menghilangkan, menghancurkan, merusakkan, atau membuat tidak dapat dipakai barang, akta, surat, atau daftar tersebut; atau membantu orang lain menghilangkan, menghancurkan, merusakkan, atau membuat tidak dapat dipakai barang, akta, surat, atau daftar tersebut." << endl
+                << "Pasal 11" << endl
+                << "    Dipidana dengan pidana penjara paling singkat 1 tahun dan paling lama 5 tahun dan atau pidana denda paling sedikit Rp 50.000.000,00 (lima puluh juta rupiah) dan paling banyak Rp 250.000.000,00 (dua ratus lima puluh juta rupiah) pegawai negeri atau penyelenggara negara yang menerima hadiah atau janji padahal diketahui atau patut diduga, bahwa hadiah atau janji tersebut diberikan karena kekuasaan atau kewenangan yang berhubungan dengan jabatannya, atau yang menurut pikiran orang yang memberikan hadiah atau janji tersebut ada hubungan dengan jabatannya." << endl
+                << "Pasal 12" << endl
+                << "    Dipidana dengan pidana penjara seumur hidup atau pidana penjara paling singkat 4 tahun dan paling lama 20 tahun dan pidana denda paling sedikit Rp 200.000.000,00 (dua ratus juta rupiah) dan paling banyak Rp 1.000.000.000,00 (satu miliar rupiah):" << endl
+                << "      a. pegawai negeri atau penyelenggara negara yang menerima hadiah atau janji, padahal diketahui atau patut diduga bahwa hadiah atau janji tersebut diberikan untuk menggerakkan agar melakukan atau tidak melakukan sesuatu dalam jabatannya, yang bertentangan dengan kewajibannya;" << endl
+                << "      b. pegawai negeri atau penyelenggara negara yang menerima hadiah, padahal diketahui atau patut diduga bahwa hadiah tersebut diberikan sebagai akibat atau disebabkan karena telah melakukan atau tidak melakukan sesuatu dalam jabatannya yang bertentangan dengan kewajibannya;" << endl
+                << "      c. hakim yang menerima hadiah atau janji, padahal diketahui atau patut diduga bahwa hadiah atau janji tersebut diberikan untuk mempengaruhi putusan perkara yang diserahkan kepadanya untuk diadili;" << endl
+                << "      d. seseorang yang menurut ketentuan peraturan perundang-undangan ditentukan menjadi advokat untuk menghadiri sidang pengadilan, menerima hadiah atau janji, padahal diketahui atau patut diduga bahwa hadiah atau janji tersebut untuk mempengaruhi nasihat atau pendapat yang akan diberikan, berhubung dengan perkara yang diserahkan kepada pengadilan untuk diadili;" << endl
+                << "      e. pegawai negeri atau penyelenggara negara yang dengan maksud menguntungkan diri sendiri atau orang lain secara melawan hukum, atau dengan menyalahgunakan kekuasaannya memaksa seseorang memberikan sesuatu, membayar, atau menerima pembayaran dengan potongan, atau untuk mengerjakan sesuatu bagi dirinya sendiri;" << endl
+                << "      f. pegawai negeri atau penyelenggara negara yang pada waktu menjalankan tugas, meminta, menerima, atau memotong pembayaran kepada pegawai negeri atau penyelenggara negara yang lain atau kepada kas umum, seolah-olah pegawai negeri atau penyelenggara negara yang lain atau kas umum tersebut mempunyai utang kepadanya, padahal diketahui bahwa hal tersebut bukan merupakan utang;" << endl
+                << "      g. pegawai negeri atau penyelenggara negara yang pada waktu menjalankan tugas, meminta atau menerima pekerjaan, atau penyerahan barang, seolah-olah merupakan utang kepada dirinya, padahal diketahui bahwa hal tersebut bukan merupakan utang;" << endl
+                << "      h. pegawai negeri atau penyelenggara negara yang pada waktu menjalankan tugas, telah menggunakan tanah negara yang di atasnya terdapat hak pakai, seolah-olah sesuai dengan peraturan perundang-undangan, telah merugikan orang yang berhak, padahal diketahuinya bahwa perbuatan tersebut bertentangan dengan peraturan perundangundangan; atau" << endl
+                << "      i. pegawai negeri atau penyelenggara negara baik langsung maupun tidak langsung dengan sengaja turut serta dalam pemborongan, pengadaan, atau persewaan, yang pada saat dilakukan perbuatan, untuk seluruh atau sebagian ditugaskan untuk mengurus atau mengawasinya." << endl
+                << endl << "Demikianlah isi dari UU Nomor 20 Tahun 2001 Tindak Pidana Korupsi pasal demi pasal, sekarang kamu sudah mengetahui hukum korupsi di Indonesia. Semoga kamu tidak mencoba melakukan tindakan korupsi lagi ya! (｡•̀ᴗ-)✧" << endl;
         }
         else
         {

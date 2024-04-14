@@ -1,4 +1,8 @@
 #include <iostream>
+#include <map>
+#include <string>
+#include <algorithm>
+#include <vector>
 #include "Walikota.hpp"
 #include "../Items/Bangunan.hpp"
 
@@ -118,8 +122,8 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
 int Walikota::getPajak(vector<Recipe> resep) {return 0;}
 
 void Walikota::dapatPajak(vector<Recipe> resep) {
+    std::vector<std::pair<std::string, std::pair<std::string, int>>> sorted_data;
     int total = 0, totalTemp;
-    int j = 1;
     cout << "Cring cring cring..." << endl << "Pajak sudah dipungut!" << endl << endl;
     cout << "Berikut adalah detil dari pemungutan pajak:" << endl;
     for (int i = 0; i < static_cast<int>(players.size()); i++) {
@@ -127,13 +131,25 @@ void Walikota::dapatPajak(vector<Recipe> resep) {
             continue;
         } else {
             totalTemp = players.at(i)->getPajak(resep);
-            cout << j << ". " << players.at(i)->getName() << " - " << players.at(i)->getRole() << ": " << totalTemp << " Gulden" << endl;
+            sorted_data.push_back(std::make_pair(players.at(i)->getName(), std::make_pair(players.at(i)->getRole(), totalTemp)));
             total += totalTemp;
-            j++;
         }
     }
+
+    // print pajak berurut berdasarkan totalTemp, mulai dari yang paling besar
+    
+    std::sort(sorted_data.begin(), sorted_data.end(), [](const std::pair<std::string, std::pair<std::string, int>>& left, const std::pair<std::string, std::pair<std::string, int>>& right) {
+        return left.second.second > right.second.second;
+    });
+
+    int j = 1;
+    for (const auto& pair : sorted_data) {
+        cout << j << ". " << pair.first << " - " << pair.second.first << ": " << pair.second.second << " gulden" << endl;
+        j++;
+    }
+
     this->money += total;
-    cout << "Negara mendapatkan pemasukkan sebesar " << total << " gulden." << endl << "Gunakan dengan baik dan jangan dikorupsi ya!" << endl;
+    cout << endl << "Negara mendapatkan pemasukkan sebesar " << total << " gulden." << endl << "Gunakan dengan baik dan jangan dikorupsi ya!" << endl;
 }
 
 void Walikota::tambahPemain(Misc misc) {
