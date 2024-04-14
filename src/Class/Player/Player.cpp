@@ -24,7 +24,7 @@ Player::Player(string name, int n, char m, int weight, int money) : name(name), 
 
 Player::~Player()
 {
-    // cout << "Player " << name << " has been deleted" << endl;
+    delete &inventory;
 }
 
 vector<Player *> Player::getPlayers()
