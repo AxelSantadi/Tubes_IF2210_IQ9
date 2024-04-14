@@ -180,8 +180,6 @@ void Peternak::feedTernak(){
                                 cout << "Dengan lahapnya, " << animal->getName() << " memakan hidangan itu" << endl;
                                 cout << "Alhasil, berat badan " << animal->getName() << " naik menjadi " << animal->getBerat() << endl;
                                 addTernak(*animal,y,x);
-                                Animal* masuk = new Animal(kandang.getValue(y,x));
-                                cout << "Berat badan " << masuk->getName() << " sekarang adalah " << masuk->getBerat() << endl;
                                 inventory.removeValue(b,a);
                                 
                                 success = true;

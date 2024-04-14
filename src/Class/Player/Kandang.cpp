@@ -43,19 +43,13 @@ void Kandang::cetakKandangPanen(){
                 {
                     Animal p = getValue(i,j);
                     string text = p.getCode();
-                    cout << " ";
-                    for (char kara : text) {
-                        print_green(kara);
-                    }
-                    cout << " |";
+                    string colouredText = "\033[32m" + text + "\033[0m";
+                    cout << " "<< colouredText <<" |";
                 } else {
                     Animal p = getValue(i,j);
                     string text = p.getCode();
-                    cout << " ";
-                    for (char kara : text) {
-                        print_red(kara);
-                    }
-                    cout << " |";
+                    string colouredText = "\033[31m" + text + "\033[0m";
+                    cout << " "<< colouredText <<" |";
                 }
             }
             else

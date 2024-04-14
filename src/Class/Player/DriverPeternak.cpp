@@ -60,16 +60,16 @@ int main(){
     ReadConfig readConfig("config1");
 
     vector<Product> iventory =  readConfig.getProduct();
-    Item * animal1 = new Animal(1, "COW", "Cow", "HERBIVORE", 100000, 1000);
+    Item * animal1 = new Animal(1, "COW", "Cow", "HERBIVORE", 10, 1000);
     Item * animal2 = new Animal(2, "COW", "Cow", "HERBIVORE", 100000, 1000);
     Item * animal3 = new Animal(3, "COW", "Cow", "HERBIVORE", 100, 3000);
     Item * animal4 = new Animal(4, "CHK", "Chicken", "OMNIVORE", 100, 500);
     Item * animal5 = new Animal(5, "SHP", "Sheep", "OMNIVORE", 10, 750);
     Item * product1 = new Product(6, "SHM", "SHEEP_MEAT", "PRODUCT_ANIMAL", "SHEEP", 15, 1000);
-    Item * product2 = new Product(7, "TAW", "TEAK_WOOD", "PRODUCT_MATERIAL_PLANT", "SANDALWOOD_TREE", 3, 1000);
+    Item * product2 = new Product(7, "TAW", "TEAK_WOOD", "PRODUCT_MATERIAL_PLANT", "SANDALWOOD_TREE", 10, 1000);
     Item * product3 = new Product(8, "CHE", "CHICKEN_EGG", "PRODUCT_ANIMAL", "CHICKEN", 20, 1000);
     Item * product4 = new Product(9, "ALW", "ALOE_WOOD", "PRODUCT_MATERIAL_PLANT", "ALOE_TREE", 20, 1000);
-
+    Item * product5 = new Product(10, "COM", "COW_MEAT", "PRODUCT_ANIMAL", "COW", 10, 1000);
 
 
     Player * peternak = new Peternak("Jokowi", 5, 'F',5,'F');
@@ -83,6 +83,7 @@ int main(){
     peternak->addItem(product2, 4, 'B');
     peternak->addItem(product3, 4, 'C');
     peternak->addItem(product4, 4, 'D');
+    peternak->addItem(product5, 4, 'E');
 
 
     peternak->ternak();
@@ -90,8 +91,8 @@ int main(){
     Animal p1 = p->getKandang().getValue(1,'A');
     // cout << "Berat : " << p1.getBerat() << endl;
     // cout <<"Weight to harvest : " << p1.getWeightToHarvest() << endl;
-    // // peternak->ternak();
-    // peternak->feedTernak();
+    peternak->ternak();
+    peternak->feedTernak();
     // Animal p2 = p->getKandang().getValue(1,'A');
     // cout << "Berat : " << p2.getBerat() << endl;
     peternak->panen(iventory);
