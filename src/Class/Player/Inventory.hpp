@@ -36,6 +36,9 @@ public:
     int getJenisTiapItemNama(string c) const;
 
     void storeItemInSlot(Item *item, const std::string &slot);
+
+    Inventory& operator+(Item *item);
+    Inventory& operator+=(Item *item);
 };
 
 #endif

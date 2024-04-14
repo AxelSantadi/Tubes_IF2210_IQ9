@@ -237,3 +237,15 @@ void Inventory::storeItemInSlot(Item* item, const std::string &slot)
     // Store the item in the specified slot
     this->setValue(row, col, item);
 }
+
+Inventory& Inventory::operator+(Item* item)
+{
+    this->setRandomValue(item);
+    return *this;
+}
+
+Inventory& Inventory::operator+=(Item* item)
+{
+    this->setRandomValue(item);
+    return *this;
+}
