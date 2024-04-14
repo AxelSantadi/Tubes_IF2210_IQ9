@@ -57,7 +57,7 @@ bool MatrixMap<T>::isExist(int x, char c) const
 template <typename T>
 bool MatrixMap<T>::isFull() const
 {
-    return data.size() == rows * (cols - 'A' + 1);
+    return static_cast<int>(data.size()) == rows * (cols - 'A' + 1);
 }
 
 // Function to check if the matrix is empty

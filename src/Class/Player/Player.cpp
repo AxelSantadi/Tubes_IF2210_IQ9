@@ -34,7 +34,7 @@ vector<Player *> Player::getPlayers()
 
 void Player::dealocatePlayer()
 {
-    for (int i = 0; i < players.size(); i++)
+    for (int i = 0; i < static_cast<int>(players.size()); i++)
     {
         delete players[i];
     }
@@ -53,7 +53,7 @@ Player *Player::getCurrentPlayer()
 
 Player *Player::getWinner(Misc m)
 {
-    for (int i = 0; i < players.size(); i++)
+    for (int i = 0; i < static_cast<int>(players.size()); i++)
     {
         if (players[i]->getWeight() >= m.getWinningWeight() && players[i]->getMoney() >= m.getWinningMoney())
         {
@@ -70,7 +70,7 @@ void Player::saveState(string path, Toko *toko)
     if (file.is_open())
     {
         file << players.size() << endl;
-        for (int i = 0; i < players.size(); i++)
+        for (int i = 0; i < static_cast<int>(players.size()); i++)
         {
             players[i]->saveStatePlayer(file);
         }

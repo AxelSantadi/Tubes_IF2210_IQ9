@@ -104,7 +104,7 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
             }
         }
 
-        for (int j = 0; j < resep.at(idx).getNamaMaterialWhole().size(); j++) {
+        for (int j = 0; j < static_cast<int>(resep.at(idx).getNamaMaterialWhole().size()); j++) {
             removeBahan(resep.at(idx).getNamaMaterial(j), resep.at(idx).getJumlahMaterialNeeded(j));
         }
 
@@ -122,7 +122,7 @@ void Walikota::dapatPajak(vector<Recipe> resep) {
     int j = 1;
     cout << "Cring cring cring..." << endl << "Pajak sudah dipungut!" << endl << endl;
     cout << "Berikut adalah detil dari pemungutan pajak:" << endl;
-    for (int i = 0; i < players.size(); i++) {
+    for (int i = 0; i < static_cast<int>(players.size()); i++) {
         if (players.at(i)->getRole() == "Walikota") {
             continue;
         } else {
@@ -139,7 +139,7 @@ void Walikota::dapatPajak(vector<Recipe> resep) {
 void Walikota::tambahPemain(Misc misc) {
     string jenis_pemain;
     string nama_pemain = "";
-    for (int i = 0; i < players.size(); i++) {
+    for (int i = 0; i < static_cast<int>(players.size()); i++) {
         cout << players.at(i)->getName() << endl;
     }
 
@@ -164,7 +164,7 @@ void Walikota::tambahPemain(Misc misc) {
             money -= 50;
         }
 
-        for (int i = 0; i < players.size(); i++) {
+        for (int i = 0; i < static_cast<int>(players.size()); i++) {
             cout << players.at(i)->getName() << endl;
         }
         cout << "Pemain baru ditambahkan!" << endl << "Selamat datang " << '"' << nama_pemain << '"' << " di kota ini!" << endl;
