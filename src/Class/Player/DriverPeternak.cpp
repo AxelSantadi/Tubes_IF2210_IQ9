@@ -60,8 +60,8 @@ int main(){
     ReadConfig readConfig("config1");
 
     vector<Product> iventory =  readConfig.getProduct();
-    Item * animal1 = new Animal(1, "COW", "Cow", "HERBIVORE", 100000000000, 1000);
-    Item * animal2 = new Animal(2, "COW", "Cow", "HERBIVORE", 100000000000, 1000);
+    Item * animal1 = new Animal(1, "COW", "Cow", "HERBIVORE", 100000, 1000);
+    Item * animal2 = new Animal(2, "COW", "Cow", "HERBIVORE", 100000, 1000);
     Item * animal3 = new Animal(3, "COW", "Cow", "HERBIVORE", 100, 3000);
     Item * animal4 = new Animal(4, "CHK", "Chicken", "OMNIVORE", 100, 500);
     Item * animal5 = new Animal(5, "SHP", "Sheep", "OMNIVORE", 10, 750);
@@ -88,13 +88,13 @@ int main(){
     peternak->ternak();
     Peternak * p = dynamic_cast<Peternak*>(peternak);
     Animal p1 = p->getKandang().getValue(1,'A');
-    cout << "Berat : " << p1.getBerat() << endl;
-    cout <<"Weight to harvest : " << p1.getWeightToHarvest() << endl;
-    // peternak->ternak();
-    peternak->feedTernak();
-    Animal p2 = p->getKandang().getValue(1,'A');
-    cout << "Berat : " << p2.getBerat() << endl;
-    peternak->panenTernak(iventory);
+    // cout << "Berat : " << p1.getBerat() << endl;
+    // cout <<"Weight to harvest : " << p1.getWeightToHarvest() << endl;
+    // // peternak->ternak();
+    // peternak->feedTernak();
+    // Animal p2 = p->getKandang().getValue(1,'A');
+    // cout << "Berat : " << p2.getBerat() << endl;
+    peternak->panen(iventory);
     peternak->getInventory().printInventory();
     p->getKandang().cetakKandang();
 }

@@ -1,17 +1,18 @@
 #include "Kandang.hpp"
+#include "../Data/pcolor.h"
 
 Kandang::Kandang(int panjang, char lebar) : MatrixMap<Animal>(panjang,lebar){}
 
 void Kandang::cetakKandang(){
     cout << endl;
-    cout << "================[ Kandang ]=================" << endl;
+    cout << "================[ Peternakan ]=================" << endl;
     print();
     cout << endl << endl;
 }
 
 void Kandang::cetakKandangPanen(){
     cout << endl;
-    cout << "================[ Kandang ]=================" << endl;
+    cout << "================[ Peternakan ]=================" << endl;
     cout << "     ";
     for (char i = 'A'; i <= getCols(); i++)
     {

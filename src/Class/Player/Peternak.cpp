@@ -68,9 +68,9 @@ void Peternak::ternak(){
         Animal* animal = dynamic_cast<Animal*>(inventory.getValue(b,a));
         
 
-        cout << "Kamu memilih" << animal->getName() << endl;
+        cout << "Kamu memilih " << animal->getName() << endl;
         // pilih posisi tanam
-        cout << "Pilih petak tanah yang akan ditanami ";
+        cout << "Pilih petak tanah yang akan ditinggali";
         kandang.cetakKandang();
         // cetak kandang
         bool success = false; 
@@ -125,8 +125,10 @@ void Peternak::ternak(){
 }
 
 void Peternak::feedTernak(){
-    cout << "Pilih hewan yang ingin diberi makan" << endl;
-    kandang.cetakKandang();
+    cout << "Pilih petak kandang yang akan dikasih makan" << endl;
+    kandang.cetakKandangPanen();
+    cout << endl;
+    kandang.cetakJenisHewan();
     cout << endl;
     bool success = false;
     try {
@@ -166,14 +168,14 @@ void Peternak::feedTernak(){
                     if (item->isMakanan())
                     {
                         if (animal->isHerbivore()){
-                            if (item->getCode() == "SHM" || item->getCode() == "HRM" || item->getCode() == "RBM" || item->getCode() == "SNM" || item->getCode() == "CHM" || item->getCode() == "DCM" || item->getCode() == "CHE" || item->getCode() == "DCE")
+                            if (item->getCode()=="COM"||item->getCode() == "SHM" || item->getCode() == "HRM" || item->getCode() == "RBM" || item->getCode() == "SNM" || item->getCode() == "CHM" || item->getCode() == "DCM" || item->getCode() == "CHE" || item->getCode() == "DCE")
                             {
                                 throw BukanMakananHerbivore();
                             } else  {
                                 cout << "Kamu memilih " << item->getName() << endl;
                                 //menambahkan berat badan hewan yang dipilih menggunakan item;
                                 cout << "Berat badan " << animal->getName() << " sebelumnya adalah " << animal->getBerat() << endl;
-                                // animal->setBerat(animal->getBerat() + item->getAddedWeight());
+                                animal->setBerat(animal->getBerat() + item->getAddedWeight());
                                 
                                 cout << "Dengan lahapnya, " << animal->getName() << " memakan hidangan itu" << endl;
                                 cout << "Alhasil, berat badan " << animal->getName() << " naik menjadi " << animal->getBerat() << endl;
@@ -211,7 +213,7 @@ void Peternak::feedTernak(){
                         
                     } else
                     {
-                        throw BukanMakananException();
+                        throw BukanMakananHewanException();
                     }
                 }
                 else if (inventory.getRows() < b || 1 < b || inventory.getCols() < a || 'A' < a)
@@ -227,7 +229,7 @@ void Peternak::feedTernak(){
                 cerr << e.what() << endl;
             }catch(SlotKosongException e){
                 cerr << e.what() << endl;
-            }catch(BukanMakananException e){
+            }catch(BukanMakananHewanException e){
                 cerr << e.what() << endl;
             }catch(BukanMakananHerbivore e){
                 cerr << e.what() << endl;

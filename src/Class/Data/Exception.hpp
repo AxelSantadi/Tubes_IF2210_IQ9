@@ -50,6 +50,12 @@ public:
     string what() override;
 };
 
+class BukanMakananHewanException : public Exception
+{
+public:
+    string what() override;
+};
+
 class BukanMakananHerbivore : public Exception
 {
 public:
