@@ -13,6 +13,7 @@ using namespace std;
 #include "../Items/Animal.hpp"
 #include "../Items/Plant.hpp"
 #include "../Player/Toko.hpp"
+#include <limits>
 
 class Perintah
 {

@@ -289,6 +289,8 @@ void Perintah::muatState()
                         player->getInventoryPointer().setRandomValue(item);
                     }
 
+                    stateFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
                     if (player->getRole() == "Petani" || player->getRole() == "Peternak")
                     {
                         int numSpecializedItems;
