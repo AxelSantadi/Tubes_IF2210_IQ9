@@ -65,7 +65,7 @@ void Peternak::ternak()
         {
             throw BukanHewanException();
         }
-        else if (!inventory.isExist(b, a))
+        if (!inventory.isExist(b, a))
         {
             throw SlotKosongException();
         }
@@ -175,6 +175,10 @@ void Peternak::feedTernak()
                 std::cout << "Tidak ada makanan hewan ini di penyimpanan." << endl;
             }
             else if (animal->isCarnivore() && inventory.noFoodCarnivore())
+            {
+                std::cout << "Tidak ada makanan hewan ini di penyimpanan." << endl;
+            }
+            else if (animal->isOmnivore() && inventory.noFood())
             {
                 std::cout << "Tidak ada makanan hewan ini di penyimpanan." << endl;
             }
