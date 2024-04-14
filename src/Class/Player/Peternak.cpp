@@ -61,18 +61,19 @@ void Peternak::ternak()
         a = slot[0];
         slot = slot.substr(1, slot.length() - 1);
         b = stoi(slot);
-        if (inventory.getValue(b, a)->getJenis() != "Animal")
+        if (inventory.getRows() < b || inventory.getCols() < a)
         {
-            throw BukanHewanException();
+            throw outOfBoundException();
         }
         if (!inventory.isExist(b, a))
         {
             throw SlotKosongException();
         }
-        else if (inventory.getRows() < b || inventory.getCols() < a)
+        if (inventory.getValue(b, a)->getJenis() != "Animal")
         {
-            throw outOfBoundException();
+            throw BukanHewanException();
         }
+        
         Animal *animal = dynamic_cast<Animal *>(inventory.getValue(b, a));
 
         std::cout << "Kamu memilih " << animal->getName() << endl;
