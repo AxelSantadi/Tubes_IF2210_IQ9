@@ -109,7 +109,7 @@ void Kandang::cetakJenisHewan(){
                 } else {
                     position += to_string(i);
                 }
-                result[position] = getValue(i,j).getCode();
+                result[position] = getValue(i,j).getName();
             }
         }
     }
