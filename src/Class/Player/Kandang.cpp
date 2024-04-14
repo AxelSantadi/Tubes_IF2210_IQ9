@@ -144,10 +144,10 @@ vector<string> Kandang::ambilPanenhewan(string code, int n){
             {
                 throw salahPetakExeption();
             }
-        }catch(salahPetakExeption e)
+        }catch(salahPetakExeption &e)
         {
             cerr << e.what() << endl;
-        }catch(belumPanenExeption e)
+        }catch(belumPanenExeption &e)
         {
             cerr << e.what() << endl;
         }
