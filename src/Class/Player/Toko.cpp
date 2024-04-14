@@ -101,7 +101,7 @@ string Toko::getItemNameByNumber(int number) const
 {
     int counter = 1;
 
-    if (number < 1 || number > items.size())
+    if (number < 1 || number > static_cast<int>(items.size()))
     {
         throw NumberOutOfRangeException();
     }

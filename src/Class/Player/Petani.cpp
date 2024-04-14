@@ -203,9 +203,9 @@ void Petani::panen(vector<Product> product)
 
         
         cout << b << " petak tanaman "<< code << " pada petak ";
-        for (int i = 0; i < petak.size(); i++)
+        for (int i = 0; i < static_cast<int>(petak.size()); i++)
         {
-            if (i == petak.size()-1){
+            if (i == static_cast<int>(petak.size()-1)){
                 cout << petak[i] << " telah dipanen!";
             } else {
                 cout << petak[i] << ", ";

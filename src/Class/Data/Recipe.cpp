@@ -26,9 +26,9 @@ bool Recipe::cekResep(string name) {
     */
 void Recipe::printBangunan(int i) {
     cout << i << ". " << this->name << " (" << this->price << " gulden, ";
-    for (int j = 0; j < namaMaterial.size(); j++) {
+    for (int j = 0; j < static_cast<int>(namaMaterial.size()); j++) {
         cout << namaMaterial[j] << " " << jumlahMaterialNeeded[j];
-        if (j == namaMaterial.size() - 1) {
+        if (j == static_cast<int>(namaMaterial.size() - 1)) {
             cout << ")" << endl;
         } else {
             cout << ", ";
@@ -39,7 +39,7 @@ void Recipe::printBangunan(int i) {
 void Recipe::selisihBahan(string name, Inventory w_storage) {
     vector<pair<string,int>> a;
 
-    for (int i = 0; i < namaMaterial.size(); i++) {
+    for (int i = 0; i < static_cast<int>(namaMaterial.size()); i++) {
         if (w_storage.getJenisTiapItemNama(namaMaterial[i]) < jumlahMaterialNeeded[i]) {
             pair<string,int> temp;
             temp.first = namaMaterial[i];
@@ -48,9 +48,9 @@ void Recipe::selisihBahan(string name, Inventory w_storage) {
         }
     }
 
-    for (int i = 0; i < a.size(); i++) {
+    for (int i = 0; i < static_cast<int>(a.size()); i++) {
         cout << a.at(i).second << " " << a.at(i).first;
-        if (i == a.size() - 1) {
+        if (i == static_cast<int>(a.size()) - 1) {
             cout << "!";
         } else {
             cout << ", ";
