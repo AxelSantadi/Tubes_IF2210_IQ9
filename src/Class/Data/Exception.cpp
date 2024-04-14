@@ -157,3 +157,23 @@ string takAdaResep::what()
 {
     return "Kamu tidak punya resep bangunan tersebut!";
 }
+
+string FullKandgangException::what()
+{
+    return "Kandang sudah penuh.";
+}
+
+string FullLadangException::what()
+{
+    return "Ladang sudah penuh.";
+}
+
+string TidakPunyaHewanException::what()
+{
+    return "Kamu tidak punya hewan di Invetory.";
+}
+
+string TidakPunyaTanamanException::what()
+{
+    return "Kamu tidak punya tanaman di Invetory.";
+}

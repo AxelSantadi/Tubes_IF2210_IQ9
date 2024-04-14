@@ -30,6 +30,8 @@ public:
 
     bool noFoodHerbivore() const;
     bool noFoodCarnivore() const;
+    bool noPlant() const;
+    bool noAnimal() const;
 
     int getJenisTiapItemNama(string c) const;
 

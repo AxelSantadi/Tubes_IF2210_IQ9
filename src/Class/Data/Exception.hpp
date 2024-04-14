@@ -196,4 +196,28 @@ public:
     string what() override;
 };
 
+class FullKandgangException : public Exception
+{
+public:
+    string what() override;
+};
+
+class FullLadangException : public Exception
+{
+public:
+    string what() override;
+};
+
+class TidakPunyaTanamanException : public Exception
+{   
+public:
+    string what() override;
+};
+
+class TidakPunyaHewanException : public Exception
+{
+public:
+    string what() override;
+};
+
 #endif

@@ -486,6 +486,14 @@ void Perintah::TANAM()
         {
             throw bukanPetaniExeption();
         }
+        if (Player::getCurrentPlayer()->getInventory().noPlant())
+        {
+            throw TidakPunyaTanamanException();
+        }
+        if (dynamic_cast<Petani *>(Player::getCurrentPlayer())->getLadang().isFull())
+        {
+            throw FullLadangException();
+        }
         Player::getCurrentPlayer()->tanam();
         cout << endl;
     }
@@ -493,7 +501,10 @@ void Perintah::TANAM()
     {
         std::cerr << e.what() << '\n';
     }
-    catch (BukanTanamanExeption &e)
+    catch (FullLadangException &e)
+    {
+        std::cerr << e.what() << '\n';
+    }catch (TidakPunyaTanamanException &e)
     {
         std::cerr << e.what() << '\n';
     }
@@ -507,6 +518,14 @@ void Perintah::TERNAK()
         {
             throw BukanPeternakExeption();
         }
+        if (Player::getCurrentPlayer()->getInventory().noAnimal())
+        {
+            throw TidakPunyaHewanException();
+        }
+        if (dynamic_cast<Peternak *>(Player::getCurrentPlayer())->getKandang().isFull())
+        {
+            throw FullKandgangException();
+        }
         Player::getCurrentPlayer()->ternak();
         cout << endl;
     }
@@ -514,7 +533,10 @@ void Perintah::TERNAK()
     {
         std::cerr << e.what() << '\n';
     }
-    catch (BukanHewanException &e)
+    catch (TidakPunyaHewanException &e)
+    {
+        std::cerr << e.what() << '\n';
+    }catch (FullKandgangException &e)
     {
         std::cerr << e.what() << '\n';
     }

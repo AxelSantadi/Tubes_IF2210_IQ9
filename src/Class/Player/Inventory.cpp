@@ -192,6 +192,42 @@ bool Inventory::noFoodCarnivore() const
     return true;
 }
 
+bool Inventory::noPlant() const
+{
+    for (int i = 1; i <= getRows(); i++)
+    {
+        for (char j = 'A'; j <= getCols(); j++)
+        {
+            if (isExist(i, j))
+            {
+                if (getValue(i, j)->getJenis() == "MATERIAL_PLANT" || getValue(i, j)->getJenis() == "FRUIT_PLANT")
+                {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool Inventory::noAnimal() const
+{
+    for (int i = 1; i <= getRows(); i++)
+    {
+        for (char j = 'A'; j <= getCols(); j++)
+        {
+            if (isExist(i, j))
+            {
+                if (getValue(i, j)->getJenis() == "HERBIVORE" || getValue(i, j)->getJenis() == "CARNIVORE" || getValue(i, j)->getJenis() == "OMNIVORE")
+                {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
 void Inventory::storeItemInSlot(Item* item, const std::string &slot)
 {
     // Convert the slot string to row and column
