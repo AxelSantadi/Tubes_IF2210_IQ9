@@ -6,7 +6,6 @@
 #include <map>
 #include <vector>
 #include "../Player/Inventory.hpp"
-#include "ReadConfig.hpp"
 
 using namespace std;
 
