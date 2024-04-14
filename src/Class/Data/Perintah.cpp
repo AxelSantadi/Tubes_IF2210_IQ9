@@ -416,11 +416,14 @@ void Perintah::muatState()
                         }
                     }
                 }
+                cout << "State berhasil dimuat" << endl;
                 string line;
-                getline(stateFile, line);
 
                 int numItemToko;
                 stateFile >> numItemToko;
+
+                cout << "Jumlah item di toko: " << numItemToko << endl;
+
                 getline(stateFile, dummy);
 
                 for (int k = 0; k < numItemToko; k++)
