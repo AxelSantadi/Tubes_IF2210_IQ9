@@ -47,29 +47,29 @@ void Petani::saveStatePlayer(ofstream &file) const
 
 void Petani::tanam(){
     // cetak inventory
-    cout << "Pilih tanaman dari penyimpanan :" << endl;
+    std::cout << "Pilih tanaman dari penyimpanan :" << endl;
 
     inventory.printInventory();
-    cout << endl;
+    std::cout << endl;
     try
     {
-        cout << "Slot : ";
+        std::cout << "Slot : ";
         string slot;
-        cin >> slot;
-        cout << endl;
+        std::cin >> slot;
+        std::cout << endl;
         char a;
         int b;
         a = slot[0];
         slot = slot.substr(1, slot.length()-1);
         b = stoi(slot);
-        if (!inventory.isExist(b,a) || !dynamic_cast<Plant*>(inventory.getValue(b,a)))
+        if (!inventory.isExist(b,a) || inventory.getValue(b,a)->getJenis() != "Plant")
         {
             throw BukanTanamanExeption();
         }
         Plant* plant = dynamic_cast<Plant*>(inventory.getValue(b,a));
-        cout << "Kamu memilih " << plant->getName() << endl;
+        std::cout << "Kamu memilih " << plant->getName() << endl;
         // pilih posisi tanam
-        cout << "Pilih petak tanah yang akan ditanami ";
+        std::cout << "Pilih petak tanah yang akan ditanami ";
         ladang.cetakLadangPanen();
         // cetak ladang
         bool success = false; 
@@ -79,9 +79,9 @@ void Petani::tanam(){
             {
                 // pilih posisi tanam
                 string posisi;
-                cout << "Petak tanah : ";
-                cin >> posisi;
-                cout << endl;
+                std::cout << "Petak tanah : ";
+                std::cin >> posisi;
+                std::cout << endl;
                 char x;
                 int y;
                 x = posisi[0];
@@ -101,20 +101,20 @@ void Petani::tanam(){
             }
             catch(petakTerisiExeption &e)
             {
-                cerr << e.what() << endl;
+                std::cerr << e.what() << endl;
             }
             catch(salahPetakExeption &e)
             {
-                cerr << e.what() << endl;
+                std::cerr << e.what() << endl;
             }
         }
 
-        cout << "Cangkul, cangkul, cangkul, yang dalam ~!" << endl;
-        cout << plant->getName() << " berhasil ditanam " <<endl;
-        cout << endl;
+        std::cout << "Cangkul, cangkul, cangkul, yang dalam ~!" << endl;
+        std::cout << plant->getName() << " berhasil ditanam " <<endl;
+        std::cout << endl;
 
     }catch(BukanTanamanExeption &e){
-        cerr << e.what() << endl;
+        std::cerr << e.what() << endl;
     }
         
 }
@@ -123,12 +123,12 @@ void Petani::panen(vector<Product> product)
 {
     // print ladang
     ladang.cetakLadangPanen();
-    cout << endl;
+    std::cout << endl;
     // print isi ladang
     ladang.cetakJenisTanaman();
-    cout << endl;
+    std::cout << endl;
     // pilih panen
-    cout << "Pilih tanaman siap panen yang kamu miliki " << endl;
+    std::cout << "Pilih tanaman siap panen yang kamu miliki " << endl;
     int i = 1 ; // indeks pilihan
     map<int,pair<string,int>> pilihan;
     unordered_map<string,int> hasilCount = ladang.countPanen();
@@ -137,12 +137,12 @@ void Petani::panen(vector<Product> product)
         pilihan[i] = {entry.first,entry.second};
         i++;
     } 
-    cout<<endl;
+    std::cout<<endl;
 
     try{
         int a; // input pilihan
-        cout<< "Nomor tanaman yang ingin dipanen: ";  
-        cin >> a;
+        std::cout<< "Nomor tanaman yang ingin dipanen: ";  
+        std::cin >> a;
         // validasi apakah terdapat inputan a
 
         if (a >= i || a < 0){
@@ -156,8 +156,8 @@ void Petani::panen(vector<Product> product)
         
         // input jumlah tanaman yang ingin dipanen
         int b;
-        cout << "Berapa petak yang ingin dipanen  : ";
-        cin >> b;
+        std::cout << "Berapa petak yang ingin dipanen  : ";
+        std::cin >> b;
 
         // validasi apakah b cukup
         if (b > jumlah){
@@ -202,22 +202,22 @@ void Petani::panen(vector<Product> product)
         } 
 
         
-        cout << b << " petak tanaman "<< code << " pada petak ";
+        std::cout << b << " petak tanaman "<< code << " pada petak ";
         for (int i = 0; i < static_cast<int>(petak.size()); i++)
         {
             if (i == static_cast<int>(petak.size()-1)){
-                cout << petak[i] << " telah dipanen!";
+                std::cout << petak[i] << " telah dipanen!";
             } else {
-                cout << petak[i] << ", ";
+                std::cout << petak[i] << ", ";
             }
         }
-        cout << endl;
+        std::cout << endl;
     }catch(salahPanenExeption &e){
-        cerr << e.what() << endl;
+        std::cerr << e.what() << endl;
     }catch(jumlahPanenExeption &e){
-        cerr << e.what() << endl;
+        std::cerr << e.what() << endl;
     }catch(penyimpananPenuhExeption &e){
-        cerr << e.what() << endl;
+        std::cerr << e.what() << endl;
     }  
 }
 

@@ -200,7 +200,7 @@ bool Inventory::noPlant() const
         {
             if (isExist(i, j))
             {
-                if (getValue(i, j)->getJenis() == "MATERIAL_PLANT" || getValue(i, j)->getJenis() == "FRUIT_PLANT")
+                if (getValue(i, j)->getJenis() == "Plant")
                 {
                     return false;
                 }
@@ -218,7 +218,7 @@ bool Inventory::noAnimal() const
         {
             if (isExist(i, j))
             {
-                if (getValue(i, j)->getJenis() == "HERBIVORE" || getValue(i, j)->getJenis() == "CARNIVORE" || getValue(i, j)->getJenis() == "OMNIVORE")
+                if (getValue(i, j)->getJenis() == "Animal")
                 {
                     return false;
                 }

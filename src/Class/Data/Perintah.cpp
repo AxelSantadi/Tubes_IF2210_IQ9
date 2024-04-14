@@ -617,7 +617,6 @@ void Perintah::PANEN()
 {
     try
     {
-        // 1
         if (Player::getCurrentPlayer()->getRole() != "Petani" && Player::getCurrentPlayer()->getRole() != "Peternak")
         {
             throw bukanPetanidanPeternakExeption();
