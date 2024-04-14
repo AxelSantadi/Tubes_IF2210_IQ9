@@ -448,7 +448,12 @@ void Perintah::CETAK_LADANG()
 {
     try
     {
+        if (Player::getCurrentPlayer()->getRole() != "Petani")
+        {
+            throw bukanPetaniExeption();
+        }
         dynamic_cast<Petani *>(Player::getCurrentPlayer())->getLadang().cetakLadangPanen();
+        dynamic_cast<Petani *>(Player::getCurrentPlayer())->getLadang().cetakJenisTanaman();
     }
     catch (bukanPetaniExeption &e)
     {
@@ -460,12 +465,12 @@ void Perintah::CETAK_PETERNAKAN()
 {
     try
     {
-
         if (Player::getCurrentPlayer()->getRole() != "Peternak")
         {
             throw BukanPeternakExeption();
         }
         dynamic_cast<Peternak *>(Player::getCurrentPlayer())->getKandang().cetakKandangPanen();
+        dynamic_cast<Peternak *>(Player::getCurrentPlayer())->getKandang().cetakJenisHewan();
         cout << endl;
     }
     catch (BukanPeternakExeption &e)
