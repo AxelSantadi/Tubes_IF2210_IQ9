@@ -99,11 +99,11 @@ void Petani::tanam(){
                 addTanaman(*plant, y, x);
                 success = true;
             }
-            catch(petakTerisiExeption e)
+            catch(petakTerisiExeption &e)
             {
                 cerr << e.what() << endl;
             }
-            catch(salahPetakExeption e)
+            catch(salahPetakExeption &e)
             {
                 cerr << e.what() << endl;
             }
@@ -113,7 +113,7 @@ void Petani::tanam(){
         cout << plant->getName() << " berhasil ditanam " <<endl;
         cout << endl;
 
-    }catch(BukanTanamanExeption e){
+    }catch(BukanTanamanExeption &e){
         cerr << e.what() << endl;
     }
         
@@ -212,11 +212,11 @@ void Petani::panen(vector<Product> product)
             }
         }
         cout << endl;
-    }catch(salahPanenExeption e){
+    }catch(salahPanenExeption &e){
         cerr << e.what() << endl;
-    }catch(jumlahPanenExeption e){
+    }catch(jumlahPanenExeption &e){
         cerr << e.what() << endl;
-    }catch(penyimpananPenuhExeption e){
+    }catch(penyimpananPenuhExeption &e){
         cerr << e.what() << endl;
     }  
 }

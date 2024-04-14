@@ -100,11 +100,11 @@ void Peternak::ternak(){
                 addTernak(*animal,y,x);
                 success = true;
             }
-            catch(petakTerisiExeption e)
+            catch(petakTerisiExeption &e)
             {
                 cerr << e.what() << endl;
             }
-            catch(outOfBoundException e)
+            catch(outOfBoundException &e)
             {
                 cerr << e.what() << endl;
             }
@@ -114,11 +114,11 @@ void Peternak::ternak(){
         cout << animal->getName() << " telah menjadi peliharaanmu sekarang!" <<endl;
         cout << endl;
 
-    }catch(BukanHewanException e){
+    }catch(BukanHewanException &e){
         cerr << e.what() << endl;
-    }catch(SlotKosongException e){
+    }catch(SlotKosongException &e){
         cerr << e.what() << endl;
-    }catch(outOfBoundException e){
+    }catch(outOfBoundException &e){
         cerr << e.what() << endl;
     }
         
@@ -253,21 +253,21 @@ void Peternak::feedTernak(){
                     throw SlotKosongException();
                 }
             
-            }catch(outOfBoundException e){
+            }catch(outOfBoundException &e){
                 cerr << e.what() << endl;
-            }catch(SlotKosongException e){
+            }catch(SlotKosongException &e){
                 cerr << e.what() << endl;
-            }catch(BukanMakananHewanException e){
+            }catch(BukanMakananHewanException &e){
                 cerr << e.what() << endl;
-            }catch(BukanMakananHerbivore e){
+            }catch(BukanMakananHerbivore &e){
                 cerr << e.what() << endl;
-            }catch(BukanMakananCarnivore e){
+            }catch(BukanMakananCarnivore &e){
                 cerr << e.what() << endl;
             }
         }
         }
 
-    } catch(SlotKosongException e){
+    } catch(SlotKosongException &e){
         cerr << e.what() << endl;
     }
 
@@ -391,11 +391,11 @@ void Peternak::panen(vector<Product> product){
             }
         }
         cout << endl;
-    }catch(salahPanenExeption e){
+    }catch(salahPanenExeption &e){
         cerr << e.what() << endl;
-    }catch(jumlahPanenExeption e){
+    }catch(jumlahPanenExeption &e){
         cerr << e.what() << endl;
-    }catch(penyimpananPenuhExeption e){
+    }catch(penyimpananPenuhExeption &e){
         cerr << e.what() << endl;
     }  
 }   
