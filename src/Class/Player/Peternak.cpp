@@ -356,32 +356,34 @@ void Peternak::panen(vector<Product> product)
 
     try
     {
-        int a; // input pilihan
+        string a; // input pilihan
         std::cout << "Nomor hewan yang ingin dipanen: ";
         std::cin >> a;
         // validasi apakah terdapat inputan a
+        int pil = stoi(a);
 
-        if (a >= i || a < 0)
+        if (pil >= i || pil < 0)
         {
             throw salahPanenExeption();
         }
 
         // menyimpan kode tanaman dan jumlah tanaman yang siap panen
-        pair<string, int> pilihan_panen = pilihan[a];
+        pair<string, int> pilihan_panen = pilihan[pil];
         string code = pilihan_panen.first;
         int jumlah = pilihan_panen.second;
 
         // input jumlah tanaman yang ingin dipanen
-        int b;
+        string b;
         std::cout << "Berapa petak yang ingin dipanen: ";
         std::cin >> b;
+        int bi = stoi(b);
 
         // validasi apakah b cukup
-        if (b > jumlah)
+        if (bi > jumlah)
         {
             throw jumlahPanenExeption();
         }
-        if (inventory.countEmpty() < b)
+        if (inventory.countEmpty() < bi)
         {
             throw penyimpananPenuhExeption();
         }
@@ -410,7 +412,7 @@ void Peternak::panen(vector<Product> product)
         else if (code == "CHK")
         {
             idx = 13;
-            if (inventory.countEmpty() < b * 2)
+            if (inventory.countEmpty() < bi * 2)
             {
                 throw penyimpananPenuhExeption();
             }
@@ -418,23 +420,23 @@ void Peternak::panen(vector<Product> product)
         else if (code == "DCK")
         {
             idx = 14;
-            if (inventory.countEmpty() < b * 2)
+            if (inventory.countEmpty() < bi * 2)
             {
                 throw penyimpananPenuhExeption();
             }
         }
         vector<string> petak;
-        petak = kandang.ambilPanenhewan(code, b);
+        petak = kandang.ambilPanenhewan(code, bi);
 
         if (idx == 13)
         {
             Item *p = new Product(product[idx]);
             Item *p2 = new Product(product[idx + 2]);
-            int n = b;
+            int n = bi;
             while (n > 0)
             {
-                inventory.setRandomValue(p);
-                inventory.setRandomValue(p2);
+                inventory + p;
+                inventory + p2;
                 n--;
             }
         }
@@ -442,21 +444,21 @@ void Peternak::panen(vector<Product> product)
         {
             Item *p = new Product(product[idx]);
             Item *p2 = new Product(product[idx + 2]);
-            int n = b;
+            int n = bi;
             while (n > 0)
             {
-                inventory.setRandomValue(p);
-                inventory.setRandomValue(p2);
+                inventory + p;
+                inventory + p2;
                 n--;
             }
         }
         else
         {
             Item *p = new Product(product[idx]);
-            int n = b;
+            int n = bi;
             while (n > 0)
             {
-                inventory.setRandomValue(p);
+                inventory + p ;
                 n--;
             }
         }

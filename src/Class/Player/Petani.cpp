@@ -146,35 +146,43 @@ void Petani::panen(vector<Product> product)
     std::cout<<endl;
 
     try{
-        int a; // input pilihan
+        if (i == 1){
+            throw belumPanenExeption();
+        }
+        string a; // input pilihan
         std::cout<< "Nomor tanaman yang ingin dipanen: ";  
         std::cin >> a;
+
+        int pil = stoi(a);
+
         // validasi apakah terdapat inputan a
 
-        if (a >= i || a < 0){
+        if (pil >= i || pil < 0){
             throw salahPanenExeption();
         }
 
         // menyimpan kode tanaman dan jumlah tanaman yang siap panen
-        pair<string,int> pilihan_panen = pilihan[a];
+        pair<string,int> pilihan_panen = pilihan[pil];
         string code = pilihan_panen.first;
         int jumlah = pilihan_panen.second;
         
         // input jumlah tanaman yang ingin dipanen
-        int b;
+        string b;
         std::cout << "Berapa petak yang ingin dipanen  : ";
         std::cin >> b;
 
+        int bi = stoi(b);
+
         // validasi apakah b cukup
-        if (b > jumlah){
+        if (bi > jumlah){
             throw jumlahPanenExeption();
         }
-        if (inventory.countEmpty() < b){
+        if (inventory.countEmpty() < bi){
             throw penyimpananPenuhExeption();
         }
         
         vector<string> petak;
-        petak = ladang.ambilPanenTumbuhan(code,b);
+        petak = ladang.ambilPanenTumbuhan(code,bi);
 
         // Merubah tanaman yang dipanen menjadi product
         int idx;
@@ -200,10 +208,10 @@ void Petani::panen(vector<Product> product)
         
 
         // menyimpan hasil panen ke inventory
-        int n = b;
+        int n = bi;
         while (n > 0)
         {
-            inventory.setRandomValue(p);
+            inventory + p;
             n--;
         } 
 
@@ -224,7 +232,9 @@ void Petani::panen(vector<Product> product)
         std::cerr << e.what() << endl;
     }catch(penyimpananPenuhExeption &e){
         std::cerr << e.what() << endl;
-    }  
+    }catch(belumPanenExeption &e){
+        std::cerr << e.what() << endl;
+    }
 }
 
 void Petani::nextDay()
