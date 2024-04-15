@@ -370,7 +370,7 @@ void Player::buyItem(Toko &toko)
                 quantity--;
                 isAnySlotValid = true;
             }
-            catch(penyimpananPenuhExeption &e)
+            catch (penyimpananPenuhExeption &e)
             {
                 std::cerr << e.what() << endl
                           << "Slot " << slot << " penuh." << std::endl;
@@ -412,7 +412,7 @@ void Player::buyItem(Toko &toko)
     else if (!isAnySlotValid)
     {
         std::cout << "Penyimpanan gagal, tidak ada barang yang tersimpan ke inventory" << std::endl
-                  << std::endl; 
+                  << std::endl;
     }
 }
 
@@ -448,7 +448,7 @@ void Player::sellItem(Toko &toko)
 
                 if ((getRole() == "Petani" || getRole() == "Peternak") && item->getJenis() == "Bangunan")
                 {
-                    std::cout << "Petani dan Peternak tidak dapat menjual bangunan." << endl;
+                    std::cout << endl << "Petani dan Peternak tidak dapat menjual bangunan." << endl;
                     continue;
                 }
 
@@ -477,16 +477,12 @@ void Player::sellItem(Toko &toko)
     catch (outOfBoundException &e)
     {
         std::cout << "Slot " << slot << " tidak valid." << std::endl;
-        std::cerr << e.what() << endl
-                  << "Silahkan masukkan slot yang ga melebihi slot yang tersedia." << endl
-                  << endl;
+        std::cerr << e.what() << endl << endl;
     }
     catch (SlotKosongException &e)
     {
         std::cout << "Slot " << slot << " kosong." << std::endl;
-        std::cerr << e.what() << endl
-                  << "Silahkan masukkan slot yang berisi barang." << endl
-                  << endl;
+        std::cerr << e.what() << endl << endl;
     }
 
     this->money += tempMoney;
@@ -498,8 +494,7 @@ void Player::sellItem(Toko &toko)
 
     else if (barangGahilang == 0)
     {
-        std::cout << "Sayang sekali, kamu gajadi jual apa apa soalnya salah milih" << std::endl;
-        std::cout << "Mungkin lain kali bisa taro slot yang bener :)" << endl;
+        std::cout << "Sayang sekali, kamu gajadi jual apa apa soalnya salah milih :)" << std::endl;
     }
 }
 

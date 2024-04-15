@@ -333,7 +333,7 @@ void Perintah::muatState()
                         string itemName;
                         stateFile >> itemName;
                         Item *item = config.createItem(itemName);
-                        player->getInventoryPointer().setRandomValue(item);
+                        player->getInventoryPointer()+=(item);
                     }
 
                     stateFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
