@@ -73,7 +73,7 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
                 cout << "Pembangunan dibatalkan!" << endl;
                 return;
             } else if (!adaResep) {
-                cout << "Bangunan yang dimasukkan tidak valid!";
+                cout << "Bangunan yang dimasukkan tidak valid!" << endl;
                 adaResep = false;
                 adaBahan = true;
                 for (int i = 0; i < resepSize; i++) {
