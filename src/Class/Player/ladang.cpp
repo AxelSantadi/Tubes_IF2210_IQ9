@@ -79,9 +79,9 @@ Plant Ladang::getPlant(int x, char a) const{
 unordered_map<string, int> Ladang::countPanen() {
     unordered_map<string, int> result;
     
-    for (int i = 1; i < getRows(); i++)
+    for (int i = 1; i <= getRows(); i++)
     {
-        for(char j= 'A' ; j < getCols(); j++)
+        for(char j = 'A' ; j <= getCols(); j++)
         {
             if (isExist(i,j))
             {
@@ -98,9 +98,9 @@ unordered_map<string, int> Ladang::countPanen() {
 void Ladang::cetakJenisTanaman(){
     map<string,string> result;
     
-    for(int i = 1; i < getRows(); i++)
+    for(int i = 1; i <= getRows(); i++)
     {
-        for (char j = 'A'; j< getCols(); j++ )
+        for (char j = 'A'; j<= getCols(); j++ )
         {
             if (isExist(i,j))
             {
@@ -160,9 +160,9 @@ vector<string> Ladang::ambilPanenTumbuhan(string code, int n){
 }
 
 void Ladang::nextUmur(){
-    for (int i = 1; i < getRows(); i++)
+    for (int i = 1; i <= getRows(); i++)
     {
-        for (char j = 'A'; j < getCols(); j++)
+        for (char j = 'A'; j <= getCols(); j++)
         {
             if (isExist(i,j))
             {

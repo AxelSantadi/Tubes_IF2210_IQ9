@@ -75,9 +75,9 @@ Animal Kandang::getAnimal(int x, char a) const{
 unordered_map<string, int> Kandang::countPanen() {
     unordered_map<string, int> result;
     
-    for (int i = 1; i < getRows(); i++)
+    for (int i = 1; i <= getRows(); i++)
     {
-        for(char j= 'A' ; j < getCols(); j++)
+        for(char j= 'A' ; j <= getCols(); j++)
         {
             if (isExist(i,j))
             {
@@ -95,7 +95,7 @@ unordered_map<string, int> Kandang::countPanen() {
 void Kandang::cetakJenisHewan(){
     map<string,string> result;
     
-    for(int i = 1; i < getRows(); i++)
+    for(int i = 1; i <= getRows(); i++)
     {
         for (char j = 'A'; j <= getCols(); j++ )
         {
@@ -127,7 +127,7 @@ vector<string> Kandang::ambilPanenhewan(string code, int n){
     {
         try
         {
-            cout << "petak ke-"<< i+1 <<" :" << endl;
+            cout << "petak ke-"<< i+1 <<" : ";
             string slot;
             cin >> slot;
             char a;
@@ -142,11 +142,12 @@ vector<string> Kandang::ambilPanenhewan(string code, int n){
                 if (getValue(b,a).getBerat() < getValue(b,a).getWeightToHarvest())
                 {
                     throw belumPanenExeption();
+                }else{
+                    removeValue(b,a);
+                    n--;
+                    i++;
+                    result.push_back(slot);
                 }
-                removeValue(b,a);
-                n--;
-                i++;
-                result.push_back(slot);
             } else 
             {
                 throw salahPetakExeption();

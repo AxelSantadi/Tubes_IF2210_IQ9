@@ -95,7 +95,7 @@ void Petani::tanam(){
                 if(ladang.isExist(y,x))
                 {
                     throw petakTerisiExeption();
-                }else if (y < 1 || y >= ladang.getRows() || x < 'A' || x >= ladang.getCols())
+                }else if (y < 1 || y > ladang.getRows() || x < 'A' || x > ladang.getCols())
                 {
                     throw salahPetakExeption();
                 }

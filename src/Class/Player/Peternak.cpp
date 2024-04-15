@@ -101,7 +101,7 @@ void Peternak::ternak()
                 {
                     throw petakTerisiExeption();
                 }
-                else if (y < 1 || y >= kandang.getRows() || x < 'A' || x >= kandang.getCols())
+                else if (y < 1 || y > kandang.getRows() || x < 'A' || x > kandang.getCols())
                 {
                     throw outOfBoundException();
                 }
