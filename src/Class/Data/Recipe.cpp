@@ -26,7 +26,7 @@ bool Recipe::cekResep(string name) {
         4. HOTEL (150 gulden, teak wood 3, aloe wood 4, ironwood wood 4, sandal wood 2)
     */
 void Recipe::printBangunan(int i) {
-    cout << i << ". " << this->name << " (" << this->price << " gulden, ";
+    cout << i << ". " << this->name << " (";
     for (int j = 0; j < static_cast<int>(namaMaterial.size()); j++) {
         cout << namaMaterial[j] << " " << jumlahMaterialNeeded[j];
         if (j == static_cast<int>(namaMaterial.size() - 1)) {
