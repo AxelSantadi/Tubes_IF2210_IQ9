@@ -465,7 +465,7 @@ void Peternak::panen(vector<Product> product)
 
         // menyimpan hasil panen ke inventory
 
-        std::cout << b << " petak tanaman " << code << " pada petak ";
+        std::cout << b << " petak Hewan " << code << " pada petak ";
         for (int i = 0; i < static_cast<int>(petak.size()); i++)
         {
             if (i == static_cast<int>(petak.size() - 1))
@@ -483,7 +483,7 @@ void Peternak::panen(vector<Product> product)
     {
         std::cerr << e.what() << endl;
     }
-    catch (jumlahPanenExeption &e)
+    catch (jumlahPanenTernakException &e)
     {
         std::cerr << e.what() << endl;
     }

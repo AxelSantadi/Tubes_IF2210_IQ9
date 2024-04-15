@@ -150,11 +150,7 @@ bool Inventory::noFoodHerbivore() const
         {
             if (isExist(i, j))
             {
-                if (getValue(i, j)->getCode() == "TAW" ||
-                    getValue(i, j)->getCode() == "SAW" ||
-                    getValue(i, j)->getCode() == "ALW" ||
-                    getValue(i, j)->getCode() == "IRW" ||
-                    getValue(i, j)->getCode() == "APP" ||
+                if (getValue(i, j)->getCode() == "APP" ||
                     getValue(i, j)->getCode() == "ORP" ||
                     getValue(i, j)->getCode() == "BNP" ||
                     getValue(i, j)->getCode() == "GAP")

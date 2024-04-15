@@ -99,4 +99,10 @@ public:
     string what() override;
 };
 
+class jumlahPanenTernakException : public Exception
+{
+public:
+    string what() override;
+};
+
 #endif

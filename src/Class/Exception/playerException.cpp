@@ -80,3 +80,8 @@ string TidakPunyaTanamanException::what()
     return "Kamu tidak punya tanaman di Invetory.";
 }
 
+string jumlahPanenTernakException::what()
+{
+    return "Hewan yang siap panen belum sebanyak itu.";
+}
+
