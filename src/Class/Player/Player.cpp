@@ -217,7 +217,7 @@ void Player::makan()
                         throw BukanMakananException();
                     }
                 }
-                else if (row > inventory.getRows()  || row < 1 || col > inventory.getCols()  || col < 'A')
+                else if (row > inventory.getRows() || row < 1 || col > inventory.getCols() || col < 'A')
                 {
                     throw outOfBoundException();
                 }
@@ -299,7 +299,8 @@ void Player::buyItem(Toko &toko)
         return;
     }
 
-    if (quantity < 0) {
+    if (quantity < 0)
+    {
         std::cout << "Kuantitas tidak boleh negatif." << std::endl;
         return;
     }
@@ -350,6 +351,7 @@ void Player::buyItem(Toko &toko)
     std::string slot;
     int slotCount = 0;
     int originalQuantity = quantity;
+    bool isAnySlotValid = false;
 
     while (std::getline(ss, slot, ','))
     {
@@ -357,17 +359,39 @@ void Player::buyItem(Toko &toko)
         slot.erase(0, slot.find_first_not_of(' ')); // leading
         slot.erase(slot.find_last_not_of(' ') + 1); // trailing
 
+        int row = std::stoi(slot.substr(1));
+        char col = slot[0];
+
         if (quantity > 0)
         {
-            this->inventory.storeItemInSlot(item, slot);
-            quantity--;
+            try
+            {
+                this->inventory.setValue(row, col, item);
+                quantity--;
+                isAnySlotValid = true;
+            }
+            catch(penyimpananPenuhExeption &e)
+            {
+                std::cerr << e.what() << endl
+                          << "Slot " << slot << " penuh." << std::endl;
+            }
+            catch (outOfBoundException &e)
+            {
+                std::cerr << e.what() << endl
+                          << "Slot " << slot << " tidak valid." << std::endl;
+            }
+            catch (slotTerisiException &e)
+            {
+                std::cerr << e.what() << endl
+                          << "Slot " << slot << " terisi." << std::endl;
+            }
         }
         slotCount++;
     }
 
     if (slotCount < originalQuantity)
     {
-        std::cout << "Menarik sekali anda belinya " << originalQuantity << " tapi yang ditaro di invetory cuman " << slotCount << std::endl;
+        std::cout << "Menarik sekali anda belinya " << originalQuantity << " tapi yang mau ditaro di inventory cuman " << slotCount << std::endl;
         std::cout << "Sayangnya, toko ga tanggung jawab atas barang yang udah dibeli tapi ga dimuat di inventory" << std::endl;
         std::cout << "hehe jangan diulangin lagi ya :)" << std::endl
                   << std::endl;
@@ -380,18 +404,28 @@ void Player::buyItem(Toko &toko)
                   << std::endl;
     }
 
-    std::cout << item->getName() << " berhasil disimpan dalam penyimpanan!" << std::endl
-              << std::endl;
+    if (isAnySlotValid)
+    {
+        std::cout << item->getName() << " berhasil disimpan dalam penyimpanan!" << std::endl
+                  << std::endl;
+    }
+    else if (!isAnySlotValid)
+    {
+        std::cout << "Penyimpanan gagal, tidak ada barang yang tersimpan ke inventory" << std::endl
+                  << std::endl; 
+    }
 }
 
 void Player::sellItem(Toko &toko)
 {
     int tempMoney = 0;
+    int barangGahilang = 0;
     std::cout << "Berikut merupakan penyimpanan Anda" << endl;
     this->inventory.printInventory();
     std::cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
 
     string slots;
+    string slot;
 
     try
     {
@@ -399,7 +433,7 @@ void Player::sellItem(Toko &toko)
         std::getline(std::cin, slots);
 
         std::istringstream ss(slots);
-        std::string slot;
+
         while (std::getline(ss, slot, ','))
         {
             slot.erase(0, slot.find_first_not_of(' '));
@@ -428,8 +462,9 @@ void Player::sellItem(Toko &toko)
 
                 // Give the player money for the item
                 tempMoney += itemPrice;
+                barangGahilang++;
             }
-            else if (row > inventory.getRows()  || row < 1 || col > inventory.getCols()  || col < 'A' )
+            else if (row > inventory.getRows() || row < 1 || col > inventory.getCols() || col < 'A')
             {
                 throw outOfBoundException();
             }
@@ -441,19 +476,31 @@ void Player::sellItem(Toko &toko)
     }
     catch (outOfBoundException &e)
     {
+        std::cout << "Slot " << slot << " tidak valid." << std::endl;
         std::cerr << e.what() << endl
                   << "Silahkan masukkan slot yang ga melebihi slot yang tersedia." << endl
                   << endl;
     }
     catch (SlotKosongException &e)
     {
+        std::cout << "Slot " << slot << " kosong." << std::endl;
         std::cerr << e.what() << endl
                   << "Silahkan masukkan slot yang berisi barang." << endl
                   << endl;
     }
 
     this->money += tempMoney;
-    std::cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << tempMoney << " gulden!" << endl;
+
+    if (barangGahilang > 0)
+    {
+        std::cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << tempMoney << " gulden!" << endl;
+    }
+
+    else if (barangGahilang == 0)
+    {
+        std::cout << "Sayang sekali, kamu gajadi jual apa apa soalnya salah milih" << std::endl;
+        std::cout << "Mungkin lain kali bisa taro slot yang bener :)" << endl;
+    }
 }
 
 // Petani

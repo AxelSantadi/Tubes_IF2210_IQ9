@@ -24,3 +24,8 @@ string penyimpananPenuhExeption::what()
 {
     return "Penyimpanan penuh, kamu tidak bisa menambahkan barang lagi.";
 }
+
+string slotTerisiException::what()
+{
+    return "Slot yang kamu pilih sudah terisi.";
+}

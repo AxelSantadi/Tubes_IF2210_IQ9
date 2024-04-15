@@ -1,7 +1,7 @@
 #include "Inventory.hpp"
 #include <iostream>
 
-Inventory::Inventory(int rows, char cols) : MatrixMap<Item*>(rows, cols) {}
+Inventory::Inventory(int rows, char cols) : MatrixMap<Item *>(rows, cols) {}
 
 int Inventory::getJenisTiapItem(string c) const
 {
@@ -19,30 +19,26 @@ int Inventory::getJenisTiapItem(string c) const
     return count;
 }
 
-void Inventory::setValue(int x, char c, Item* value)
+void Inventory::setValue(int x, char c, Item *value)
 {
-    try
+
+    if (x <= 0 || x > rows || c > cols || c < 'A')
     {
-        if (x <= 0 || x > rows || c > cols || c < 'A')
-        {
-            throw outOfBoundException();
-        }
-        else if (isFull())
-        {
-            throw penyimpananPenuhExeption();
-        }
-        else
-        {
-            data[{x, c}] = value;
-        }
+        throw outOfBoundException();
     }
-    catch(outOfBoundException &e)
+    else if (isFull())
     {
-        cerr << e.what() << endl << endl;
+        throw penyimpananPenuhExeption();
     }
-    catch(penyimpananPenuhExeption &e)
+
+    else if (isExist(x, c))
     {
-        cerr << e.what() <<  endl << endl;
+        throw slotTerisiException();
+    }
+
+    else
+    {
+        data[{x, c}] = value;
     }
 }
 
@@ -63,17 +59,19 @@ void Inventory::removeValue(int x, char c)
             data.erase({x, c});
         }
     }
-    catch(outOfBoundException &e)
+    catch (outOfBoundException &e)
     {
-        cerr << e.what() << endl << endl;
+        cerr << e.what() << endl
+             << endl;
     }
-    catch(EmptyInventoryException &e)
+    catch (EmptyInventoryException &e)
     {
-        cerr << e.what() << endl << endl;
+        cerr << e.what() << endl
+             << endl;
     }
 }
 
-void Inventory::setRandomValue(Item* item)
+void Inventory::setRandomValue(Item *item)
 {
     try
     {
@@ -96,9 +94,10 @@ void Inventory::setRandomValue(Item* item)
             }
         }
     }
-    catch(penyimpananPenuhExeption &e)
+    catch (penyimpananPenuhExeption &e)
     {
-        cerr << e.what() << endl << endl;
+        cerr << e.what() << endl
+             << endl;
     }
 }
 
@@ -118,12 +117,12 @@ int Inventory::getJenisTiapItemNama(string c) const
     return count;
 }
 
-
 void Inventory::printInventory() const
 {
     cout << "================[ Penyimpanan ]==================" << endl;
     print();
-    cout << endl << endl;
+    cout << endl
+         << endl;
     cout << "Total slot kosong : " << countEmpty() << endl;
 }
 
@@ -151,14 +150,15 @@ bool Inventory::noFoodHerbivore() const
         {
             if (isExist(i, j))
             {
-                if (getValue(i,j)->getCode() == "TAW" || 
-                    getValue(i,j)->getCode() == "SAW" || 
-                    getValue(i,j)->getCode() == "ALW" || 
-                    getValue(i,j)->getCode() == "IRW" || 
-                    getValue(i,j)->getCode() == "APP" || 
-                    getValue(i,j)->getCode() == "ORP" || 
-                    getValue(i,j)->getCode() == "BNP" || 
-                    getValue(i,j)->getCode() == "GAP") {
+                if (getValue(i, j)->getCode() == "TAW" ||
+                    getValue(i, j)->getCode() == "SAW" ||
+                    getValue(i, j)->getCode() == "ALW" ||
+                    getValue(i, j)->getCode() == "IRW" ||
+                    getValue(i, j)->getCode() == "APP" ||
+                    getValue(i, j)->getCode() == "ORP" ||
+                    getValue(i, j)->getCode() == "BNP" ||
+                    getValue(i, j)->getCode() == "GAP")
+                {
                     return false;
                 }
             }
@@ -175,15 +175,16 @@ bool Inventory::noFoodCarnivore() const
         {
             if (isExist(i, j))
             {
-                if (getValue(i,j)->getCode() == "COM" || 
-                    getValue(i,j)->getCode() == "SHM" || 
-                    getValue(i,j)->getCode() == "HRM" || 
-                    getValue(i,j)->getCode() == "RBM" || 
-                    getValue(i,j)->getCode() == "SNM" || 
-                    getValue(i,j)->getCode() == "CHM" || 
-                    getValue(i,j)->getCode() == "DCM" || 
-                    getValue(i,j)->getCode() == "CHE" ||
-                    getValue(i,j)->getCode() == "DCE"){
+                if (getValue(i, j)->getCode() == "COM" ||
+                    getValue(i, j)->getCode() == "SHM" ||
+                    getValue(i, j)->getCode() == "HRM" ||
+                    getValue(i, j)->getCode() == "RBM" ||
+                    getValue(i, j)->getCode() == "SNM" ||
+                    getValue(i, j)->getCode() == "CHM" ||
+                    getValue(i, j)->getCode() == "DCM" ||
+                    getValue(i, j)->getCode() == "CHE" ||
+                    getValue(i, j)->getCode() == "DCE")
+                {
                     return false;
                 }
             }
@@ -228,23 +229,13 @@ bool Inventory::noAnimal() const
     return true;
 }
 
-void Inventory::storeItemInSlot(Item* item, const std::string &slot)
-{
-    // Convert the slot string to row and column
-    int row = std::stoi(slot.substr(1)); // No need to subtract 1 here
-    char col = slot[0]; // Keep this as a char
-
-    // Store the item in the specified slot
-    this->setValue(row, col, item);
-}
-
-Inventory& Inventory::operator+(Item* item)
+Inventory &Inventory::operator+(Item *item)
 {
     this->setRandomValue(item);
     return *this;
 }
 
-Inventory& Inventory::operator+=(Item* item)
+Inventory &Inventory::operator+=(Item *item)
 {
     this->setRandomValue(item);
     return *this;

@@ -33,4 +33,10 @@ public:
     string what() override;
 };
 
+class slotTerisiException : public Exception
+{
+public:
+    string what() override;
+};
+
 #endif
