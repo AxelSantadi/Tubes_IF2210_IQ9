@@ -73,7 +73,7 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
                 cout << "Pembangunan dibatalkan!" << endl;
                 return;
             } else if (!adaResep) {
-                throw takAdaResep();
+                cout << "Bangunan yang dimasukkan tidak valid!";
                 adaResep = false;
                 adaBahan = true;
                 for (int i = 0; i < resepSize; i++) {
@@ -113,7 +113,7 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
         }
 
         Bangunan * bangun = new Bangunan(resep.at(idx).getID(), resep.at(idx).getCode(), resep.at(idx).getName(), resep.at(idx).getPrice());
-        inventory.setRandomValue(bangun);
+        inventory += bangun;
         
         cout << a << " berhasil dibangun dan telah menjadi hak milik walikota!" << endl;
     }
