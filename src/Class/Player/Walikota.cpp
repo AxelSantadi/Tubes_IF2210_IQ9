@@ -69,7 +69,7 @@ void Walikota::buatBangunan(vector<Recipe> resep) {
         }
 
         while (!adaResep || !adaBahan) {
-            if (a == "Batal" || a == "batal") {
+            if (a == "Batal" || a == "batal" || a == "BATAL" || a == "B" || a == "b") {
                 cout << "Pembangunan dibatalkan!" << endl;
                 return;
             } else if (!adaResep) {
