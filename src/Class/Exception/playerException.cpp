@@ -85,3 +85,7 @@ string jumlahPanenTernakException::what()
     return "Hewan yang siap panen belum sebanyak itu.";
 }
 
+string noMoneyException::what()
+{
+    return "Uang tidak cukup.";
+}

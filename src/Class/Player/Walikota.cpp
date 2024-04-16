@@ -40,7 +40,6 @@ void Walikota::removeBahan(string namaBahan, int jumlah) {
 void Walikota::buatBangunan(vector<Recipe> resep) {
     if (getInventoryPointer().isFull()) {
         throw penyimpananPenuhExeption();
-        return;
     } else {
         cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
         int idx, resepSize = resep.size();
@@ -158,7 +157,7 @@ void Walikota::tambahPemain(Misc misc) {
     bool validName = true, spaceName = false;
 
     if (money < 50) {
-        cout << "Uang tidak cukup";
+        throw noMoneyException();
     } else {
         cout << "Masukkan jenis pemain (petani / peternak): ";
         cin >> jenis_pemain;

@@ -6,23 +6,22 @@ Created at: 17/10/2019
 Modified at: 23/10/2023
 **/
 
-#include <stdio.h>
-#include "pcolor.h"
+#include <iostream>
+#include "pcolor.hpp"
+
+using namespace std;
 
 void print_red(char c)
 {
-    printf("%s%c", RED, c);
-    printf("%s", NORMAL);
+    cout << RED << c << NORMAL;
 }
 
 void print_green(char c)
 {
-    printf("%s%c", GREEN, c);
-    printf("%s", NORMAL);
+    cout << GREEN << c << NORMAL;
 }
 
 void print_blue(char c)
 {
-    printf("%s%c", BLUE, c);
-    printf("%s", NORMAL);
+    cout << BLUE << c << NORMAL;
 }

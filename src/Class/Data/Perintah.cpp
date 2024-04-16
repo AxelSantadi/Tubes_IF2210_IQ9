@@ -615,7 +615,11 @@ void Perintah::BANGUN()
         {
             throw BukanWalikotaExeption();
         }
-        Player::getCurrentPlayer()->buatBangunan(config.getRecipe());
+        try {
+            Player::getCurrentPlayer()->buatBangunan(config.getRecipe());
+        } catch (penyimpananPenuhExeption &e) {
+            std::cerr << e.what() << '\n';
+        }
         cout << endl;
     }
     catch (BukanWalikotaExeption &e)
@@ -723,7 +727,13 @@ void Perintah::TAMBAH_PEMAIN()
         }
         else
         {
-            Player::getCurrentPlayer()->tambahPemain(config.getMisc());
+            try {
+                Player::getCurrentPlayer()->tambahPemain(config.getMisc());
+            }
+            catch (noMoneyException &e)
+            {
+                std::cerr << e.what() << '\n';
+            }
         }
         cout << endl;
     }

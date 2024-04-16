@@ -105,4 +105,10 @@ public:
     string what() override;
 };
 
+class noMoneyException : public Exception
+{
+public:
+    string what() override;
+};
+
 #endif
