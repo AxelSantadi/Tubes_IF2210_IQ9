@@ -22,10 +22,7 @@ Player::Player(string name, int n, char m, int weight, int money) : name(name), 
          { return a->name < b->name; });
 }
 
-Player::~Player()
-{
-    delete &inventory;
-}
+Player::~Player(){}
 
 vector<Player *> Player::getPlayers()
 {

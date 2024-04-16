@@ -94,6 +94,7 @@ Perintah::Perintah()
         else if (perintah == "EXIT")
         {
             endGame = true;
+            cout << "Permainan berakhir." << endl;
         }
         else if (perintah == "PUNGUT_PAJAK" && walkotSudahAmbilPajak)
         {
