@@ -52,7 +52,7 @@ public:
 };
 
 class bukanPetanidanPeternakExeption : public Exception
-{   
+{
 public:
     string what() override;
 };
@@ -64,6 +64,42 @@ public:
 };
 
 class NumberOutOfRangeException : public Exception
+{
+public:
+    string what() override;
+};
+
+class KurangUangException : public Exception
+{
+public:
+    string what() override;
+};
+
+class KurangInventoryException : public Exception
+{
+public:
+    string what() override;
+};
+
+class NegativeQuantityException : public Exception
+{
+public:
+    string what() override;
+};
+
+class WalikotaBeliBangunanException : public Exception
+{
+public:
+    string what() override;
+};
+
+class PersediaanTokoGaCukupException : public Exception
+{
+public:
+    string what() override;
+};
+
+class PetaniPeternakJualRumahException : public Exception
 {
 public:
     string what() override;
@@ -88,7 +124,7 @@ public:
 };
 
 class TidakPunyaTanamanException : public Exception
-{   
+{
 public:
     string what() override;
 };

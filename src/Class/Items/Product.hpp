@@ -27,8 +27,6 @@ public:
     int getAddedWeight() const override;
     void setAddedWeight(int a);
 
-    int getNumOfProduct();
-
     // Operator Overloading
     Product &operator+=(int x);
     Product &operator-=(int x);

@@ -51,10 +51,6 @@ int Plant::getHarvestDuration() const
 
 void Plant::setHarvestDuration(int h)
 {
-    if (h < 0)
-    {
-        throw NegativeHarvestDurationException();
-    }
     harvest_duration = h;
 }
 

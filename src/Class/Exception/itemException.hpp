@@ -39,25 +39,7 @@ public:
     string what() override;
 };
 
-class NegativePriceException : public Exception
-{
-public:
-    string what() override;
-};
-
-class NegativeHarvestDurationException : public Exception
-{
-public:
-    string what() override;
-};
-
 class NegativeUmurException : public Exception
-{
-public:
-    string what() override;
-};
-
-class NegativeWeightToHarvestException : public Exception
 {
 public:
     string what() override;
@@ -69,11 +51,6 @@ public:
     string what() override;
 };
 
-class NegativeAddedWeightException : public Exception
-{
-public:
-    string what() override;
-};
 
 
 

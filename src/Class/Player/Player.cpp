@@ -22,7 +22,7 @@ Player::Player(string name, int n, char m, int weight, int money) : name(name), 
          { return a->name < b->name; });
 }
 
-Player::~Player(){}
+Player::~Player() {}
 
 vector<Player *> Player::getPlayers()
 {
@@ -246,6 +246,9 @@ void Player::buyItem(Toko &toko)
 {
     int itemNumber;
     int quantity;
+    string itemName;
+    int price;
+    Item *item;
 
     toko.displayToko();
     std::cout << endl;
@@ -260,7 +263,6 @@ void Player::buyItem(Toko &toko)
     std::cin >> quantity;
     std::cout << endl;
 
-    string itemName;
     try
     {
         itemName = toko.getItemNameByNumber(itemNumber);
@@ -272,7 +274,6 @@ void Player::buyItem(Toko &toko)
         return;
     }
 
-    int price;
     try
     {
         price = toko.getItemPrice(itemName) * quantity;
@@ -284,25 +285,38 @@ void Player::buyItem(Toko &toko)
         return;
     }
 
-    if (money < price)
+    try
     {
-        std::cout << "Uang tidak cukup." << std::endl;
+        if (money < price)
+        {
+            throw KurangUangException();
+        }
+
+        if (inventory.countEmpty() < quantity)
+        {
+            throw KurangInventoryException();
+        }
+
+        if (quantity < 0)
+        {
+            throw NegativeQuantityException();
+        }
+    }
+    catch (KurangUangException &e)
+    {
+        std::cerr << e.what() << endl;
         return;
     }
-
-    if (inventory.countEmpty() < quantity)
+    catch (KurangInventoryException &e)
     {
-        std::cout << "Penyimpanan inventory tidak cukup." << std::endl;
+        std::cerr << e.what() << endl;
         return;
     }
-
-    if (quantity < 0)
+    catch (NegativeQuantityException &e)
     {
-        std::cout << "Kuantitas tidak boleh negatif." << std::endl;
+        std::cerr << e.what() << endl;
         return;
     }
-
-    Item *item;
 
     try
     {
@@ -315,15 +329,26 @@ void Player::buyItem(Toko &toko)
         return;
     }
 
-    if (getRole() == "Walikota" && item->getJenis() == "Bangunan")
+    try
     {
-        std::cout << "Walikota tidak dapat membeli bangunan." << endl;
+        if (getRole() == "Walikota" && item->getJenis() == "Bangunan")
+        {
+            throw WalikotaBeliBangunanException();
+        }
+
+        if (quantity > toko.getItemQuantity(itemName) && toko.getItemQuantity(itemName) != -1)
+        {
+            throw PersediaanTokoGaCukupException();
+        }
+    }
+    catch(WalikotaBeliBangunanException &e)
+    {
+        std::cerr << e.what() << endl;
         return;
     }
-
-    if (quantity > toko.getItemQuantity(itemName) && toko.getItemQuantity(itemName) != -1)
+    catch(PersediaanTokoGaCukupException &e)
     {
-        std::cout << "Barang yang di toko tidak cukup untuk memenuhi pesanan." << std::endl;
+        std::cerr << e.what() << endl;
         return;
     }
 
@@ -445,7 +470,7 @@ void Player::sellItem(Toko &toko)
 
                 if ((getRole() == "Petani" || getRole() == "Peternak") && item->getJenis() == "Bangunan")
                 {
-                    std::cout << endl << "Petani dan Peternak tidak dapat menjual bangunan." << endl;
+                    throw PetaniPeternakJualRumahException();
                     continue;
                 }
 
@@ -474,13 +499,23 @@ void Player::sellItem(Toko &toko)
     catch (outOfBoundException &e)
     {
         std::cout << "Slot " << slot << " tidak valid." << std::endl;
-        std::cerr << e.what() << endl << endl;
+        std::cerr << e.what() << endl
+                  << endl;
     }
+
+    catch (PetaniPeternakJualRumahException &e)
+    {
+        std::cerr << e.what() << endl
+                  << endl;
+    }
+
     catch (SlotKosongException &e)
     {
         std::cout << "Slot " << slot << " kosong." << std::endl;
-        std::cerr << e.what() << endl << endl;
+        std::cerr << e.what() << endl
+                  << endl;
     }
+
 
     this->money += tempMoney;
 

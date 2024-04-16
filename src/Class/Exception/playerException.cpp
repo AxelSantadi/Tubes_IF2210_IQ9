@@ -55,6 +55,36 @@ string NumberOutOfRangeException::what()
     return "Nomor barang yang diingini tidak valid.";
 }
 
+string KurangUangException::what()
+{
+    return "Uang tidak cukup.";
+}
+
+string KurangInventoryException::what()
+{
+    return "Penyimpanan inventory tidak cukup.";
+}
+
+string NegativeQuantityException::what()
+{
+    return "Jumlah kuantitas tidak boleh negatif.";
+}
+
+string WalikotaBeliBangunanException::what()
+{
+    return "Walikota tidak dapat membeli bangunan.";
+}
+
+string PersediaanTokoGaCukupException::what()
+{
+    return "Barang yang di toko tidak cukup untuk memenuhi pesanan.";
+}
+
+string PetaniPeternakJualRumahException::what()
+{
+    return "Petani dan Peternak tidak dapat menjual bangunan.";
+}
+
 string takAdaResep::what()
 {
     return "Kamu tidak punya resep bangunan tersebut!";

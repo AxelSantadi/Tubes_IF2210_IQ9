@@ -50,10 +50,6 @@ int Animal::getWeightToHarvest() const
 
 void Animal::setWeightToHarvest(int w)
 {
-    if (w < 0)
-    {
-        throw NegativeWeightToHarvestException();
-    }
     weightToHarvest = w;
 }
 

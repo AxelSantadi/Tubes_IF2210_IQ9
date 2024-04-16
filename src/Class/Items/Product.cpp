@@ -63,16 +63,7 @@ int Product::getAddedWeight() const
 
 void Product::setAddedWeight(int a)
 {
-    if (a < 0){
-        throw NegativeAddedWeightException();
-    }
     this->added_weight = a;
-}
-
-
-int Product::getNumOfProduct()
-{
-    return Product::numOfProduct;
 }
 
 Product &Product::operator+=(int x)

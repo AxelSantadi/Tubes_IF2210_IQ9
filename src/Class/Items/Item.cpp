@@ -82,9 +82,6 @@ int Item::getPrice() const
 
 void Item::setPrice(int p)
 {
-    if (p < 0) {
-        throw NegativePriceException();
-    }
     price = p;
 }
 
