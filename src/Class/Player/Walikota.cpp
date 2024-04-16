@@ -155,6 +155,7 @@ void Walikota::dapatPajak(vector<Recipe> resep) {
 void Walikota::tambahPemain(Misc misc) {
     string jenis_pemain;
     string nama_pemain = "";
+    bool validName = true, spaceName = false;
     for (int i = 0; i < static_cast<int>(players.size()); i++) {
         cout << players.at(i)->getName() << endl;
     }
@@ -171,6 +172,46 @@ void Walikota::tambahPemain(Misc misc) {
         cin.ignore();
         cout << "Masukkan nama pemain: ";
         getline(cin, nama_pemain);
+
+        for (int i = 0; i < static_cast<int>(players.size()); i++) {
+            if (players.at(i)->getName() == nama_pemain) {
+                validName = false;
+            }
+        }
+
+        if (nama_pemain.empty() || all_of(nama_pemain.begin(), nama_pemain.end(), ::isspace)) {
+            spaceName = true;
+        }
+
+        while (!validName || spaceName) {
+            if (!validName) {
+                cout << "Nama pemain sudah ada. Masukkan nama pemain: ";
+                getline(cin, nama_pemain);
+                validName = true;
+                for (int i = 0; i < static_cast<int>(players.size()); i++) {
+                    if (players.at(i)->getName() == nama_pemain) {
+                        validName = false;
+                    }
+                }
+                if (nama_pemain.empty() || all_of(nama_pemain.begin(), nama_pemain.end(), ::isspace)) {
+                    spaceName = true;
+                }
+            } else if (spaceName) {
+                cout << "Nama macam apa ini Σ(°ロ°) ??? Orang waras mana yang ingin menamai anaknya seperti ini (⊙_⊙) ??? Coba ulangi lagi, kali ini jangan aneh-aneh namanya ya." << endl << "Masukkan nama pemain: ";
+                getline(cin, nama_pemain);
+                spaceName = false;
+                for (int i = 0; i < static_cast<int>(players.size()); i++) {
+                    if (players.at(i)->getName() == nama_pemain) {
+                        validName = false;
+                    }
+                }
+                if (nama_pemain.empty() || all_of(nama_pemain.begin(), nama_pemain.end(), ::isspace)) {
+                    spaceName = true;
+                }
+            }
+        }
+
+
 
         if (jenis_pemain == "peternak" || jenis_pemain == "Peternak") {
             Peternak *ar = new Peternak(nama_pemain, 40, 50, misc.getFarmSize().first, misc.getFarmSize().second);
