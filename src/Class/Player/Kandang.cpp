@@ -154,7 +154,7 @@ vector<string> Kandang::ambilPanenhewan(string code, int n){
                     removeValue(b,a);
                     n--;
                     i++;
-                    result.push_back(slot);
+                    result.push_back(rslot);
                 }
             } else 
             {
