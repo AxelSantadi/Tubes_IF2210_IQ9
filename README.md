@@ -38,8 +38,8 @@ make clean
 
 ## Creator
 Created by:
-- 13522135 / [@Christian Justin Hendrawan] (https://github.com/ChrisCS50X)
-- 13522142 / [@Farhan Raditya Aji] (https://github.com/sibobbbbbb)
-- 13522146 / [@M. Zaidan Sa’dun R.] (https://github.com/zaidanav)
-- 13522155 / [@Axel Santadi Warih] (https://github.com/AxelSantadi)
-- 13522159 / [@Rafif Ardhinto Ichwantoro] (https://github.com/ozarabal)
+- 13522135 / [@Christian Justin Hendrawan](https://github.com/ChrisCS50X)
+- 13522142 / [@Farhan Raditya Aji](https://github.com/sibobbbbbb)
+- 13522146 / [@M. Zaidan Sa’dun R.](https://github.com/zaidanav)
+- 13522155 / [@Axel Santadi Warih](https://github.com/AxelSantadi)
+- 13522159 / [@Rafif Ardhinto Ichwantoro](https://github.com/ozarabal)
