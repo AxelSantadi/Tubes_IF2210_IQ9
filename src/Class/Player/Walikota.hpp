@@ -29,6 +29,7 @@ public:
     void buatBangunan(vector<Recipe> resep) override;
     void dapatPajak(vector<Recipe> resep) override ;    
     void tambahPemain(Misc misc) override;
+    string trim(const string &str);
 
     // Saving
     void saveStatePlayer(ofstream &file) const override;

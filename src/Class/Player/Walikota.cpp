@@ -156,9 +156,6 @@ void Walikota::tambahPemain(Misc misc) {
     string jenis_pemain;
     string nama_pemain = "";
     bool validName = true, spaceName = false;
-    for (int i = 0; i < static_cast<int>(players.size()); i++) {
-        cout << players.at(i)->getName() << endl;
-    }
 
     if (money < 50) {
         cout << "Uang tidak cukup";
@@ -172,6 +169,7 @@ void Walikota::tambahPemain(Misc misc) {
         cin.ignore();
         cout << "Masukkan nama pemain: ";
         getline(cin, nama_pemain);
+        nama_pemain = trim(nama_pemain);
 
         for (int i = 0; i < static_cast<int>(players.size()); i++) {
             if (players.at(i)->getName() == nama_pemain) {
@@ -187,6 +185,7 @@ void Walikota::tambahPemain(Misc misc) {
             if (!validName) {
                 cout << "Nama pemain sudah ada. Masukkan nama pemain: ";
                 getline(cin, nama_pemain);
+                nama_pemain = trim(nama_pemain);
                 validName = true;
                 for (int i = 0; i < static_cast<int>(players.size()); i++) {
                     if (players.at(i)->getName() == nama_pemain) {
@@ -199,6 +198,7 @@ void Walikota::tambahPemain(Misc misc) {
             } else if (spaceName) {
                 cout << "Nama macam apa ini Σ(°ロ°) ??? Orang waras mana yang ingin menamai anaknya seperti ini (⊙_⊙) ??? Coba ulangi lagi, kali ini jangan aneh-aneh namanya ya." << endl << "Masukkan nama pemain: ";
                 getline(cin, nama_pemain);
+                nama_pemain = trim(nama_pemain);
                 spaceName = false;
                 for (int i = 0; i < static_cast<int>(players.size()); i++) {
                     if (players.at(i)->getName() == nama_pemain) {
@@ -226,4 +226,13 @@ void Walikota::tambahPemain(Misc misc) {
         }
         cout << "Pemain baru ditambahkan!" << endl << "Selamat datang " << '"' << nama_pemain << '"' << " di kota ini!" << endl;
     }
+}
+
+string Walikota::trim(const string &str) {
+    size_t first = str.find_first_not_of(' ');
+    if (string::npos == first) {
+        return str;
+    }
+    size_t last = str.find_last_not_of(' ');
+    return str.substr(first, (last - first + 1));
 }
