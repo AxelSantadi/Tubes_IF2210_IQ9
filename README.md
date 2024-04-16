@@ -3,12 +3,16 @@
 
 ## Table of Contents
 * [General Info](#general-information)
+* [Description](#Description)
 * [Setup](#setup)
 * [Usage](#usage)
 * [creator](#creator)
 
 ## General Information
 - Program ini dibuat untuk memenuhi tugas besar 1 IF2210-Object Oriented Programming
+
+## Deskripsi singkat
+Game Kelola Kerajaan Bersama Labpro diterapkan pada program ini dengan menggunakan konsep OOP. Konsep OOP yang digunakan dalam program ini adalah Inheritance, Polymorphism, Function dan Operator Overloading, Abstract Class dan Virtual Function, Generic Function dan Generic Class, serta Standard Template Library (STL).
 
 ## Setup
 - untuk menjalankan program ini, pengguna diharapkan sudah menginstall wsl ke dalam perangkat yang akan digunakan.
